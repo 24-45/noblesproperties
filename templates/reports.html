@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block title %}التقارير - نوبلز العقارية{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <div class="page-header-content">
+            <h1>التقارير</h1>
+            <p>تقارير وإحصائيات مفصلة لجميع المشاريع</p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('index') }}">الرئيسية</a></li>
+                    <li class="breadcrumb-item active">التقارير</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<!-- Reports Overview -->
+<section class="reports-overview-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Active Projects Reports -->
+                <div class="card-section">
+                    <h2><i class="fas fa-chart-bar"></i> تقارير المشاريع النشطة</h2>
+                    
+                    {% for project in projects %}
+                    {% if project.active %}
+                    <div class="report-card">
+                        <div class="report-card-header">
+                            <div class="report-project-info">
+                                <h3>{{ project.name }}</h3>
+                                <span class="project-type-badge small">{{ project.type }}</span>
+                            </div>
+                            <div class="report-status">
+                                <span class="status-badge">{{ project.status }}</span>
+                            </div>
+                        </div>
+                        <div class="report-card-body">
+                            <div class="report-stats">
+                                <div class="report-stat">
+                                    <i class="fas fa-percentage"></i>
+                                    <span class="stat-value">{{ project.completion_percentage }}%</span>
+                                    <span class="stat-label">الإنجاز</span>
+                                </div>
+                                <div class="report-stat">
+                                    <i class="fas fa-home"></i>
+                                    <span class="stat-value">{{ project.total_units }}</span>
+                                    <span class="stat-label">الوحدات</span>
+                                </div>
+                                <div class="report-stat">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span class="stat-value">{{ project.sold_units }}</span>
+                                    <span class="stat-label">مباعة</span>
+                                </div>
+                            </div>
+                            {% if project.completion_percentage > 0 %}
+                            <div class="progress mt-3">
+                                <div class="progress-bar" style="width: {{ project.completion_percentage }}%"></div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="report-card-footer">
+                            <a href="{{ url_for('project_report', slug=project.slug) }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-file-alt"></i> عرض التقرير الكامل
+                            </a>
+                            <a href="{{ url_for('project_detail', slug=project.slug) }}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-eye"></i> تفاصيل المشروع
+                            </a>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="exportReport('{{ project.slug }}')">
+                                <i class="fas fa-download"></i> تصدير PDF
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <!-- All Projects Overview Chart -->
+                <div class="card-section">
+                    <h2><i class="fas fa-chart-pie"></i> نظرة عامة على جميع المشاريع</h2>
+                    <div class="chart-container">
+                        <canvas id="projectsOverviewChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="card-section sticky-sidebar">
+                    <h3><i class="fas fa-download"></i> تصدير التقارير</h3>
+                    <p>قم بتصدير التقارير بصيغة PDF</p>
+                    
+                    <button class="btn btn-primary btn-block mb-3" onclick="exportAllReports()">
+                        <i class="fas fa-file-pdf"></i> تصدير جميع التقارير
+                    </button>
+                    
+                    <hr>
+                    
+                    <h4>تقارير فردية</h4>
+                    <ul class="report-links">
+                        {% for project in projects %}
+                        {% if project.active %}
+                        <li>
+                            <a href="{{ url_for('project_report', slug=project.slug) }}">
+                                <i class="fas fa-file-alt"></i> {{ project.name }}
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="card-section">
+                    <h3><i class="fas fa-chart-line"></i> إحصائيات سريعة</h3>
+                    <div class="quick-stats">
+                        <div class="quick-stat">
+                            <span class="quick-stat-number">{{ projects|length }}</span>
+                            <span class="quick-stat-label">إجمالي المشاريع</span>
+                        </div>
+                        <div class="quick-stat">
+                            <span class="quick-stat-number">{{ projects|selectattr('active')|list|length }}</span>
+                            <span class="quick-stat-label">مشاريع نشطة</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Projects Overview Chart
+    const ctx = document.getElementById('projectsOverviewChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['مشاريع نشطة', 'قريباً'],
+            datasets: [{
+                data: [
+                    {{ projects|selectattr('active')|list|length }},
+                    {{ projects|rejectattr('active')|list|length }}
+                ],
+                backgroundColor: ['#dc1f27', '#6c757d'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            family: 'Tajawal'
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+
+function exportReport(slug) {
+    window.location.href = `/pdf/project/${slug}`;
+}
+
+function exportAllReports() {
+    window.location.href = '/pdf/all-projects';
+}
+</script>
+{% endblock %}

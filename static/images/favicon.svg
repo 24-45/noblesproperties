@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect fill="#dc1f27" x="28" y="0" width="4" height="4"/>
+  <rect fill="#dc1f27" x="0" y="0" width="4" height="4"/>
+  <path fill="#dc1f27" d="M28,8v6h-12v-10h-8v14h6v10h4v-10h14v-10h-4z"/>
+  <polygon fill="#dc1f27" points="16,16 8,16 8,0 4,0 4,16 0,16 0,8 0,8 0,20 0,20 0,32 4,32 4,20 20,20 20,4 16,4 16,16"/>
+</svg>

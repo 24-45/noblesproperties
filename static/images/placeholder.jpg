@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa"/>
+      <stop offset="100%" style="stop-color:#e9ecef"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#bg)" width="800" height="600"/>
+  <g transform="translate(400,300)">
+    <rect fill="#dee2e6" x="-100" y="-80" width="200" height="160" rx="8"/>
+    <path fill="#adb5bd" d="M-60,-40 L0,-60 L60,-40 L60,40 L-60,40 Z"/>
+    <rect fill="#6c757d" x="-20" y="0" width="40" height="40"/>
+    <circle fill="#ced4da" cx="0" cy="-20" r="15"/>
+  </g>
+  <text x="400" y="520" text-anchor="middle" fill="#6c757d" font-family="Tajawal, sans-serif" font-size="20">صورة غير متوفرة</text>
+</svg>

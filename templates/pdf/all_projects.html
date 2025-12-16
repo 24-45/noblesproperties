@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقرير جميع المشاريع - نوبلز العقارية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            direction: rtl;
+            background: white;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        @page {
+            size: A4 portrait;
+            margin: 15mm;
+        }
+        
+        .page {
+            width: 100%;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+            page-break-after: always;
+        }
+        
+        .page:last-child {
+            page-break-after: avoid;
+        }
+        
+        .cover-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+        }
+        
+        .cover-logo {
+            height: 80px;
+            margin-bottom: 40px;
+        }
+        
+        .cover-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .cover-divider {
+            width: 100px;
+            height: 4px;
+            background: #dc1f27;
+            margin: 30px auto;
+        }
+        
+        .cover-date {
+            font-size: 18px;
+            opacity: 0.7;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #dc1f27;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            color: #1a1a1a;
+        }
+        
+        .project-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-right: 4px solid #dc1f27;
+        }
+        
+        .project-card h3 {
+            margin-bottom: 10px;
+            color: #dc1f27;
+        }
+        
+        .project-meta {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #dc1f27;
+            border-radius: 5px;
+        }
+        
+        .page-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="page cover-page">
+        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="نوبلز" class="cover-logo">
+        <h1 class="cover-title">تقرير المشاريع</h1>
+        <div class="cover-divider"></div>
+        <p>نظرة شاملة على جميع مشاريع نوبلز العقارية</p>
+        <p class="cover-date">ديسمبر 2025</p>
+    </div>
+    
+    <!-- Projects List -->
+    <div class="page">
+        <div class="section-header">
+            <h2 class="section-title">قائمة المشاريع</h2>
+        </div>
+        
+        {% for project in projects %}
+        <div class="project-card">
+            <h3>{{ project.name }} - {{ project.name_en }}</h3>
+            <div class="project-meta">
+                <span>النوع: {{ project.type }}</span>
+                <span>الموقع: {{ project.location }}</span>
+                <span>الحالة: {{ project.status }}</span>
+            </div>
+            {% if project.completion_percentage > 0 %}
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ project.completion_percentage }}%"></div>
+            </div>
+            <p style="font-size: 12px; color: #666; margin-top: 5px;">نسبة الإنجاز: {{ project.completion_percentage }}%</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <div class="page-footer">
+            <p>نوبلز العقارية | www.noblesproperties.com | +962 (06) 5546161</p>
+        </div>
+    </div>
+</body>
+</html>

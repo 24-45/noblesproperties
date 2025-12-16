@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}خطأ في الخادم - نوبلز العقارية{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="container">
+        <div class="error-content text-center">
+            <h1 class="error-code">500</h1>
+            <h2>خطأ في الخادم</h2>
+            <p>عذراً، حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقاً.</p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-home"></i> العودة للرئيسية
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

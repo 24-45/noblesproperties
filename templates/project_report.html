@@ -1,0 +1,1678 @@
+{% extends 'base.html' %}
+
+{% block title %}تقرير {{ project.name }} - نوبلز العقارية{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Report Tabs Styles */
+.report-tabs-container {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+    margin-top: -50px;
+    position: relative;
+    z-index: 10;
+}
+
+.report-tabs {
+    display: flex;
+    border-bottom: 2px solid #eee;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    overflow-x: auto;
+}
+
+.report-tabs li {
+    flex: 1;
+    min-width: 200px;
+}
+
+.report-tabs li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 25px;
+    text-decoration: none;
+    color: #666;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+}
+
+.report-tabs li a:hover {
+    color: #dc1f27;
+    background: rgba(220, 31, 39, 0.05);
+}
+
+.report-tabs li a.active {
+    color: #dc1f27;
+    border-bottom-color: #dc1f27;
+    background: rgba(220, 31, 39, 0.05);
+}
+
+.report-tabs li a i {
+    font-size: 1.2rem;
+}
+
+.tab-content {
+    padding: 30px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section Cards */
+.section-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-right: 4px solid #dc1f27;
+}
+
+.section-card h3 {
+    color: #333;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-card h3 i {
+    color: #dc1f27;
+}
+
+/* Info Grid */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-item {
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.info-item label {
+    display: block;
+    color: #888;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+}
+
+.info-item span {
+    display: block;
+    color: #333;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Benchmark Table */
+.benchmark-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.benchmark-table th {
+    background: #dc1f27;
+    color: #fff;
+    padding: 15px;
+    text-align: right;
+    font-weight: 600;
+}
+
+.benchmark-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.benchmark-table tr:last-child td {
+    border-bottom: none;
+}
+
+.benchmark-table tr:hover td {
+    background: #f8f9fa;
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding-right: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #dc1f27;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 30px;
+    padding-right: 30px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    right: -26px;
+    top: 5px;
+    width: 15px;
+    height: 15px;
+    background: #dc1f27;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 3px #dc1f27;
+}
+
+.timeline-item.completed::before {
+    background: #28a745;
+    box-shadow: 0 0 0 3px #28a745;
+}
+
+.timeline-item.pending::before {
+    background: #ffc107;
+    box-shadow: 0 0 0 3px #ffc107;
+}
+
+.timeline-date {
+    color: #dc1f27;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.timeline-title {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.timeline-desc {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* KPI Cards */
+.kpi-card {
+    background: linear-gradient(135deg, #dc1f27 0%, #a01820 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    height: 100%;
+}
+
+.kpi-card.green {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+}
+
+.kpi-card.blue {
+    background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%);
+}
+
+.kpi-card.orange {
+    background: linear-gradient(135deg, #fd7e14 0%, #dc6502 100%);
+}
+
+.kpi-card i {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.kpi-card .value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.kpi-card .label {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Checklist */
+.checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checklist li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.checklist li i {
+    font-size: 1.2rem;
+}
+
+.checklist li.done i {
+    color: #28a745;
+}
+
+.checklist li.pending i {
+    color: #ffc107;
+}
+
+.checklist li.not-started i {
+    color: #dc3545;
+}
+
+/* Channel Cards */
+.channel-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.channel-card:hover {
+    transform: translateY(-5px);
+}
+
+.channel-card i {
+    font-size: 2.5rem;
+    color: #dc1f27;
+    margin-bottom: 15px;
+}
+
+.channel-card h4 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.channel-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Questionnaire Styles */
+.questionnaire-section {
+    margin-bottom: 30px;
+}
+
+.questionnaire-accordion {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.questionnaire-header {
+    background: linear-gradient(135deg, #dc1f27, #b81920);
+    color: #fff;
+    padding: 18px 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    width: 100%;
+    text-align: right;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.questionnaire-header:hover {
+    background: linear-gradient(135deg, #b81920, #a01519);
+}
+
+.questionnaire-header.collapsed {
+    background: #fff;
+    color: #333;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.questionnaire-header.collapsed:hover {
+    background: #f8f9fa;
+    border-color: #dc1f27;
+    color: #dc1f27;
+}
+
+.questionnaire-header i.toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.questionnaire-header.collapsed i.toggle-icon {
+    transform: rotate(180deg);
+}
+
+.questionnaire-header .section-number {
+    background: rgba(255,255,255,0.2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-left: 15px;
+}
+
+.questionnaire-header.collapsed .section-number {
+    background: #dc1f27;
+    color: #fff;
+}
+
+.questionnaire-body {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 25px;
+}
+
+.question-item {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-right: 3px solid #dc1f27;
+}
+
+.question-item:last-child {
+    margin-bottom: 0;
+}
+
+.question-number {
+    display: inline-block;
+    background: #dc1f27;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.question-text {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.question-hint {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    padding-right: 38px;
+    font-style: italic;
+}
+
+.question-answer {
+    margin-top: 15px;
+}
+
+.question-answer textarea {
+    width: 100%;
+    min-height: 100px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 0.95rem;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.question-answer textarea:focus {
+    outline: none;
+    border-color: #dc1f27;
+    box-shadow: 0 0 0 3px rgba(220, 31, 39, 0.1);
+}
+
+.question-answer textarea::placeholder {
+    color: #aaa;
+}
+
+.questionnaire-progress {
+    background: #f0f0f0;
+    border-radius: 20px;
+    padding: 15px 25px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.progress-text {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.progress-bar-custom {
+    flex: 1;
+    height: 8px;
+    background: #ddd;
+    border-radius: 10px;
+    margin: 0 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #dc1f27, #ff6b6b);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.progress-count {
+    font-weight: 600;
+    color: #dc1f27;
+}
+
+/* Print Styles */
+@media print {
+    .no-print { display: none !important; }
+    .report-tabs-container { box-shadow: none; margin-top: 0; }
+    .tab-pane { display: block !important; page-break-inside: avoid; }
+    .tab-pane::before { content: attr(data-title); font-size: 1.5rem; font-weight: bold; display: block; margin-bottom: 20px; }
+    .questionnaire-header { background: #dc1f27 !important; color: #fff !important; }
+    .questionnaire-body { display: block !important; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .report-tabs li {
+        min-width: 150px;
+    }
+    .report-tabs li a {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+    .report-tabs li a span {
+        display: none;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Report Header -->
+<section class="report-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 60px 0 100px;">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <div>
+                <nav aria-label="breadcrumb" class="no-print">
+                    <ol class="breadcrumb" style="background: transparent;">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}" style="color: rgba(255,255,255,0.7);">الرئيسية</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('reports') }}" style="color: rgba(255,255,255,0.7);">التقارير</a></li>
+                        <li class="breadcrumb-item active" style="color: #fff;">{{ project.name }}</li>
+                    </ol>
+                </nav>
+                <h1 style="font-size: 2.5rem; margin-bottom: 10px;">{{ project.name }}</h1>
+                <p style="opacity: 0.8; font-size: 1.1rem;">{{ project.name_en }}</p>
+            </div>
+            <div class="report-actions no-print mt-3 mt-md-0">
+                <button class="btn btn-light" onclick="window.print()">
+                    <i class="fas fa-print"></i> طباعة
+                </button>
+                <button class="btn btn-outline-light" onclick="exportToPDF()">
+                    <i class="fas fa-file-pdf"></i> تصدير PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tabs Container -->
+<div class="container">
+    <div class="report-tabs-container">
+        <!-- Tab Navigation -->
+        <ul class="report-tabs no-print">
+            <li>
+                <a href="#overview" class="active" data-tab="overview">
+                    <i class="fas fa-eye"></i>
+                    <span>نظرة عامة</span>
+                </a>
+            </li>
+            <li>
+                <a href="#benchmarks" data-tab="benchmarks">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>المقارنات المرجعية</span>
+                </a>
+            </li>
+            <li>
+                <a href="#marketing" data-tab="marketing">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>خطة التسويق والتواصل</span>
+                </a>
+            </li>
+            <li>
+                <a href="#monitoring" data-tab="monitoring">
+                    <i class="fas fa-tasks"></i>
+                    <span>المراقبة والمتابعة</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="report-content">
+            <!-- Tab 1: Overview -->
+            <div class="tab-pane active" id="overview" data-title="نظرة عامة على المشروع">
+                <div class="section-card">
+                    <h3><i class="fas fa-info-circle"></i> معلومات المشروع الأساسية</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>اسم المشروع</label>
+                            <span>{{ project.name }}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>الاسم بالإنجليزية</label>
+                            <span>{{ project.name_en }}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>نوع المشروع</label>
+                            <span>{{ project.type }}</span>
+                        </div>
+                        <div class="info-item">
+                            <label>الموقع</label>
+                            <span>{{ project.location }}</span>
+                        </div>
+                        {% if project.address %}
+                        <div class="info-item">
+                            <label>العنوان التفصيلي</label>
+                            <span>{{ project.address }}</span>
+                        </div>
+                        {% endif %}
+                        <div class="info-item">
+                            <label>الحالة</label>
+                            <span class="badge bg-success">{{ project.status }}</span>
+                        </div>
+                        {% if project.total_area %}
+                        <div class="info-item">
+                            <label>المساحة الإجمالية</label>
+                            <span>{{ project.total_area }}</span>
+                        </div>
+                        {% endif %}
+                        {% if project.leasable_area %}
+                        <div class="info-item">
+                            <label>المساحة القابلة للتأجير</label>
+                            <span>{{ project.leasable_area }}</span>
+                        </div>
+                        {% endif %}
+                        {% if project.unit_sizes %}
+                        <div class="info-item">
+                            <label>أحجام الوحدات</label>
+                            <span>{{ project.unit_sizes }}</span>
+                        </div>
+                        {% endif %}
+                        {% if project.start_date %}
+                        <div class="info-item">
+                            <label>تاريخ البدء</label>
+                            <span>{{ project.start_date }}</span>
+                        </div>
+                        {% endif %}
+                        {% if project.expected_completion %}
+                        <div class="info-item">
+                            <label>تاريخ التسليم المتوقع</label>
+                            <span>{{ project.expected_completion }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if project.project_vision or project.project_mission %}
+                <div class="section-card">
+                    <h3><i class="fas fa-eye"></i> الرؤية والرسالة</h3>
+                    <div class="row">
+                        {% if project.project_vision %}
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 rounded h-100" style="background: linear-gradient(135deg, #dc1f27, #b81920); color: #fff;">
+                                <h5><i class="fas fa-bullseye"></i> الرؤية</h5>
+                                <p class="mb-0">{{ project.project_vision }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if project.project_mission %}
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 rounded h-100" style="background: #1a1a2e; color: #fff;">
+                                <h5><i class="fas fa-rocket"></i> الرسالة</h5>
+                                <p class="mb-0">{{ project.project_mission }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="section-card">
+                    <h3><i class="fas fa-file-alt"></i> وصف المشروع</h3>
+                    <p style="line-height: 1.8; color: #555;">{{ project.description }}</p>
+                </div>
+
+                {% if project.target_sectors %}
+                <div class="section-card">
+                    <h3><i class="fas fa-industry"></i> القطاعات المستهدفة</h3>
+                    <div class="row">
+                        {% for sector in project.target_sectors %}
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="d-flex align-items-center gap-2 p-2 rounded" style="background: #f0f0f0;">
+                                <i class="fas fa-building text-danger"></i>
+                                <span>{{ sector }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if project.competitive_advantages %}
+                <div class="section-card">
+                    <h3><i class="fas fa-trophy"></i> المزايا التنافسية</h3>
+                    <div class="row">
+                        {% for advantage in project.competitive_advantages %}
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fas fa-check-circle text-success" style="font-size: 1.2rem;"></i>
+                                <span style="font-weight: 500;">{{ advantage }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if project.features %}
+                <div class="section-card">
+                    <h3><i class="fas fa-star"></i> المميزات والمرافق</h3>
+                    <div class="row">
+                        {% for feature in project.features %}
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fas fa-check-circle text-success"></i>
+                                <span>{{ feature }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if project.infrastructure %}
+                <div class="section-card">
+                    <h3><i class="fas fa-network-wired"></i> البنية التحتية</h3>
+                    <div class="row">
+                        {% if project.infrastructure.roads %}
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="info-item">
+                                <label><i class="fas fa-road text-danger"></i> الطرق</label>
+                                <span>{{ project.infrastructure.roads }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if project.infrastructure.electricity %}
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="info-item">
+                                <label><i class="fas fa-bolt text-warning"></i> الكهرباء</label>
+                                <span>{{ project.infrastructure.electricity }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if project.infrastructure.water %}
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="info-item">
+                                <label><i class="fas fa-tint text-info"></i> المياه</label>
+                                <span>{{ project.infrastructure.water }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if project.infrastructure.telecom %}
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="info-item">
+                                <label><i class="fas fa-wifi text-primary"></i> الاتصالات</label>
+                                <span>{{ project.infrastructure.telecom }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if project.infrastructure.security %}
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="info-item">
+                                <label><i class="fas fa-shield-alt text-success"></i> الأمن</label>
+                                <span>{{ project.infrastructure.security }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if project.total_units > 0 %}
+                <div class="section-card">
+                    <h3><i class="fas fa-building"></i> إحصائيات الوحدات</h3>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="kpi-card">
+                                <i class="fas fa-building"></i>
+                                <span class="value">{{ project.total_units }}</span>
+                                <span class="label">إجمالي الوحدات</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="kpi-card green">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="value">{{ project.sold_units }}</span>
+                                <span class="label">وحدات مباعة</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="kpi-card blue">
+                                <i class="fas fa-door-open"></i>
+                                <span class="value">{{ project.total_units - project.sold_units }}</span>
+                                <span class="label">وحدات متاحة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- استبانة تفاصيل المشروع -->
+                <div class="section-card questionnaire-section">
+                    <h3><i class="fas fa-clipboard-list"></i> استبانة تفاصيل المشروع</h3>
+                    <p class="text-muted mb-4">استبانة شاملة لجمع المعلومات التفصيلية عن المشروع - يتم ملؤها بالتنسيق مع العميل</p>
+                    
+                    <!-- Progress Bar -->
+                    <div class="questionnaire-progress">
+                        <span class="progress-text">نسبة الإنجاز</span>
+                        <div class="progress-bar-custom">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-count">0/28 سؤال</span>
+                    </div>
+
+                    <div class="questionnaire-accordion" id="questionnaireAccordion">
+                        
+                        <!-- القسم الأول: هوية المشروع وجوهره -->
+                        <div class="accordion-section mb-3">
+                            <button class="questionnaire-header" type="button" data-toggle="collapse" data-target="#section1" aria-expanded="true">
+                                <span>
+                                    <span class="section-number">القسم 1</span>
+                                    هوية المشروع وجوهره
+                                </span>
+                                <i class="fas fa-chevron-up toggle-icon"></i>
+                            </button>
+                            <div class="questionnaire-body collapse show" id="section1">
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">1</span>
+                                        ما الاسم التجاري للمشروع (بالعربية والإنجليزية)؟
+                                    </div>
+                                    <div class="question-hint">توضيح: الاسم الرسمي الذي سيُستخدم في التواصل والتسويق.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">2</span>
+                                        ما الفكرة المحورية التي يقوم عليها المشروع؟
+                                    </div>
+                                    <div class="question-hint">توضيح: الهدف الأساسي أو الرسالة الجوهرية للمشروع.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">3</span>
+                                        ما رؤية المشروع على المدى البعيد؟
+                                    </div>
+                                    <div class="question-hint">توضيح: ما الذي يسعى المشروع لتحقيقه خلال 5–10 سنوات؟</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">4</span>
+                                        ما طبيعة الخدمات أو المنتجات التي سيقدمها المشروع؟
+                                    </div>
+                                    <div class="question-hint">توضيح: هل هو سكني، لوجستي، تجاري، ترفيهي، تعليمي…؟</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- القسم الثاني: الموقع والميزة الجغرافية -->
+                        <div class="accordion-section mb-3">
+                            <button class="questionnaire-header collapsed" type="button" data-toggle="collapse" data-target="#section2" aria-expanded="false">
+                                <span>
+                                    <span class="section-number">القسم 2</span>
+                                    الموقع والميزة الجغرافية
+                                </span>
+                                <i class="fas fa-chevron-up toggle-icon"></i>
+                            </button>
+                            <div class="questionnaire-body collapse" id="section2">
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">5</span>
+                                        أين يقع المشروع جغرافيًا؟
+                                    </div>
+                                    <div class="question-hint">توضيح: المنطقة، المدينة، الحي، أو الموقع الدقيق.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">6</span>
+                                        ما مساحة الأرض الإجمالية؟
+                                    </div>
+                                    <div class="question-hint">توضيح: المساحة المخصصة للمشروع كاملة بالمتر أو الكيلومتر.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">7</span>
+                                        ما المشاريع أو المرافق القريبة؟
+                                    </div>
+                                    <div class="question-hint">توضيح: طرق رئيسية، مطارات، موانئ، مناطق صناعية، مراكز حضرية…</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">8</span>
+                                        ما الميزة التنافسية للموقع؟
+                                    </div>
+                                    <div class="question-hint">توضيح: لماذا هذا الموقع مثالي للمشروع؟</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- القسم الثالث: البنية التحتية والجاهزية التشغيلية -->
+                        <div class="accordion-section mb-3">
+                            <button class="questionnaire-header collapsed" type="button" data-toggle="collapse" data-target="#section3" aria-expanded="false">
+                                <span>
+                                    <span class="section-number">القسم 3</span>
+                                    البنية التحتية والجاهزية التشغيلية
+                                </span>
+                                <i class="fas fa-chevron-up toggle-icon"></i>
+                            </button>
+                            <div class="questionnaire-body collapse" id="section3">
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">9</span>
+                                        ما مرافق البنية التحتية المتوفرة؟
+                                    </div>
+                                    <div class="question-hint">توضيح: شبكات كهرباء، مياه، صرف، اتصالات، طرق داخلية…</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">10</span>
+                                        ما مستوى جاهزية الموقع للتشغيل أو التطوير؟
+                                    </div>
+                                    <div class="question-hint">توضيح: هل الموقع جاهز بالكامل أم يتطلب أعمال تطوير إضافية؟</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">11</span>
+                                        هل هناك معايير استدامة مطبّقة أو مستهدفة؟
+                                    </div>
+                                    <div class="question-hint">توضيح: مثل شهادات LEED، أو أهداف بيئية معينة.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- القسم الرابع: نموذج الأعمال والتشغيل -->
+                        <div class="accordion-section mb-3">
+                            <button class="questionnaire-header collapsed" type="button" data-toggle="collapse" data-target="#section4" aria-expanded="false">
+                                <span>
+                                    <span class="section-number">القسم 4</span>
+                                    نموذج الأعمال والتشغيل
+                                </span>
+                                <i class="fas fa-chevron-up toggle-icon"></i>
+                            </button>
+                            <div class="questionnaire-body collapse" id="section4">
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">12</span>
+                                        ما نموذج الأعمال للمشروع؟
+                                    </div>
+                                    <div class="question-hint">توضيح: هل هو تأجير، بيع، شراكة، امتياز، تشغيل ذاتي…؟</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">13</span>
+                                        ما عدد الوحدات أو المساحات المتاحة؟
+                                    </div>
+                                    <div class="question-hint">توضيح: مثلاً: 50 مستودعًا بمساحات مختلفة.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">14</span>
+                                        ما هي أنواع أو أحجام الوحدات المتوفرة؟
+                                    </div>
+                                    <div class="question-hint">توضيح: مساحات صغيرة، متوسطة، كبيرة؟ تفصيل لكل فئة.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- القسم الخامس: القطاعات والشركات المستهدفة -->
+                        <div class="accordion-section mb-3">
+                            <button class="questionnaire-header collapsed" type="button" data-toggle="collapse" data-target="#section5" aria-expanded="false">
+                                <span>
+                                    <span class="section-number">القسم 5</span>
+                                    القطاعات والشركات المستهدفة
+                                </span>
+                                <i class="fas fa-chevron-up toggle-icon"></i>
+                            </button>
+                            <div class="questionnaire-body collapse" id="section5">
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">15</span>
+                                        من هو الجمهور المستهدف للمشروع؟
+                                    </div>
+                                    <div class="question-hint">توضيح: قطاعات معينة؟ شركات محلية؟ دولية؟ أفراد؟</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">16</span>
+                                        هل هناك شركات أو قطاعات ذات أولوية؟
+                                    </div>
+                                    <div class="question-hint">توضيح: مثلاً شركات التجارة الإلكترونية أو الخدمات اللوجستية.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">17</span>
+                                        ما احتياجات الجمهور المستهدف التي يلبّيها المشروع؟
+                                    </div>
+                                    <div class="question-hint">توضيح: توفير مواقع قريبة من العملاء، تكاليف تشغيلية منخفضة، مرونة في التأجير…</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- القسم السادس: القيمة التنافسية -->
+                        <div class="accordion-section mb-3">
+                            <button class="questionnaire-header collapsed" type="button" data-toggle="collapse" data-target="#section6" aria-expanded="false">
+                                <span>
+                                    <span class="section-number">القسم 6</span>
+                                    القيمة التنافسية
+                                </span>
+                                <i class="fas fa-chevron-up toggle-icon"></i>
+                            </button>
+                            <div class="questionnaire-body collapse" id="section6">
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">18</span>
+                                        ما الذي يميز هذا المشروع عن المشاريع المنافسة؟
+                                    </div>
+                                    <div class="question-hint">توضيح: الموقع، الخدمات، السعر، التصميم، السمعة…</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">19</span>
+                                        من هم أبرز المنافسين؟
+                                    </div>
+                                    <div class="question-hint">توضيح: أسماء مشاريع أو شركات مشابهة في السوق.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">20</span>
+                                        كيف يمكن إبراز الميزة التنافسية في الرسائل الإعلامية؟
+                                    </div>
+                                    <div class="question-hint">توضيح: ما العبارات أو الأفكار التي يجب إبرازها؟</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- القسم السابع: الشراكات والمنظومة -->
+                        <div class="accordion-section mb-3">
+                            <button class="questionnaire-header collapsed" type="button" data-toggle="collapse" data-target="#section7" aria-expanded="false">
+                                <span>
+                                    <span class="section-number">القسم 7</span>
+                                    الشراكات والمنظومة
+                                </span>
+                                <i class="fas fa-chevron-up toggle-icon"></i>
+                            </button>
+                            <div class="questionnaire-body collapse" id="section7">
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">21</span>
+                                        هل هناك شراكات استراتيجية قائمة أو محتملة؟
+                                    </div>
+                                    <div class="question-hint">توضيح: شراكات مع جهات حكومية، مطورين، مشغّلين، علامات تجارية.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">22</span>
+                                        هل توجد تراخيص أو اعتمادات رسمية؟
+                                    </div>
+                                    <div class="question-hint">توضيح: مثل ترخيص من الهيئة العامة للعقار أو غيرها.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- القسم الثامن: المراحل والجدول الزمني -->
+                        <div class="accordion-section mb-3">
+                            <button class="questionnaire-header collapsed" type="button" data-toggle="collapse" data-target="#section8" aria-expanded="false">
+                                <span>
+                                    <span class="section-number">القسم 8</span>
+                                    المراحل والجدول الزمني
+                                </span>
+                                <i class="fas fa-chevron-up toggle-icon"></i>
+                            </button>
+                            <div class="questionnaire-body collapse" id="section8">
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">23</span>
+                                        ما المراحل الرئيسية للمشروع؟
+                                    </div>
+                                    <div class="question-hint">توضيح: التخطيط، البناء، التشغيل، التوسع.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">24</span>
+                                        ما المرحلة الحالية وما الجدول الزمني المتوقع؟
+                                    </div>
+                                    <div class="question-hint">توضيح: تاريخ الإنجاز المتوقع لكل مرحلة.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">25</span>
+                                        هل هناك مواعيد حاسمة مرتبطة بفعاليات أو إطلاقات؟
+                                    </div>
+                                    <div class="question-hint">توضيح: مثلاً ارتباط الإطلاق بمعرض أو حدث معين.</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- القسم التاسع: التوجّه الاتصالي والإعلامي -->
+                        <div class="accordion-section mb-3">
+                            <button class="questionnaire-header collapsed" type="button" data-toggle="collapse" data-target="#section9" aria-expanded="false">
+                                <span>
+                                    <span class="section-number">القسم 9</span>
+                                    التوجّه الاتصالي والإعلامي
+                                </span>
+                                <i class="fas fa-chevron-up toggle-icon"></i>
+                            </button>
+                            <div class="questionnaire-body collapse" id="section9">
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">26</span>
+                                        ما هي النبرة والأسلوب المفضّل للتواصل الإعلامي؟
+                                    </div>
+                                    <div class="question-hint">توضيح: رسمية، ودّية، احترافية، تقنية…</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">27</span>
+                                        هل هناك رسائل رئيسية يجب إبرازها؟
+                                    </div>
+                                    <div class="question-hint">توضيح: مثلاً: "أول مشروع لوجستي ذكي في المنطقة".</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="question-item">
+                                    <div class="question-text">
+                                        <span class="question-number">28</span>
+                                        ما القنوات الإعلامية المفضّلة للترويج؟
+                                    </div>
+                                    <div class="question-hint">توضيح: الصحف، الإذاعات، المنصات الرقمية، الفعاليات…</div>
+                                    <div class="question-answer">
+                                        <textarea placeholder="أدخل الإجابة هنا..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="text-center mt-4">
+                        <button class="btn btn-lg px-5" style="background: linear-gradient(135deg, #dc1f27, #b81920); color: #fff; border-radius: 30px;" onclick="saveQuestionnaire()">
+                            <i class="fas fa-save"></i> حفظ الإجابات
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Benchmarks -->
+            <div class="tab-pane" id="benchmarks" data-title="المقارنات المرجعية">
+                <div class="section-card">
+                    <h3><i class="fas fa-chart-line"></i> المقارنة مع المشاريع المماثلة</h3>
+                    <table class="benchmark-table">
+                        <thead>
+                            <tr>
+                                <th>المعيار</th>
+                                <th>{{ project.name }}</th>
+                                <th>متوسط السوق</th>
+                                <th>الأفضل في السوق</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>سعر المتر المربع</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>نسبة المبيعات</td>
+                                <td>{{ ((project.sold_units / project.total_units * 100) | round(1)) if project.total_units > 0 else 0 }}%</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>معدل الطلب الشهري</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>رضا العملاء</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-muted mt-3"><i class="fas fa-info-circle"></i> سيتم تحديث البيانات قريباً</p>
+                </div>
+
+                <div class="section-card">
+                    <h3><i class="fas fa-balance-scale"></i> تحليل SWOT</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 rounded" style="background: #d4edda; height: 100%;">
+                                <h5 class="text-success"><i class="fas fa-plus-circle"></i> نقاط القوة</h5>
+                                <ul class="mb-0">
+                                    <li>موقع استراتيجي</li>
+                                    <li>تصميم عصري</li>
+                                    <li>مرافق متكاملة</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 rounded" style="background: #f8d7da; height: 100%;">
+                                <h5 class="text-danger"><i class="fas fa-minus-circle"></i> نقاط الضعف</h5>
+                                <ul class="mb-0">
+                                    <li>بيانات قيد التحديث</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 rounded" style="background: #cce5ff; height: 100%;">
+                                <h5 class="text-primary"><i class="fas fa-lightbulb"></i> الفرص</h5>
+                                <ul class="mb-0">
+                                    <li>نمو السوق العقاري</li>
+                                    <li>الطلب المتزايد</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 rounded" style="background: #fff3cd; height: 100%;">
+                                <h5 class="text-warning"><i class="fas fa-exclamation-triangle"></i> التحديات</h5>
+                                <ul class="mb-0">
+                                    <li>المنافسة في السوق</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Marketing Plan -->
+            <div class="tab-pane" id="marketing" data-title="خطة التسويق والتواصل">
+                <div class="section-card">
+                    <h3><i class="fas fa-bullseye"></i> الأهداف التسويقية</h3>
+                    <div class="row">
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="kpi-card">
+                                <i class="fas fa-users"></i>
+                                <span class="value">-</span>
+                                <span class="label">الوصول المستهدف</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="kpi-card green">
+                                <i class="fas fa-phone"></i>
+                                <span class="value">-</span>
+                                <span class="label">العملاء المحتملين</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="kpi-card blue">
+                                <i class="fas fa-handshake"></i>
+                                <span class="value">-</span>
+                                <span class="label">الزيارات الميدانية</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="kpi-card orange">
+                                <i class="fas fa-file-signature"></i>
+                                <span class="value">-</span>
+                                <span class="label">العقود المستهدفة</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3><i class="fas fa-share-alt"></i> قنوات التواصل</h3>
+                    <div class="row">
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="channel-card">
+                                <i class="fab fa-facebook"></i>
+                                <h4>فيسبوك</h4>
+                                <p>حملات إعلانية موجهة</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="channel-card">
+                                <i class="fab fa-instagram"></i>
+                                <h4>انستغرام</h4>
+                                <p>محتوى بصري جذاب</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="channel-card">
+                                <i class="fab fa-youtube"></i>
+                                <h4>يوتيوب</h4>
+                                <p>فيديوهات ترويجية</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="channel-card">
+                                <i class="fas fa-globe"></i>
+                                <h4>الموقع الإلكتروني</h4>
+                                <p>صفحة المشروع</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3><i class="fas fa-calendar-alt"></i> الجدول الزمني للحملات</h3>
+                    <div class="timeline">
+                        <div class="timeline-item completed">
+                            <div class="timeline-date">المرحلة 1</div>
+                            <div class="timeline-title">إطلاق الحملة الأولى</div>
+                            <div class="timeline-desc">التعريف بالمشروع وبناء الوعي</div>
+                        </div>
+                        <div class="timeline-item pending">
+                            <div class="timeline-date">المرحلة 2</div>
+                            <div class="timeline-title">حملات العملاء المحتملين</div>
+                            <div class="timeline-desc">جمع بيانات العملاء المهتمين</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">المرحلة 3</div>
+                            <div class="timeline-title">حملات المبيعات</div>
+                            <div class="timeline-desc">عروض وخصومات حصرية</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Monitoring -->
+            <div class="tab-pane" id="monitoring" data-title="المراقبة والمتابعة">
+                <div class="section-card">
+                    <h3><i class="fas fa-chart-pie"></i> مؤشرات الأداء الرئيسية (KPIs)</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="info-card p-4 bg-white rounded shadow-sm">
+                                <h5 class="mb-3">أداء المبيعات</h5>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>الهدف الشهري</span>
+                                    <span class="fw-bold">-</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>المحقق</span>
+                                    <span class="fw-bold text-success">-</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-success" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="info-card p-4 bg-white rounded shadow-sm">
+                                <h5 class="mb-3">أداء التسويق</h5>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>العملاء المحتملين</span>
+                                    <span class="fw-bold">-</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>معدل التحويل</span>
+                                    <span class="fw-bold text-primary">-</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-primary" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3><i class="fas fa-clipboard-list"></i> قائمة المهام والمتابعة</h3>
+                    <ul class="checklist">
+                        <li class="done">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>إعداد المواد التسويقية</strong>
+                                <p class="text-muted mb-0 small">تم الانتهاء</p>
+                            </div>
+                        </li>
+                        <li class="pending">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>إطلاق الحملة الرقمية</strong>
+                                <p class="text-muted mb-0 small">قيد التنفيذ</p>
+                            </div>
+                        </li>
+                        <li class="not-started">
+                            <i class="fas fa-circle"></i>
+                            <div>
+                                <strong>تقييم نتائج الربع الأول</strong>
+                                <p class="text-muted mb-0 small">لم يبدأ بعد</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="section-card">
+                    <h3><i class="fas fa-history"></i> سجل التحديثات</h3>
+                    <table class="benchmark-table">
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>التحديث</th>
+                                <th>المسؤول</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ "ديسمبر 2025" }}</td>
+                                <td>إنشاء صفحة التقرير</td>
+                                <td>فريق التسويق</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Spacer -->
+<div style="height: 50px;"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Tab Navigation
+    const tabLinks = document.querySelectorAll('.report-tabs a');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    
+    tabLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all
+            tabLinks.forEach(l => l.classList.remove('active'));
+            tabPanes.forEach(p => p.classList.remove('active'));
+            
+            // Add active class to clicked
+            this.classList.add('active');
+            const targetId = this.getAttribute('data-tab');
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
+
+    // Questionnaire Accordion
+    const accordionHeaders = document.querySelectorAll('.questionnaire-header');
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const target = document.querySelector(this.getAttribute('data-target'));
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            // Toggle collapsed class
+            if (isExpanded) {
+                this.classList.add('collapsed');
+                this.setAttribute('aria-expanded', 'false');
+                target.classList.remove('show');
+            } else {
+                this.classList.remove('collapsed');
+                this.setAttribute('aria-expanded', 'true');
+                target.classList.add('show');
+            }
+        });
+    });
+
+    // Track questionnaire progress
+    const textareas = document.querySelectorAll('.questionnaire-section textarea');
+    textareas.forEach(textarea => {
+        textarea.addEventListener('input', updateProgress);
+    });
+    
+    // Load saved data from Firebase
+    loadQuestionnaireFromFirebase();
+});
+
+// Load questionnaire data from Firebase
+async function loadQuestionnaireFromFirebase() {
+    const projectId = '{{ project.id }}';
+    
+    try {
+        const doc = await db.collection('questionnaires').doc(projectId).get();
+        
+        if (doc.exists) {
+            const data = doc.data();
+            const textareas = document.querySelectorAll('.questionnaire-section textarea');
+            
+            textareas.forEach(textarea => {
+                const questionNum = textarea.closest('.question-item').querySelector('.question-number').textContent;
+                if (data[`q${questionNum}`]) {
+                    textarea.value = data[`q${questionNum}`];
+                }
+            });
+            
+            console.log('✅ تم تحميل البيانات من Firebase');
+        }
+    } catch (error) {
+        console.log('⚠️ لم يتم العثور على بيانات محفوظة:', error);
+    }
+    
+    updateProgress();
+}
+
+function updateProgress() {
+    const textareas = document.querySelectorAll('.questionnaire-section textarea');
+    let filledCount = 0;
+    textareas.forEach(textarea => {
+        if (textarea.value.trim() !== '') {
+            filledCount++;
+        }
+    });
+    
+    const totalQuestions = textareas.length;
+    const percentage = Math.round((filledCount / totalQuestions) * 100);
+    
+    const progressFill = document.querySelector('.progress-fill');
+    const progressCount = document.querySelector('.progress-count');
+    
+    if (progressFill) progressFill.style.width = percentage + '%';
+    if (progressCount) progressCount.textContent = `${filledCount}/${totalQuestions} سؤال`;
+}
+
+async function saveQuestionnaire() {
+    const textareas = document.querySelectorAll('.questionnaire-section textarea');
+    const projectId = '{{ project.id }}';
+    const projectName = '{{ project.name }}';
+    
+    // Prepare data object
+    const questionnaireData = {
+        projectId: projectId,
+        projectName: projectName,
+        updatedAt: new Date().toISOString()
+    };
+    
+    textareas.forEach(textarea => {
+        const questionNum = textarea.closest('.question-item').querySelector('.question-number').textContent;
+        questionnaireData[`q${questionNum}`] = textarea.value;
+    });
+    
+    const btn = event.target.closest('button');
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+    
+    try {
+        // Check if Firebase is initialized
+        if (typeof db === 'undefined') {
+            throw new Error('Firebase غير متصل');
+        }
+        
+        // Save to Firebase
+        await db.collection('questionnaires').doc(projectId).set(questionnaireData, { merge: true });
+        
+        // Show success message
+        btn.innerHTML = '<i class="fas fa-check"></i> تم الحفظ في Firebase!';
+        btn.style.background = 'linear-gradient(135deg, #28a745, #218838)';
+        
+        console.log('✅ تم حفظ البيانات في Firebase بنجاح');
+        
+    } catch (error) {
+        console.error('❌ خطأ في الحفظ:', error);
+        // Show detailed error
+        alert('خطأ: ' + error.message);
+        btn.innerHTML = '<i class="fas fa-times"></i> خطأ في الحفظ!';
+        btn.style.background = 'linear-gradient(135deg, #dc3545, #c82333)';
+    }
+    
+    setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.style.background = 'linear-gradient(135deg, #dc1f27, #b81920)';
+    }, 2000);
+}
+
+function exportToPDF() {
+    // Show all tabs for PDF
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    tabPanes.forEach(p => p.style.display = 'block');
+    
+    const element = document.getElementById('report-content');
+    const opt = {
+        margin: [10, 10, 10, 10],
+        filename: 'تقرير-{{ project.name }}.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+    
+    html2pdf().set(opt).from(element).save().then(() => {
+        // Hide tabs again
+        tabPanes.forEach((p, i) => {
+            p.style.display = i === 0 ? 'block' : 'none';
+        });
+    });
+}
+</script>
+{% endblock %}

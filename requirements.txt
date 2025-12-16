@@ -1,0 +1,17 @@
+# Nobles Properties - Interactive Report Website
+# المتطلبات الأساسية للمشروع
+
+# Framework
+Flask==3.0.0
+Werkzeug==3.0.1
+Jinja2==3.1.2
+MarkupSafe==2.1.3
+
+# Data Processing
+pandas==2.2.2
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# Development
+watchdog==3.0.0

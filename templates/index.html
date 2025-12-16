@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block title %}نوبلز العقارية - الصفحة الرئيسية{% endblock %}
+
+{% block meta_description %}نوبلز العقارية - شركة تطوير عقاري عالمية تأسست في دبي عام 2008{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                في نوبلز، نوفر لك أسلوب حياة فريد
+            </h1>
+            <p class="hero-subtitle">
+                نحرص على تصميم مجتمع يجمع بين الراحة، الابتكار، الخصوصية، والأمان
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="stat-number" data-count="6">6</div>
+                    <div class="stat-label">مشاريع قيد التطوير</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="stat-number" data-count="500">500+</div>
+                    <div class="stat-label">وحدة سكنية</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-number" data-count="17">17</div>
+                    <div class="stat-label">سنة من الخبرة</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="stat-number" data-count="4">4</div>
+                    <div class="stat-label">دول</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects Section -->
+<section class="featured-projects-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">مشاريعنا</h2>
+            <p class="section-subtitle">اكتشف مجموعة من المشاريع العقارية المميزة</p>
+        </div>
+        
+        <div class="row">
+            {% for project in projects %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="project-card {% if not project.active %}project-card-inactive{% endif %}">
+                    <div class="project-image">
+                        <img src="{{ url_for('static', filename='images/projects/' + project.images.main) }}" 
+                             alt="{{ project.name }}"
+                             onerror="this.src='{{ url_for('static', filename='images/placeholder.jpg') }}'">
+                        {% if project.featured %}
+                        <span class="project-badge featured">مميز</span>
+                        {% endif %}
+                        {% if not project.active %}
+                        <span class="project-badge coming-soon">قريباً</span>
+                        {% endif %}
+                        <div class="project-overlay">
+                            {% if project.active %}
+                            <a href="{{ url_for('project_detail', slug=project.slug) }}" class="btn btn-light">
+                                <i class="fas fa-eye"></i> عرض التفاصيل
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-name">{{ project.name }}</h3>
+                        <p class="project-name-en">{{ project.name_en }}</p>
+                        <div class="project-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> {{ project.location }}</span>
+                            <span><i class="fas fa-tag"></i> {{ project.type }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('projects') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-th-large"></i> عرض جميع المشاريع
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="about-image">
+                    <img src="{{ url_for('static', filename='images/nnnn.jpg') }}" 
+                         alt="عن نوبلز العقارية"
+                         onerror="this.src='{{ url_for('static', filename='images/placeholder.jpg') }}'">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-content">
+                    <h2 class="section-title">عن نوبلز العقارية</h2>
+                    <p class="lead">
+                        نوبلز هي شركة تطوير عقاري عالمية تم تأسيسها في دبي في عام 2008.
+                    </p>
+                    <p>
+                        نحن نمتلك ونقوم بتطوير وإدارة العقارات السكنية والتجارية والمتعددة الاستخدام في العديد من المناطق حول العالم بما فيها المملكة الأردنية الهاشمية ودولة الإمارات العربية المتحدة وليبيا وتركيا.
+                    </p>
+                    
+                    <div class="vision-mission">
+                        <div class="vm-item">
+                            <div class="vm-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="vm-content">
+                                <h4>رؤيتنا</h4>
+                                <p>الشركة الأولى إقليمياً وعالمياً في تطوير أسلوب حياة فريد</p>
+                            </div>
+                        </div>
+                        <div class="vm-item">
+                            <div class="vm-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div class="vm-content">
+                                <h4>رسالتنا</h4>
+                                <p>نبتكر مفاهيم غير مسبوقة في صناعة العقار، ونرسم آفاقاً جديدة للأداء المتميز</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="{{ url_for('about') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-info-circle"></i> المزيد عنا
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

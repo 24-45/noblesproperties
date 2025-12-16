@@ -1,0 +1,451 @@
+{
+    "company": {
+        "name": "نوبلز العقارية",
+        "name_en": "Nobles Properties",
+        "description": "شركة تطوير عقاري عالمية تأسست في دبي عام 2008",
+        "vision": "الشركة الأولى إقليمياً وعالمياً في تطوير أسلوب حياة فريد",
+        "mission": "نبتكر مفاهيم غير مسبوقة في صناعة العقار، ونرسم آفاقاً جديدة للأداء المتميز"
+    },
+    "projects": [
+        {
+            "id": 1,
+            "name": "مدينة أليك اللوجستية والصناعية - الموقر",
+            "name_en": "ALIC Logistic & Industrial City - Al Muwaqqar",
+            "slug": "alic-almuwaqqar",
+            "type": "صناعي ولوجستي",
+            "type_en": "Industrial & Logistics",
+            "location": "الموقر، عمّان، الأردن",
+            "location_en": "Al Muwaqqar, Amman, Jordan",
+            "address": "منطقة الموقر - على بعد 15 كم من مطار الملكة علياء الدولي",
+            "status": "قيد التطوير",
+            "status_en": "Under Development",
+            "active": true,
+            "featured": true,
+            "completion_percentage": 5,
+            "total_units": 50,
+            "sold_units": 0,
+            "available_units": 50,
+            "total_area": "525,000 م²",
+            "leasable_area": "350,000 م²",
+            "unit_sizes": "مستودعات: 500 - 10,000 م² | مكاتب إدارية: 50 - 500 م² | أراضي صناعية: 1,000 - 50,000 م²",
+            "start_date": "2025-01-01",
+            "expected_completion": "2027-12-31",
+            "description": "مدينة أليك اللوجستية والصناعية في الموقر تشكّل مركزاً متكاملاً لسلاسل الإمداد مع مناطق مهيأة لخدمات النقل والتوزيع وشركات الخدمات اللوجستية المتكاملة 3PL. تقع على مسافة 15 كم فقط من مطار الملكة علياء الدولي، مما يجعلها موقعاً استراتيجياً للعمليات اللوجستية والتجارة الإقليمية.",
+            "description_en": "ALIC Logistic & Industrial City in Al Muwaqqar offers a fully integrated supply chain hub with dedicated zones for transportation, distribution, and 3PL providers. Located just 15 km from Queen Alia International Airport, making it a strategic location for logistics operations and regional trade.",
+            "project_vision": "أن تكون المدينة اللوجستية الرائدة في المنطقة ومركزاً إقليمياً للتجارة والخدمات اللوجستية",
+            "project_mission": "توفير بنية تحتية عالمية المستوى تدعم نمو الأعمال وتعزز الكفاءة التشغيلية",
+            "target_sectors": [
+                "شركات الخدمات اللوجستية (3PL)",
+                "التجارة الإلكترونية والتوزيع",
+                "الصناعات الخفيفة والتجميع",
+                "التخزين البارد والمبرد",
+                "خدمات الشحن والتفريغ"
+            ],
+            "competitive_advantages": [
+                "موقع استراتيجي قرب المطار الدولي",
+                "بنية تحتية متكاملة وحديثة",
+                "مرونة في مساحات التأجير",
+                "خدمات جمركية ولوجستية في الموقع",
+                "أسعار تنافسية مقارنة بالمنطقة"
+            ],
+            "features": [
+                "شبكة طرق داخلية تربط المدينة بمطار الملكة علياء الدولي",
+                "مناطق تخزين مبردة وجافة وفق معايير عالمية",
+                "مركز تنظيمي يضم مكاتب للجهات الجمركية واللوجستية",
+                "محطة وقود ومركز صيانة للشاحنات",
+                "مبانٍ إدارية ومرافق خدمية",
+                "نظام أمني متكامل على مدار الساعة",
+                "شبكة اتصالات وإنترنت عالية السرعة"
+            ],
+            "amenities": [
+                "مركز خدمات لوجستية للشركات",
+                "محطات تعبئة وقود وشحن كهربائي للشاحنات",
+                "مركز تدريب وتشغيل للكوادر المتخصصة",
+                "مطاعم وكافيتريات للعاملين",
+                "مسجد ومصلى",
+                "عيادة طبية",
+                "مواقف سيارات واسعة"
+            ],
+            "infrastructure": {
+                "roads": "شبكة طرق داخلية بعرض 20-40 متر",
+                "electricity": "محطة كهرباء فرعية بقدرة 50 ميجاوات",
+                "water": "شبكة مياه متكاملة مع خزانات احتياطية",
+                "sewage": "نظام صرف صحي حديث",
+                "telecom": "شبكة ألياف ضوئية عالية السرعة",
+                "security": "نظام مراقبة بالكاميرات وحراسة 24/7"
+            },
+            "images": {
+                "main": "ALIC.png",
+                "gallery": []
+            },
+            "monthly_progress": [],
+            "phases": [
+                {
+                    "name": "المرحلة الأولى - الأعمال التمهيدية",
+                    "status": "قيد التنفيذ",
+                    "completion_percentage": 20,
+                    "start_date": "2025-01",
+                    "end_date": "2025-06"
+                },
+                {
+                    "name": "المرحلة الثانية - البنية التحتية",
+                    "status": "مخطط",
+                    "completion_percentage": 0,
+                    "start_date": "2025-07",
+                    "end_date": "2026-06"
+                },
+                {
+                    "name": "المرحلة الثالثة - المباني اللوجستية",
+                    "status": "مخطط",
+                    "completion_percentage": 0,
+                    "start_date": "2026-07",
+                    "end_date": "2027-06"
+                },
+                {
+                    "name": "المرحلة الرابعة - التشغيل",
+                    "status": "مخطط",
+                    "completion_percentage": 0,
+                    "start_date": "2027-07",
+                    "end_date": "2027-12"
+                }
+            ],
+            "financial_data": {
+                "total_investment": 150000000,
+                "land_cost": 30000000,
+                "construction_cost": 100000000,
+                "marketing_cost": 5000000,
+                "other_costs": 15000000
+            },
+            "sales_data": {
+                "total_revenue": 0,
+                "units_sold_value": 0,
+                "average_price_per_unit": 0,
+                "rental_price_range": "5-15 دينار/م² شهرياً"
+            },
+            "contact": {
+                "phone": "+962 (06) 5546161",
+                "email": "info@noblesproperties.com",
+                "sales_email": "alic@noblesproperties.com"
+            }
+        },
+        {
+            "id": 2,
+            "name": "مرتفعات الدانة",
+            "name_en": "Dana Heights",
+            "slug": "dana-heights",
+            "type": "سكني متعدد الاستخدامات",
+            "type_en": "Mixed-Use Residential",
+            "location": "طريق المطار، مقابل أمواج عمان، عمان، الأردن",
+            "location_en": "Airport Road, in front of Amman waves, Amman, Jordan",
+            "address": "طريق المطار، مقابل أمواج عمان، عمان، الأردن",
+            "status": "قريباً",
+            "status_en": "Coming Soon",
+            "active": false,
+            "featured": false,
+            "completion_percentage": 12,
+            "total_units": 431,
+            "sold_units": 36,
+            "available_units": 395,
+            "total_area": "83,840 م²",
+            "unit_sizes": "سكني: 126,165 م² | شقق فندقية: 14,794 م² | تجاري: 41,844 م² | مرافق: 3,038 م²",
+            "start_date": "2024-04-15",
+            "expected_completion": "2027-03-30",
+            "description": "مشروع مرتفعات الدانة هو مشروع سكني متعدد الاستخدامات يقع على طريق المطار مقابل أمواج عمان. يمتد على مساحة إجمالية تبلغ 83,840 متر مربع، ويضم 431 وحدة سكنية بمساحة إجمالية 126,165 متر مربع، وشقق فندقية بمساحة 14,794 متر مربع، ومساحات تجارية بمساحة 41,844 متر مربع، ومرافق خدمية بمساحة 3,038 متر مربع.",
+            "features": [
+                "431 وحدة سكنية متنوعة",
+                "شقق فندقية بمساحة 14,794 م²",
+                "مساحات تجارية بمساحة 41,844 م²",
+                "مرافق خدمية متكاملة"
+            ],
+            "amenities": [
+                "ساحة لعب للأطفال",
+                "مركز مجتمعي للفعاليات",
+                "مسارات دراجات وممشى صحي"
+            ],
+            "images": {
+                "main": "Abdoun pearl.png",
+                "gallery": []
+            },
+            "financial_data": {
+                "total_investment": 86000000,
+                "land_cost": 19000000,
+                "construction_cost": 54000000,
+                "marketing_cost": 4000000,
+                "other_costs": 9000000
+            },
+            "sales_data": {
+                "total_revenue": 0,
+                "units_sold_value": 11200000,
+                "average_price_per_unit": 420000
+            }
+        },
+        {
+            "id": 3,
+            "name": "مدينة السيارات",
+            "name_en": "Automotive City",
+            "slug": "automotive-city",
+            "type": "صناعي",
+            "type_en": "Industrial",
+            "location": "عمان، الأردن",
+            "location_en": "Amman, Jordan",
+            "address": "منطقة الماضونة الصناعية، الطريق الدائري الشرقي، عمان",
+            "status": "قريباً",
+            "status_en": "Coming Soon",
+            "active": false,
+            "featured": false,
+            "completion_percentage": 24,
+            "total_units": 140,
+            "sold_units": 18,
+            "available_units": 122,
+            "total_area": "210,000 م²",
+            "unit_sizes": "600-2,400 م²",
+            "start_date": "2023-11-01",
+            "expected_completion": "2026-08-15",
+            "description": "مدينة السيارات تشكّل منطقة صناعية متخصصة في خدمات المركبات والتخزين اللوجستي، مع بنية تحتية مهيأة للورش والمعارض ومراكز الصيانة.",
+            "features": [
+                "مستودعات جاهزة بمواصفات صناعية",
+                "شبكة طرق داخلية لاستيعاب الشاحنات الثقيلة",
+                "مركز تسجيل وترخيص مركبات داخل المشروع"
+            ],
+            "amenities": [
+                "محطات وقود وشحن كهربائي",
+                "منطقة مطاعم ومقاهٍ للعاملين",
+                "خدمات أمن صناعي على مدار الساعة"
+            ],
+            "images": {
+                "main": "Car City.png",
+                "gallery": []
+            },
+            "financial_data": {
+                "total_investment": 196000000,
+                "land_cost": 41000000,
+                "construction_cost": 128000000,
+                "marketing_cost": 6000000,
+                "other_costs": 21000000
+            },
+            "sales_data": {
+                "total_revenue": 0,
+                "units_sold_value": 26500000,
+                "average_price_per_unit": 1470000
+            }
+        },
+        {
+            "id": 7,
+            "name": "JoLIC جوليك - مدينة الأردن اللوجستية والصناعية",
+            "name_en": "JoLIC Logistic & Industrial City",
+            "slug": "jolic-mafraq",
+            "type": "صناعي",
+            "type_en": "Industrial",
+            "location": "محافظة المفرق، شمال شرق عمّان، على الطريق الدولي الرابط بين الأردن وسوريا والسعودية والعراق",
+            "location_en": "Mafraq Governorate, northeast of Amman, strategically located on the international highway linking Jordan with Syria, Saudi Arabia, and Iraq",
+            "address": "محافظة المفرق، شمال شرق عمّان، على الطريق الدولي الرابط بين الأردن وسوريا والسعودية والعراق",
+            "status": "قريباً",
+            "status_en": "Coming Soon",
+            "active": false,
+            "featured": true,
+            "completion_percentage": 0,
+            "total_units": 0,
+            "sold_units": 0,
+            "available_units": 0,
+            "total_area": "1,700,000 م²",
+            "unit_sizes": "مناطق صناعية وحلول تخزين مرنة لشركات الخدمات اللوجستية المتقدمة",
+            "start_date": "2026-01-01",
+            "expected_completion": "2029-12-31",
+            "description": "مدينة جوليك اللوجستية والصناعية في المفرق توفر منصة إقليمية للتوزيع العابر للحدود مع بوابة 3PL متكاملة تربط الأردن بدول الجوار عبر الطريق الدولي. إطلاق المشروع: 2026",
+            "description_en": "JoLIC Logistic & Industrial City creates a regional cross-border distribution platform with an integrated 3PL gateway linking Jordan to neighboring countries via the international highway. Project Launch: 2026",
+            "features": [
+                "قرب مباشر من سكة الحديد المقترحة وخطوط الشحن الدولية",
+                "محطة لوجستية متعددة الوسائط تربط النقل البري والجوي",
+                "مناطق حرة تدعم الاستيراد وإعادة التصدير"
+            ],
+            "amenities": [
+                "مركز تحكم وتشغيل إقليمي",
+                "حاضنة أعمال صناعية ولوجستية",
+                "مساكن للعمال وخدمات دعم متكاملة"
+            ],
+            "images": {
+                "main": "JOLIC.png",
+                "gallery": []
+            },
+            "monthly_progress": [],
+            "phases": [
+                {
+                    "name": "التصميم الرئيسي",
+                    "status": "قيد الإعداد",
+                    "completion_percentage": 15
+                },
+                {
+                    "name": "أعمال البنية التحتية",
+                    "status": "مخطط",
+                    "completion_percentage": 0
+                }
+            ],
+            "financial_data": {
+                "total_investment": 0,
+                "land_cost": 0,
+                "construction_cost": 0,
+                "marketing_cost": 0,
+                "other_costs": 0
+            },
+            "sales_data": {
+                "total_revenue": 0,
+                "units_sold_value": 0,
+                "average_price_per_unit": 0
+            },
+            "contact": {
+                "phone": "+962 (06) 5546161",
+                "email": "info@noblesproperties.com"
+            }
+        },
+        {
+            "id": 4,
+            "name": "لؤلؤة عبدون",
+            "name_en": "Abdoun Pearl",
+            "slug": "abdoun-pearl",
+            "type": "سكني",
+            "type_en": "Residential",
+            "location": "عبدون، عمان، الأردن",
+            "location_en": "Abdoun, Amman, Jordan",
+            "address": "عبدون الجنوبي، قرب السفارة الأمريكية، عمان",
+            "status": "قريباً",
+            "status_en": "Coming Soon",
+            "active": false,
+            "featured": false,
+            "completion_percentage": 18,
+            "total_units": 64,
+            "sold_units": 9,
+            "available_units": 55,
+            "total_area": "22,500 م²",
+            "unit_sizes": "180-420 م²",
+            "start_date": "2024-07-10",
+            "expected_completion": "2026-12-20",
+            "description": "لؤلؤة عبدون عبارة عن مبانٍ سكنية منخفضة الارتفاع تضم فللاً وشقق دوبلكس بتصاميم فاخرة وحدائق خاصة لكل وحدة ومساحات لاستضافة الضيوف.",
+            "features": [
+                "إطلالات مفتوحة على وادي عبدون",
+                "مصاعد خاصة للوحدات البنتهاوس",
+                "غرف خدم وغسيل منفصلة"
+            ],
+            "amenities": [
+                "خدمات كونسيرج شخصية",
+                "نادي صحي للسيدات والرجال",
+                "قاعات استقبال خارجية"
+            ],
+            "images": {
+                "main": "Abdoun pearl.png",
+                "gallery": []
+            },
+            "financial_data": {
+                "total_investment": 124000000,
+                "land_cost": 47000000,
+                "construction_cost": 62000000,
+                "marketing_cost": 5000000,
+                "other_costs": 10000000
+            },
+            "sales_data": {
+                "total_revenue": 0,
+                "units_sold_value": 22500000,
+                "average_price_per_unit": 1125000
+            }
+        },
+        {
+            "id": 5,
+            "name": "نوبلز هايتس السكني",
+            "name_en": "Nobles Heights Residential",
+            "slug": "nobles-heights",
+            "type": "سكني",
+            "type_en": "Residential",
+            "location": "ماهيس، الأردن",
+            "location_en": "Mahis, Jordan",
+            "address": "طريق وادي السير، تلة القاديسية، ماهيس",
+            "status": "قريباً",
+            "status_en": "Coming Soon",
+            "active": false,
+            "featured": false,
+            "completion_percentage": 10,
+            "total_units": 320,
+            "sold_units": 40,
+            "available_units": 280,
+            "total_area": "72,000 م²",
+            "unit_sizes": "110-260 م²",
+            "start_date": "2024-02-01",
+            "expected_completion": "2027-09-30",
+            "description": "نوبلز هايتس يوفر مساكن متدرجة على سفوح جبال ماهيس مع حدائق خاصة ومرافق رياضية وأمن مجتمعي على مدار الساعة.",
+            "features": [
+                "شقق بحدائق خاصة وشرفات واسعة",
+                "مبانٍ موفرة للطاقة مع أنظمة عزل متقدمة",
+                "مجمع خدمات يومية يضم عيادات ومتاجر"
+            ],
+            "amenities": [
+                "نادي عائلي",
+                "ملاعب متعددة الاستخدام",
+                "منطقة حفلات خارجية"
+            ],
+            "images": {
+                "main": "Nobles Heights Residential Development.png",
+                "gallery": []
+            },
+            "financial_data": {
+                "total_investment": 98000000,
+                "land_cost": 28000000,
+                "construction_cost": 58000000,
+                "marketing_cost": 4500000,
+                "other_costs": 7500000
+            },
+            "sales_data": {
+                "total_revenue": 0,
+                "units_sold_value": 16800000,
+                "average_price_per_unit": 420000
+            }
+        },
+        {
+            "id": 6,
+            "name": "أبو علاندا",
+            "name_en": "Abu Alanda",
+            "slug": "abu-alanda",
+            "type": "سكني",
+            "type_en": "Residential",
+            "location": "أبو علاندا، عمان، الأردن",
+            "location_en": "Abu Alanda, Amman, Jordan",
+            "address": "أبو علاندا، شارع القدس، عمان",
+            "status": "قريباً",
+            "status_en": "Coming Soon",
+            "active": false,
+            "featured": false,
+            "completion_percentage": 15,
+            "total_units": 220,
+            "sold_units": 28,
+            "available_units": 192,
+            "total_area": "49,500 م²",
+            "unit_sizes": "90-180 م²",
+            "start_date": "2024-01-20",
+            "expected_completion": "2026-05-15",
+            "description": "مشروع أبو علاندا يوفّر شققاً ميسّرة للعائلات الشابة مع مساحات مجتمعية وحديقة مركزية ومراكز تعليمية قريبة.",
+            "features": [
+                "تصميم وحدات قابلة للتوسعة",
+                "مواقف مظللة لكل شقة",
+                "نظام مراقبة ودخول ذكي"
+            ],
+            "amenities": [
+                "مدرسة ابتدائية خاصة",
+                "مركز صحي مجتمعي",
+                "حديقة مركزية"
+            ],
+            "images": {
+                "main": "abuu.png",
+                "gallery": []
+            },
+            "financial_data": {
+                "total_investment": 75000000,
+                "land_cost": 15000000,
+                "construction_cost": 48000000,
+                "marketing_cost": 3500000,
+                "other_costs": 8500000
+            },
+            "sales_data": {
+                "total_revenue": 0,
+                "units_sold_value": 9800000,
+                "average_price_per_unit": 350000
+            }
+        }
+    ]
+}

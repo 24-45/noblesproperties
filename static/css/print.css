@@ -1,0 +1,249 @@
+/*
+ * Nobles Properties - Print Stylesheet
+ * نوبلز العقارية - أنماط الطباعة
+ */
+
+@media print {
+    /* Page Setup */
+    @page {
+        size: A4 portrait;
+        margin: 15mm;
+    }
+    
+    @page :first {
+        margin-top: 0;
+    }
+    
+    /* Hide non-printable elements */
+    .navbar,
+    .footer,
+    .no-print,
+    .btn,
+    .filter-buttons,
+    .hero-buttons,
+    .action-buttons,
+    .social-links,
+    .report-actions,
+    .project-overlay {
+        display: none !important;
+    }
+    
+    /* Reset backgrounds */
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+    
+    /* Links */
+    a {
+        color: black !important;
+        text-decoration: none !important;
+    }
+    
+    a[href]::after {
+        content: none !important;
+    }
+    
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+        color: black !important;
+        page-break-after: avoid;
+    }
+    
+    h1 {
+        font-size: 24pt;
+    }
+    
+    h2 {
+        font-size: 18pt;
+    }
+    
+    h3 {
+        font-size: 14pt;
+    }
+    
+    /* Page breaks */
+    .page-break {
+        page-break-before: always;
+    }
+    
+    .avoid-break {
+        page-break-inside: avoid;
+    }
+    
+    /* Cards and sections */
+    .card-section,
+    .project-card,
+    .report-card,
+    .info-card,
+    .chart-card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+        page-break-inside: avoid;
+    }
+    
+    /* Hero section */
+    .hero-section,
+    .page-header {
+        background: #f5f5f5 !important;
+        color: black !important;
+        min-height: auto !important;
+        padding: 20px !important;
+    }
+    
+    .hero-title,
+    .page-header h1 {
+        color: black !important;
+        text-shadow: none !important;
+    }
+    
+    /* Report cover */
+    .report-cover {
+        background: #f5f5f5 !important;
+        color: black !important;
+        page-break-after: always;
+    }
+    
+    .cover-title,
+    .cover-report-title {
+        color: black !important;
+    }
+    
+    /* Progress bars */
+    .progress {
+        background: #eee !important;
+    }
+    
+    .progress-bar {
+        background: #333 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    /* Charts - hide interactive elements */
+    canvas {
+        max-width: 100%;
+        height: auto !important;
+    }
+    
+    /* Images */
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+    
+    .project-image {
+        height: auto !important;
+    }
+    
+    .project-image img {
+        height: 200px !important;
+        object-fit: cover;
+    }
+    
+    /* Tables */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: right;
+    }
+    
+    .info-table tr {
+        border-bottom: 1px solid #ddd;
+    }
+    
+    /* Stats */
+    .stat-icon {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    .stat-number {
+        color: #333 !important;
+    }
+    
+    /* Badges */
+    .project-badge,
+    .project-type-badge,
+    .status-badge {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    /* Progress circles */
+    .progress-circle-fill,
+    .stat-circle .progress {
+        stroke: #333 !important;
+    }
+    
+    .progress-circle .progress-text,
+    .stat-circle .percentage {
+        color: #333 !important;
+    }
+    
+    /* Grid adjustments */
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .col-md-4 {
+        width: 33.333% !important;
+        flex: 0 0 33.333%;
+    }
+    
+    .col-md-6 {
+        width: 50% !important;
+        flex: 0 0 50%;
+    }
+    
+    .col-lg-4 {
+        width: 33.333% !important;
+    }
+    
+    .col-lg-6 {
+        width: 50% !important;
+    }
+    
+    .col-lg-8 {
+        width: 66.666% !important;
+    }
+    
+    /* Report sections */
+    .report-section {
+        padding: 20px 0 !important;
+    }
+    
+    .section-number {
+        background: #333 !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    /* Footer in print */
+    .report-footer {
+        background: #f5f5f5 !important;
+        color: black !important;
+        margin-top: 30px;
+        padding: 20px !important;
+    }
+    
+    /* Ensure proper colors are printed */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}

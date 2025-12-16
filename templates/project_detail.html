@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.name }} - نوبلز العقارية{% endblock %}
+
+{% block meta_description %}{{ project.description[:160] }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header project-page-header">
+    <div class="container">
+        <div class="page-header-content">
+            <span class="project-type-badge large">{{ project.type }}</span>
+            <h1>{{ project.name }}</h1>
+            <p class="project-name-en-large">{{ project.name_en }}</p>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('index') }}">الرئيسية</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('projects') }}">المشاريع</a></li>
+                    <li class="breadcrumb-item active">{{ project.name }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<!-- Project Overview -->
+<section class="project-overview-section">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Project Gallery -->
+                <div class="project-gallery card-section">
+                    <div class="gallery-main">
+                        <img src="{{ url_for('static', filename='images/projects/' + project.images.main) }}" 
+                             alt="{{ project.name }}" 
+                             id="main-gallery-image"
+                             onerror="this.src='{{ url_for('static', filename='images/placeholder.jpg') }}'">
+                    </div>
+                    {% if project.images.gallery %}
+                    <div class="gallery-thumbnails">
+                        <div class="thumbnail active" data-image="{{ url_for('static', filename='images/projects/' + project.images.main) }}">
+                            <img src="{{ url_for('static', filename='images/projects/' + project.images.main) }}" 
+                                 alt="{{ project.name }}"
+                                 onerror="this.src='{{ url_for('static', filename='images/placeholder.jpg') }}'">
+                        </div>
+                        {% for image in project.images.gallery %}
+                        <div class="thumbnail" data-image="{{ url_for('static', filename='images/projects/' + image) }}">
+                            <img src="{{ url_for('static', filename='images/projects/' + image) }}" 
+                                 alt="{{ project.name }}"
+                                 onerror="this.src='{{ url_for('static', filename='images/placeholder.jpg') }}'">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Project Description -->
+                <div class="project-description card-section">
+                    <h2><i class="fas fa-info-circle"></i> عن المشروع</h2>
+                    <p>{{ project.description }}</p>
+                </div>
+                
+                <!-- Project Features -->
+                {% if project.features %}
+                <div class="project-features card-section">
+                    <h2><i class="fas fa-star"></i> المميزات</h2>
+                    <div class="features-grid">
+                        {% for feature in project.features %}
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>{{ feature }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Project Amenities -->
+                {% if project.amenities %}
+                <div class="project-amenities card-section">
+                    <h2><i class="fas fa-concierge-bell"></i> المرافق والخدمات</h2>
+                    <div class="amenities-grid">
+                        {% for amenity in project.amenities %}
+                        <div class="amenity-item">
+                            <i class="fas fa-check"></i>
+                            <span>{{ amenity }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Project Progress Chart -->
+                {% if project.monthly_progress %}
+                <div class="project-progress-chart card-section">
+                    <h2><i class="fas fa-chart-line"></i> تقدم المشروع</h2>
+                    <canvas id="progressChart"></canvas>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Project Stats Card -->
+                <div class="project-stats-card card-section sticky-sidebar">
+                    <h3>معلومات المشروع</h3>
+                    
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="stat-details">
+                            <span class="stat-label">الموقع</span>
+                            <span class="stat-value">{{ project.location }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-tag"></i></div>
+                        <div class="stat-details">
+                            <span class="stat-label">نوع المشروع</span>
+                            <span class="stat-value">{{ project.type }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="stat-details">
+                            <span class="stat-label">الحالة</span>
+                            <span class="stat-value status-badge">{{ project.status }}</span>
+                        </div>
+                    </div>
+                    
+                    {% if project.total_units > 0 %}
+                    <div class="units-info">
+                        <div class="units-stat">
+                            <span class="units-number">{{ project.total_units }}</span>
+                            <span class="units-label">إجمالي الوحدات</span>
+                        </div>
+                        {% if project.sold_units > 0 %}
+                        <div class="units-stat sold">
+                            <span class="units-number">{{ project.sold_units }}</span>
+                            <span class="units-label">وحدة مباعة</span>
+                        </div>
+                        <div class="units-stat available">
+                            <span class="units-number">{{ project.total_units - project.sold_units }}</span>
+                            <span class="units-label">وحدة متاحة</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    {% if project.start_date %}
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="stat-details">
+                            <span class="stat-label">تاريخ البدء</span>
+                            <span class="stat-value">{{ project.start_date }}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if project.expected_completion %}
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-flag-checkered"></i></div>
+                        <div class="stat-details">
+                            <span class="stat-label">التسليم المتوقع</span>
+                            <span class="stat-value">{{ project.expected_completion }}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="action-buttons">
+                        <a href="{{ url_for('project_report', slug=project.slug) }}" class="btn btn-primary btn-block">
+                            <i class="fas fa-chart-bar"></i> عرض التقرير الكامل
+                        </a>
+                        <button class="btn btn-outline-primary btn-block" onclick="exportProjectPDF()">
+                            <i class="fas fa-file-pdf"></i> تصدير PDF
+                        </button>
+                        <a href="https://noblesproperties.com/ar/contact" target="_blank" class="btn btn-success btn-block">
+                            <i class="fas fa-phone-alt"></i> تواصل معنا
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Projects -->
+<section class="related-projects-section">
+    <div class="container">
+        <h2 class="section-title">مشاريع أخرى</h2>
+        <div class="row">
+            <!-- Will be populated dynamically -->
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script>
+// Gallery functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const thumbnails = document.querySelectorAll('.gallery-thumbnails .thumbnail');
+    const mainImage = document.getElementById('main-gallery-image');
+    
+    thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', function() {
+            thumbnails.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            mainImage.src = this.dataset.image;
+        });
+    });
+    
+    // Initialize progress chart if data exists
+    {% if project.monthly_progress %}
+    initProgressChart({{ project.monthly_progress | tojson }});
+    {% endif %}
+});
+
+// Export to PDF
+function exportProjectPDF() {
+    const element = document.querySelector('.project-overview-section');
+    const opt = {
+        margin: 10,
+        filename: '{{ project.name }}-report.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: 'avoid-all' }
+    };
+    
+    html2pdf().set(opt).from(element).save();
+}
+</script>
+{% endblock %}
