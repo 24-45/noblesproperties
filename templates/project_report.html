@@ -619,7 +619,7 @@
                         {% endif %}
                         <div class="info-item">
                             <label>الحالة</label>
-                            <span class="badge bg-success">{{ project.status }}</span>
+                            <span class="badge" style="background: #1a1a2e; color: #fff;">{{ project.status }}</span>
                         </div>
                         {% if project.total_area %}
                         <div class="info-item">
@@ -634,9 +634,16 @@
                         </div>
                         {% endif %}
                         {% if project.unit_sizes %}
-                        <div class="info-item">
+                        <div class="info-item" style="grid-column: span 2;">
                             <label>أحجام الوحدات</label>
-                            <span>{{ project.unit_sizes }}</span>
+                            <ul style="list-style: none; padding: 0; margin: 10px 0 0 0;">
+                                {% for size in project.unit_sizes.split('|') %}
+                                <li style="padding: 8px 15px; background: #f0f0f0; border-radius: 6px; margin-bottom: 8px; display: flex; align-items: center;">
+                                    <i class="fas fa-cube" style="color: #dc1f27; margin-left: 10px;"></i>
+                                    {{ size.strip() }}
+                                </li>
+                                {% endfor %}
+                            </ul>
                         </div>
                         {% endif %}
                         {% if project.start_date %}
