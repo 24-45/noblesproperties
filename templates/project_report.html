@@ -1124,11 +1124,12 @@
 
                     </div>
 
-                    <!-- Save Button -->
+                    <!-- Auto-save Status -->
                     <div class="text-center mt-4">
-                        <button class="btn btn-lg px-5" style="background: linear-gradient(135deg, #dc1f27, #b81920); color: #fff; border-radius: 30px;" onclick="saveQuestionnaire()">
-                            <i class="fas fa-save"></i> حفظ الإجابات
-                        </button>
+                        <div id="autoSaveStatus" class="d-inline-flex align-items-center px-4 py-2" style="background: #f8f9fa; border-radius: 30px; color: #666;">
+                            <i class="fas fa-cloud-upload-alt me-2"></i>
+                            <span>الحفظ التلقائي مفعّل</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1263,6 +1264,89 @@ function updateProgress() {
     
     if (progressFill) progressFill.style.width = percentage + '%';
     if (progressCount) progressCount.textContent = `${filledCount}/${totalQuestions} سؤال`;
+}
+
+// Auto-save timer
+let autoSaveTimer = null;
+
+// Setup auto-save on all textareas
+document.querySelectorAll('.questionnaire-section textarea').forEach(textarea => {
+    textarea.addEventListener('input', function() {
+        // Update progress immediately
+        updateProgress();
+        
+        // Show saving status
+        const statusEl = document.getElementById('autoSaveStatus');
+        if (statusEl) {
+            statusEl.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i><span>جاري الحفظ...</span>';
+            statusEl.style.background = '#fff3cd';
+            statusEl.style.color = '#856404';
+        }
+        
+        // Clear previous timer
+        if (autoSaveTimer) clearTimeout(autoSaveTimer);
+        
+        // Set new timer (save after 1 second of no typing)
+        autoSaveTimer = setTimeout(() => {
+            saveQuestionnaireAuto();
+        }, 1000);
+    });
+});
+
+async function saveQuestionnaireAuto() {
+    const textareas = document.querySelectorAll('.questionnaire-section textarea');
+    const projectId = '{{ project.id }}';
+    const projectName = '{{ project.name }}';
+    
+    // Prepare data object
+    const questionnaireData = {
+        projectId: projectId,
+        projectName: projectName,
+        updatedAt: new Date().toISOString()
+    };
+    
+    textareas.forEach(textarea => {
+        const questionNum = textarea.closest('.question-item').querySelector('.question-number').textContent;
+        questionnaireData[`q${questionNum}`] = textarea.value;
+    });
+    
+    const statusEl = document.getElementById('autoSaveStatus');
+    
+    try {
+        // Check if Firebase is initialized
+        if (typeof db === 'undefined') {
+            throw new Error('Firebase غير متصل');
+        }
+        
+        // Save to Firebase
+        await db.collection('questionnaires').doc(projectId).set(questionnaireData, { merge: true });
+        
+        // Show success message
+        if (statusEl) {
+            statusEl.innerHTML = '<i class="fas fa-check-circle me-2"></i><span>تم الحفظ تلقائياً</span>';
+            statusEl.style.background = '#d4edda';
+            statusEl.style.color = '#155724';
+        }
+        
+        console.log('✅ تم الحفظ التلقائي بنجاح');
+        
+        // Reset status after 3 seconds
+        setTimeout(() => {
+            if (statusEl) {
+                statusEl.innerHTML = '<i class="fas fa-cloud-upload-alt me-2"></i><span>الحفظ التلقائي مفعّل</span>';
+                statusEl.style.background = '#f8f9fa';
+                statusEl.style.color = '#666';
+            }
+        }, 3000);
+        
+    } catch (error) {
+        console.error('❌ خطأ في الحفظ التلقائي:', error);
+        if (statusEl) {
+            statusEl.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i><span>خطأ في الحفظ</span>';
+            statusEl.style.background = '#f8d7da';
+            statusEl.style.color = '#721c24';
+        }
+    }
 }
 
 async function saveQuestionnaire() {
