@@ -1234,266 +1234,28 @@
 
             <!-- Tab 2: Benchmarks -->
             <div class="tab-pane" id="benchmarks" data-title="المقارنات المرجعية">
-                <div class="section-card">
-                    <h3><i class="fas fa-chart-line"></i> المقارنة مع المشاريع المماثلة</h3>
-                    <table class="benchmark-table">
-                        <thead>
-                            <tr>
-                                <th>المعيار</th>
-                                <th>{{ project.name }}</th>
-                                <th>متوسط السوق</th>
-                                <th>الأفضل في السوق</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>سعر المتر المربع</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>نسبة المبيعات</td>
-                                <td>{{ ((project.sold_units / project.total_units * 100) | round(1)) if project.total_units > 0 else 0 }}%</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>معدل الطلب الشهري</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>رضا العملاء</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="text-muted mt-3"><i class="fas fa-info-circle"></i> سيتم تحديث البيانات قريباً</p>
-                </div>
-
-                <div class="section-card">
-                    <h3><i class="fas fa-balance-scale"></i> تحليل SWOT</h3>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <div class="p-3 rounded" style="background: #d4edda; height: 100%;">
-                                <h5 class="text-success"><i class="fas fa-plus-circle"></i> نقاط القوة</h5>
-                                <ul class="mb-0">
-                                    <li>موقع استراتيجي</li>
-                                    <li>تصميم عصري</li>
-                                    <li>مرافق متكاملة</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <div class="p-3 rounded" style="background: #f8d7da; height: 100%;">
-                                <h5 class="text-danger"><i class="fas fa-minus-circle"></i> نقاط الضعف</h5>
-                                <ul class="mb-0">
-                                    <li>بيانات قيد التحديث</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <div class="p-3 rounded" style="background: #cce5ff; height: 100%;">
-                                <h5 class="text-primary"><i class="fas fa-lightbulb"></i> الفرص</h5>
-                                <ul class="mb-0">
-                                    <li>نمو السوق العقاري</li>
-                                    <li>الطلب المتزايد</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <div class="p-3 rounded" style="background: #fff3cd; height: 100%;">
-                                <h5 class="text-warning"><i class="fas fa-exclamation-triangle"></i> التحديات</h5>
-                                <ul class="mb-0">
-                                    <li>المنافسة في السوق</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                <div class="section-card text-center py-5">
+                    <i class="fas fa-cogs fa-4x text-muted mb-4"></i>
+                    <h3 class="text-muted">جاري العمل والتطوير</h3>
+                    <p class="text-muted">نعمل على تطوير هذا القسم لتقديم أفضل تجربة لكم</p>
                 </div>
             </div>
 
             <!-- Tab 3: Marketing Plan -->
             <div class="tab-pane" id="marketing" data-title="خطة التسويق والتواصل">
-                <div class="section-card">
-                    <h3><i class="fas fa-bullseye"></i> الأهداف التسويقية</h3>
-                    <div class="row">
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="kpi-card">
-                                <i class="fas fa-users"></i>
-                                <span class="value">-</span>
-                                <span class="label">الوصول المستهدف</span>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="kpi-card green">
-                                <i class="fas fa-phone"></i>
-                                <span class="value">-</span>
-                                <span class="label">العملاء المحتملين</span>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="kpi-card blue">
-                                <i class="fas fa-handshake"></i>
-                                <span class="value">-</span>
-                                <span class="label">الزيارات الميدانية</span>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="kpi-card orange">
-                                <i class="fas fa-file-signature"></i>
-                                <span class="value">-</span>
-                                <span class="label">العقود المستهدفة</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section-card">
-                    <h3><i class="fas fa-share-alt"></i> قنوات التواصل</h3>
-                    <div class="row">
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="channel-card">
-                                <i class="fab fa-facebook"></i>
-                                <h4>فيسبوك</h4>
-                                <p>حملات إعلانية موجهة</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="channel-card">
-                                <i class="fab fa-instagram"></i>
-                                <h4>انستغرام</h4>
-                                <p>محتوى بصري جذاب</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="channel-card">
-                                <i class="fab fa-youtube"></i>
-                                <h4>يوتيوب</h4>
-                                <p>فيديوهات ترويجية</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6 mb-3">
-                            <div class="channel-card">
-                                <i class="fas fa-globe"></i>
-                                <h4>الموقع الإلكتروني</h4>
-                                <p>صفحة المشروع</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section-card">
-                    <h3><i class="fas fa-calendar-alt"></i> الجدول الزمني للحملات</h3>
-                    <div class="timeline">
-                        <div class="timeline-item completed">
-                            <div class="timeline-date">المرحلة 1</div>
-                            <div class="timeline-title">إطلاق الحملة الأولى</div>
-                            <div class="timeline-desc">التعريف بالمشروع وبناء الوعي</div>
-                        </div>
-                        <div class="timeline-item pending">
-                            <div class="timeline-date">المرحلة 2</div>
-                            <div class="timeline-title">حملات العملاء المحتملين</div>
-                            <div class="timeline-desc">جمع بيانات العملاء المهتمين</div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">المرحلة 3</div>
-                            <div class="timeline-title">حملات المبيعات</div>
-                            <div class="timeline-desc">عروض وخصومات حصرية</div>
-                        </div>
-                    </div>
+                <div class="section-card text-center py-5">
+                    <i class="fas fa-cogs fa-4x text-muted mb-4"></i>
+                    <h3 class="text-muted">جاري العمل والتطوير</h3>
+                    <p class="text-muted">نعمل على تطوير هذا القسم لتقديم أفضل تجربة لكم</p>
                 </div>
             </div>
 
             <!-- Tab 4: Monitoring -->
             <div class="tab-pane" id="monitoring" data-title="المراقبة والمتابعة">
-                <div class="section-card">
-                    <h3><i class="fas fa-chart-pie"></i> مؤشرات الأداء الرئيسية (KPIs)</h3>
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <div class="info-card p-4 bg-white rounded shadow-sm">
-                                <h5 class="mb-3">أداء المبيعات</h5>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>الهدف الشهري</span>
-                                    <span class="fw-bold">-</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>المحقق</span>
-                                    <span class="fw-bold text-success">-</span>
-                                </div>
-                                <div class="progress" style="height: 10px;">
-                                    <div class="progress-bar bg-success" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="info-card p-4 bg-white rounded shadow-sm">
-                                <h5 class="mb-3">أداء التسويق</h5>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>العملاء المحتملين</span>
-                                    <span class="fw-bold">-</span>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>معدل التحويل</span>
-                                    <span class="fw-bold text-primary">-</span>
-                                </div>
-                                <div class="progress" style="height: 10px;">
-                                    <div class="progress-bar bg-primary" style="width: 0%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section-card">
-                    <h3><i class="fas fa-clipboard-list"></i> قائمة المهام والمتابعة</h3>
-                    <ul class="checklist">
-                        <li class="done">
-                            <i class="fas fa-check-circle"></i>
-                            <div>
-                                <strong>إعداد المواد التسويقية</strong>
-                                <p class="text-muted mb-0 small">تم الانتهاء</p>
-                            </div>
-                        </li>
-                        <li class="pending">
-                            <i class="fas fa-clock"></i>
-                            <div>
-                                <strong>إطلاق الحملة الرقمية</strong>
-                                <p class="text-muted mb-0 small">قيد التنفيذ</p>
-                            </div>
-                        </li>
-                        <li class="not-started">
-                            <i class="fas fa-circle"></i>
-                            <div>
-                                <strong>تقييم نتائج الربع الأول</strong>
-                                <p class="text-muted mb-0 small">لم يبدأ بعد</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="section-card">
-                    <h3><i class="fas fa-history"></i> سجل التحديثات</h3>
-                    <table class="benchmark-table">
-                        <thead>
-                            <tr>
-                                <th>التاريخ</th>
-                                <th>التحديث</th>
-                                <th>المسؤول</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ "ديسمبر 2025" }}</td>
-                                <td>إنشاء صفحة التقرير</td>
-                                <td>فريق التسويق</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="section-card text-center py-5">
+                    <i class="fas fa-cogs fa-4x text-muted mb-4"></i>
+                    <h3 class="text-muted">جاري العمل والتطوير</h3>
+                    <p class="text-muted">نعمل على تطوير هذا القسم لتقديم أفضل تجربة لكم</p>
                 </div>
             </div>
         </div>
