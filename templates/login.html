@@ -119,7 +119,9 @@
         </a>
     </div>
 </div>
+{% endblock %}
 
+{% block extra_js %}
 <script>
     // إذا كان المستخدم مسجل دخوله بالفعل، توجيهه للصفحة المطلوبة
     auth.onAuthStateChanged((user) => {
