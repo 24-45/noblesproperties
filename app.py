@@ -50,6 +50,12 @@ def index():
     return render_template('index.html', projects=data.get('projects', []))
 
 
+@app.route('/login')
+def login():
+    """صفحة تسجيل الدخول"""
+    return render_template('login.html')
+
+
 @app.route('/projects')
 def projects():
     """صفحة جميع المشاريع"""

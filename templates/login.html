@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}تسجيل الدخول - نوبلز العقارية{% endblock %}
+
+{% block extra_css %}
+<style>
+    .login-container {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--spacing-xxl) 0;
+    }
+    
+    .login-card {
+        background: var(--white);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-lg);
+        padding: var(--spacing-xxl);
+        max-width: 450px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .login-logo {
+        width: 120px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .login-title {
+        color: var(--gray-800);
+        margin-bottom: var(--spacing-sm);
+        font-weight: 700;
+    }
+    
+    .login-subtitle {
+        color: var(--gray-600);
+        margin-bottom: var(--spacing-xl);
+    }
+    
+    .google-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        padding: 14px 24px;
+        background: var(--white);
+        border: 2px solid var(--gray-300);
+        border-radius: var(--radius-lg);
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--gray-700);
+        cursor: pointer;
+        transition: var(--transition-base);
+    }
+    
+    .google-btn:hover {
+        background: var(--gray-100);
+        border-color: var(--gray-400);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+    
+    .google-btn img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .login-info {
+        margin-top: var(--spacing-xl);
+        padding-top: var(--spacing-lg);
+        border-top: 1px solid var(--gray-200);
+    }
+    
+    .login-info p {
+        color: var(--gray-600);
+        font-size: 0.9rem;
+        margin: 0;
+    }
+    
+    .login-info i {
+        color: var(--success);
+        margin-left: 8px;
+    }
+    
+    .back-link {
+        display: inline-block;
+        margin-top: var(--spacing-lg);
+        color: var(--gray-600);
+        text-decoration: none;
+    }
+    
+    .back-link:hover {
+        color: var(--primary-color);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="نوبلز العقارية" class="login-logo">
+        
+        <h2 class="login-title">مرحباً بك</h2>
+        <p class="login-subtitle">سجل دخولك للوصول إلى المشاريع</p>
+        
+        <button class="google-btn" onclick="signInWithGoogle()">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+            <span>تسجيل الدخول بـ Google</span>
+        </button>
+        
+        <div class="login-info">
+            <p><i class="fas fa-shield-alt"></i> تسجيل دخول آمن وسريع</p>
+        </div>
+        
+        <a href="{{ url_for('index') }}" class="back-link">
+            <i class="fas fa-arrow-right"></i> العودة للصفحة الرئيسية
+        </a>
+    </div>
+</div>
+
+<script>
+    // إذا كان المستخدم مسجل دخوله بالفعل، توجيهه للصفحة المطلوبة
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            const redirect = new URLSearchParams(window.location.search).get('redirect') || '/projects';
+            window.location.href = redirect;
+        }
+    });
+</script>
+{% endblock %}
