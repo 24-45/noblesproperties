@@ -361,7 +361,7 @@ img {
 }
 
 .project-badge.featured {
-    background: var(--primary-color);
+    background: var(--success);
     color: var(--white);
 }
 
