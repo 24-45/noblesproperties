@@ -855,22 +855,32 @@
             }, 1000); // Wait 1 second after typing stops
         }
         
-        // Load saved data on page load
+        // Load saved data on page load - Server data has priority
         document.addEventListener('DOMContentLoaded', function() {
-            loadFromLocalStorage();
-            
-            // Also load from server
+            // Load from server first (shared data for all users)
             fetch('/api/questionnaire/{{ project_slug }}')
                 .then(response => response.json())
                 .then(data => {
-                    if (data.answers) {
+                    if (data.answers && Object.keys(data.answers).length > 0) {
+                        // Server has data - use it
                         Object.keys(data.answers).forEach(key => {
                             const textarea = document.querySelector(`textarea[name="${key}"]`);
                             if (textarea && data.answers[key]) {
                                 textarea.value = data.answers[key];
                             }
                         });
-                        updateProgress();
+                        // Update progress bar
+                        const textareas = document.querySelectorAll('textarea');
+                        let filled = 0;
+                        textareas.forEach(textarea => {
+                            if (textarea.value.trim() !== '') {
+                                filled++;
+                            }
+                        });
+                        const total = textareas.length;
+                        const percentage = Math.round((filled / total) * 100);
+                        document.getElementById('progressBar').style.width = percentage + '%';
+                        document.getElementById('progressCount').textContent = filled + '/' + total + ' سؤال';
                     }
                 })
                 .catch(error => {
