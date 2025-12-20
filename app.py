@@ -3,7 +3,7 @@ Nobles Properties - Interactive Report Website
 نوبلز العقارية - موقع التقارير التفاعلي
 """
 
-from flask import Flask, render_template, jsonify, send_from_directory
+from flask import Flask, render_template, jsonify, send_from_directory, request
 from pathlib import Path
 import json
 
@@ -102,6 +102,19 @@ def about():
     return render_template('about.html')
 
 
+# ==================== صفحة الاستبانة ====================
+
+@app.route('/questionnaire/<slug>')
+def questionnaire(slug):
+    """صفحة الاستبانة المستقلة للعميل"""
+    project = get_project_by_slug(slug)
+    if not project:
+        return render_template('404.html'), 404
+    return render_template('questionnaire.html', 
+                         project_name=project.get('name', 'المشروع'),
+                         project_slug=slug)
+
+
 # ==================== API Endpoints ====================
 
 @app.route('/api/projects')
@@ -149,6 +162,43 @@ def api_project_progress(slug):
         "project_name": project.get('name', ''),
         "monthly_progress": project.get('monthly_progress', [])
     })
+
+
+@app.route('/api/questionnaire/submit', methods=['POST'])
+def api_questionnaire_submit():
+    """API: استلام إجابات الاستبانة"""
+    data = request.get_json()
+    
+    if not data:
+        return jsonify({"error": "لا توجد بيانات"}), 400
+    
+    project_slug = data.get('project', '')
+    answers = data.get('answers', {})
+    
+    # حفظ الإجابات في ملف JSON
+    responses_file = DATA_PATH / 'questionnaire_responses.json'
+    
+    # قراءة الملف الحالي أو إنشاء جديد
+    if responses_file.exists():
+        with open(responses_file, 'r', encoding='utf-8') as f:
+            responses = json.load(f)
+    else:
+        responses = {"responses": []}
+    
+    # إضافة الاستجابة الجديدة
+    from datetime import datetime
+    new_response = {
+        "project": project_slug,
+        "timestamp": datetime.now().isoformat(),
+        "answers": answers
+    }
+    responses["responses"].append(new_response)
+    
+    # حفظ الملف
+    with open(responses_file, 'w', encoding='utf-8') as f:
+        json.dump(responses, f, ensure_ascii=False, indent=2)
+    
+    return jsonify({"success": True, "message": "تم حفظ الاستبانة بنجاح"})
 
 
 # ==================== صفحات PDF ====================

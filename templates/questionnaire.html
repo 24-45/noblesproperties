@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبانة الاتصال الاستراتيجي - {{ project_name }}</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #dc1f27;
+            --primary-dark: #b51920;
+            --primary-light: #ff4d54;
+            --secondary-color: #ffffff;
+            --accent-color: #00502F;
+            --gray-900: #212529;
+            --gray-800: #343a40;
+            --gray-700: #495057;
+            --gray-600: #6c757d;
+            --gray-500: #adb5bd;
+            --gray-400: #ced4da;
+            --gray-300: #dee2e6;
+            --gray-200: #e9ecef;
+            --gray-100: #f8f9fa;
+            --white: #ffffff;
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            min-height: 100vh;
+            color: var(--gray-800);
+            line-height: 1.7;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .project-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        
+        /* Main Container */
+        .main-container {
+            max-width: 900px;
+            margin: -30px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Progress Card */
+        .progress-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .progress-text {
+            color: var(--gray-700);
+            font-weight: 600;
+        }
+        
+        .progress-count {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .progress-bar-container {
+            height: 12px;
+            background: var(--gray-200);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        /* Section Card */
+        .section-card {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .section-header:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #8a1419 100%);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-number {
+            background: rgba(255,255,255,0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .section-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .section-toggle {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .section-toggle.collapsed {
+            transform: rotate(180deg);
+        }
+        
+        .section-body {
+            padding: 25px;
+            display: none;
+        }
+        
+        .section-body.show {
+            display: block;
+        }
+        
+        /* Question Item */
+        .question-item {
+            background: var(--gray-100);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        .question-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .question-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .question-number {
+            background: var(--primary-color);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        .question-hint {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            padding-right: 47px;
+        }
+        
+        .question-answer textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 2px solid var(--gray-300);
+            border-radius: 10px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .question-answer textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(220, 31, 39, 0.1);
+        }
+        
+        .question-answer textarea::placeholder {
+            color: var(--gray-500);
+        }
+        
+        /* Submit Section */
+        .submit-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-top: 30px;
+        }
+        
+        .submit-section h3 {
+            color: var(--gray-800);
+            margin-bottom: 10px;
+        }
+        
+        .submit-section p {
+            color: var(--gray-600);
+            margin-bottom: 20px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(220, 31, 39, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            background: var(--gray-400);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--gray-600);
+        }
+        
+        .footer img {
+            height: 40px;
+            margin-bottom: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .main-container {
+                padding: 0 15px;
+            }
+            
+            .section-header {
+                padding: 15px 20px;
+            }
+            
+            .section-name {
+                font-size: 1rem;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .question-hint {
+                padding-right: 0;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, var(--success) 0%, #1e7e34 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .success-message i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .success-message h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i class="fas fa-bullseye"></i>
+            </div>
+            <h1>استبانة الاتصال الاستراتيجي</h1>
+            <p>أسئلة موجّهة لبناء استراتيجية اتصالية فعّالة للمشروع</p>
+            <div class="project-badge">
+                <i class="fas fa-building"></i>
+                {{ project_name }}
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Progress Card -->
+        <div class="progress-card">
+            <div class="progress-header">
+                <span class="progress-text">نسبة الإنجاز</span>
+                <span class="progress-count" id="progressCount">0/22 سؤال</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBar" style="width: 0%;"></div>
+            </div>
+        </div>
+        
+        <!-- Form -->
+        <form id="questionnaireForm">
+            
+            <!-- القسم الأول: الأهداف الاتصالية -->
+            <div class="section-card">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-title">
+                        <span class="section-number">1</span>
+                        <span class="section-name">الأهداف الاتصالية</span>
+                    </div>
+                    <i class="fas fa-chevron-up section-toggle"></i>
+                </div>
+                <div class="section-body show">
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">1</span>
+                            <span class="question-text">ما الهدف الرئيسي من الحملة الاتصالية للمشروع خلال الـ 12 شهراً القادمة؟</span>
+                        </div>
+                        <div class="question-hint">اختر هدفاً واحداً: بناء الوعي بالمشروع / جذب مستأجرين محتملين / تعزيز السمعة المؤسسية / الإعلان عن مرحلة جديدة</div>
+                        <div class="question-answer">
+                            <textarea name="q1" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">2</span>
+                            <span class="question-text">ما مؤشر النجاح الأهم الذي تودّ تحقيقه من الجهود الاتصالية؟</span>
+                        </div>
+                        <div class="question-hint">مثال: عدد الاستفسارات الواردة، نسبة التغطية الإعلامية، عدد العقود الموقّعة، نسبة الإشغال</div>
+                        <div class="question-answer">
+                            <textarea name="q2" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">3</span>
+                            <span class="question-text">ما الانطباع الذي تريد أن يتركه المشروع لدى الجمهور المستهدف؟</span>
+                        </div>
+                        <div class="question-hint">صِف بثلاث كلمات: مثال: موثوق، مبتكر، متكامل</div>
+                        <div class="question-answer">
+                            <textarea name="q3" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- القسم الثاني: فهم الجمهور المستهدف -->
+            <div class="section-card">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-title">
+                        <span class="section-number">2</span>
+                        <span class="section-name">فهم الجمهور المستهدف</span>
+                    </div>
+                    <i class="fas fa-chevron-up section-toggle collapsed"></i>
+                </div>
+                <div class="section-body">
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">4</span>
+                            <span class="question-text">مَن صانع القرار الرئيسي في الشركات التي تستهدفها؟</span>
+                        </div>
+                        <div class="question-hint">المسمى الوظيفي: مدير عمليات، مدير سلسلة إمداد، مالك الشركة، مدير مشتريات، إلخ</div>
+                        <div class="question-answer">
+                            <textarea name="q4" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">5</span>
+                            <span class="question-text">ما التحدي الأكبر الذي يواجهه عملاؤك المحتملون حالياً؟</span>
+                        </div>
+                        <div class="question-hint">مثال: ارتفاع تكاليف التخزين، صعوبة الوصول للأسواق، نقص المساحات المناسبة</div>
+                        <div class="question-answer">
+                            <textarea name="q5" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">6</span>
+                            <span class="question-text">ما العامل المهم الذي يدفع الشركات للبحث عن موقع في مدينة صناعية أو لوجستية؟</span>
+                        </div>
+                        <div class="question-hint">القرب من المطار أو الميناء / توفر العمالة / انخفاض التكاليف التشغيلية / الحوافز الحكومية / سهولة الوصول للأسواق</div>
+                        <div class="question-answer">
+                            <textarea name="q6" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- القسم الثالث: الرسائل والمحتوى -->
+            <div class="section-card">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-title">
+                        <span class="section-number">3</span>
+                        <span class="section-name">الرسائل والمحتوى</span>
+                    </div>
+                    <i class="fas fa-chevron-up section-toggle collapsed"></i>
+                </div>
+                <div class="section-body">
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">7</span>
+                            <span class="question-text">ما الرسالة الرئيسية الواحدة التي يجب أن يتذكرها كل من يسمع عن المشروع؟</span>
+                        </div>
+                        <div class="question-hint">جملة واحدة قصيرة ومؤثرة (10-15 كلمة كحد أقصى)</div>
+                        <div class="question-answer">
+                            <textarea name="q7" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">8</span>
+                            <span class="question-text">ما الميزة التي تودّ إبرازها أكثر من غيرها في جميع المواد الاتصالية؟</span>
+                        </div>
+                        <div class="question-hint">اختر ميزة واحدة فقط من مزايا المشروع المتعددة</div>
+                        <div class="question-answer">
+                            <textarea name="q8" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">9</span>
+                            <span class="question-text">هل هناك معلومات أو رسائل يجب تجنّب ذكرها في التواصل الخارجي؟</span>
+                        </div>
+                        <div class="question-hint">مواضيع حساسة، معلومات سرية، مقارنات غير مرغوبة، إلخ</div>
+                        <div class="question-answer">
+                            <textarea name="q9" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- القسم الرابع: القنوات والأدوات -->
+            <div class="section-card">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-title">
+                        <span class="section-number">4</span>
+                        <span class="section-name">القنوات والأدوات</span>
+                    </div>
+                    <i class="fas fa-chevron-up section-toggle collapsed"></i>
+                </div>
+                <div class="section-body">
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">10</span>
+                            <span class="question-text">أين يتواجد جمهورك المستهدف بشكل أساسي للحصول على المعلومات؟</span>
+                        </div>
+                        <div class="question-hint">LinkedIn / المعارض المتخصصة / الصحف الاقتصادية / المواقع المهنية / التوصيات المباشرة</div>
+                        <div class="question-answer">
+                            <textarea name="q10" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">11</span>
+                            <span class="question-text">ما المنصة الرقمية الأكثر فاعلية للوصول إلى عملائك المحتملين؟</span>
+                        </div>
+                        <div class="question-hint">LinkedIn / الموقع الإلكتروني / البريد المباشر / WhatsApp Business / منصات القطاع العقاري المتخصصة</div>
+                        <div class="question-answer">
+                            <textarea name="q11" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">12</span>
+                            <span class="question-text">ما المعارض أو الفعاليات المتخصصة التي تخططون للمشاركة فيها؟</span>
+                        </div>
+                        <div class="question-hint">اسم الفعالية، التاريخ، طبيعة المشاركة (عارض، راعٍ، متحدث)</div>
+                        <div class="question-answer">
+                            <textarea name="q12" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- القسم الخامس: المنافسة والتموضع -->
+            <div class="section-card">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-title">
+                        <span class="section-number">5</span>
+                        <span class="section-name">المنافسة والتموضع</span>
+                    </div>
+                    <i class="fas fa-chevron-up section-toggle collapsed"></i>
+                </div>
+                <div class="section-body">
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">13</span>
+                            <span class="question-text">اذكر أهم مشروع منافس في السوق المحلي والسوق الإقليمي والسوق الدولي؟</span>
+                        </div>
+                        <div class="question-hint">اسم مشروع واحد لكل سوق</div>
+                        <div class="question-answer">
+                            <textarea name="q13" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">14</span>
+                            <span class="question-text">ما النقطة التي تتفوق فيها على أقرب منافس لك؟</span>
+                        </div>
+                        <div class="question-hint">ميزة واحدة واضحة وقابلة للإثبات</div>
+                        <div class="question-answer">
+                            <textarea name="q14" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">15</span>
+                            <span class="question-text">كيف تريد أن يُصنَّف مشروعك في السوق؟</span>
+                        </div>
+                        <div class="question-hint">الخيار الأفضل سعراً / الأعلى جودة / الأقرب للمطار والخدمات اللوجستية / الأكثر تكاملاً</div>
+                        <div class="question-answer">
+                            <textarea name="q15" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">16</span>
+                            <span class="question-text">ما هي الخدمات والمساحات التي سيتم بيعها للعملاء؟</span>
+                        </div>
+                        <div class="question-hint">مثال: مستودعات، مكاتب، أراضٍ صناعية، خدمات لوجستية</div>
+                        <div class="question-answer">
+                            <textarea name="q16" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">17</span>
+                            <span class="question-text">بالنسبة للـ Warehouse ما هي أهم مواصفاتها؟</span>
+                        </div>
+                        <div class="question-hint">المساحات، الارتفاعات، التجهيزات، معايير الجودة</div>
+                        <div class="question-answer">
+                            <textarea name="q17" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- القسم السادس: الشراكات والعلاقات -->
+            <div class="section-card">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-title">
+                        <span class="section-number">6</span>
+                        <span class="section-name">الشراكات والعلاقات</span>
+                    </div>
+                    <i class="fas fa-chevron-up section-toggle collapsed"></i>
+                </div>
+                <div class="section-body">
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">18</span>
+                            <span class="question-text">هل هناك شراكات قائمة في مشروع المدينة الصناعية يمكن الإعلان عنها أو توظيفها إعلامياً؟</span>
+                        </div>
+                        <div class="question-hint">شراكات حكومية، مؤسسية، أو مع علامات تجارية معروفة</div>
+                        <div class="question-answer">
+                            <textarea name="q18" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">19</span>
+                            <span class="question-text">من الشخص المخوّل بالتصريح للإعلام نيابة عن المشروع؟</span>
+                        </div>
+                        <div class="question-hint">الاسم، المنصب، معلومات التواصل</div>
+                        <div class="question-answer">
+                            <textarea name="q19" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- القسم السابع: التوقيت والأولويات -->
+            <div class="section-card">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <div class="section-title">
+                        <span class="section-number">7</span>
+                        <span class="section-name">التوقيت والأولويات</span>
+                    </div>
+                    <i class="fas fa-chevron-up section-toggle collapsed"></i>
+                </div>
+                <div class="section-body">
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">20</span>
+                            <span class="question-text">ما هو أقرب حدث أو إنجاز خاص بشركة نوبلز يمكن ربطه إعلامياً بإطلاق المدينة الصناعية؟</span>
+                        </div>
+                        <div class="question-hint">افتتاح، توقيع عقد، إنجاز مرحلة، زيارة رسمية، إلخ - مع التاريخ المتوقع</div>
+                        <div class="question-answer">
+                            <textarea name="q20" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">21</span>
+                            <span class="question-text">ما الأولوية القصوى للأشهر الثلاثة القادمة؟</span>
+                        </div>
+                        <div class="question-hint">إجراء واحد محدد: إطلاق موقع إلكتروني / حملة إعلامية / حضور معرض / التواصل مع عملاء محددين</div>
+                        <div class="question-answer">
+                            <textarea name="q21" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                    <div class="question-item">
+                        <div class="question-header">
+                            <span class="question-number">22</span>
+                            <span class="question-text">ما الميزانية التقريبية المخصصة للأنشطة الاتصالية والتسويقية سنوياً؟</span>
+                        </div>
+                        <div class="question-hint">نطاق تقريبي: أقل من 50 ألف / 50-100 ألف / 100-250 ألف / أكثر من 250 ألف دينار</div>
+                        <div class="question-answer">
+                            <textarea name="q22" placeholder="أدخل إجابتك هنا..." onchange="updateProgress()"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Submit Section -->
+            <div class="submit-section" id="submitSection">
+                <h3><i class="fas fa-paper-plane"></i> إرسال الإجابات</h3>
+                <p>بعد الانتهاء من تعبئة جميع الأسئلة، اضغط على زر الإرسال</p>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-check-circle"></i>
+                    إرسال الاستبانة
+                </button>
+            </div>
+            
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i>
+                <h3>تم إرسال الاستبانة بنجاح!</h3>
+                <p>شكراً لك على وقتك. سيتم التواصل معك قريباً.</p>
+            </div>
+        </form>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 نوبلز العقارية - جميع الحقوق محفوظة</p>
+    </footer>
+    
+    <script>
+        // Toggle Section
+        function toggleSection(header) {
+            const body = header.nextElementSibling;
+            const toggle = header.querySelector('.section-toggle');
+            
+            body.classList.toggle('show');
+            toggle.classList.toggle('collapsed');
+        }
+        
+        // Update Progress
+        function updateProgress() {
+            const textareas = document.querySelectorAll('textarea');
+            let filled = 0;
+            
+            textareas.forEach(textarea => {
+                if (textarea.value.trim() !== '') {
+                    filled++;
+                }
+            });
+            
+            const total = textareas.length;
+            const percentage = Math.round((filled / total) * 100);
+            
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressCount').textContent = filled + '/' + total + ' سؤال';
+            
+            // Save to localStorage
+            saveToLocalStorage();
+        }
+        
+        // Save to localStorage
+        function saveToLocalStorage() {
+            const formData = {};
+            document.querySelectorAll('textarea').forEach(textarea => {
+                formData[textarea.name] = textarea.value;
+            });
+            localStorage.setItem('questionnaire_{{ project_slug }}', JSON.stringify(formData));
+        }
+        
+        // Load from localStorage
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('questionnaire_{{ project_slug }}');
+            if (saved) {
+                const formData = JSON.parse(saved);
+                Object.keys(formData).forEach(key => {
+                    const textarea = document.querySelector(`textarea[name="${key}"]`);
+                    if (textarea) {
+                        textarea.value = formData[key];
+                    }
+                });
+                updateProgress();
+            }
+        }
+        
+        // Form Submit
+        document.getElementById('questionnaireForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            // Send to server
+            fetch('/api/questionnaire/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    project: '{{ project_slug }}',
+                    answers: data
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('submitSection').style.display = 'none';
+                document.getElementById('successMessage').classList.add('show');
+                
+                // Clear localStorage
+                localStorage.removeItem('questionnaire_{{ project_slug }}');
+                
+                // Scroll to success message
+                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            })
+            .catch(error => {
+                alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.');
+            });
+        });
+        
+        // Load saved data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFromLocalStorage();
+        });
+    </script>
+</body>
+</html>
