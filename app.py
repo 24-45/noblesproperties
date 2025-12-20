@@ -9,6 +9,8 @@ import json
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False  # دعم اللغة العربية في JSON
+app.config['TEMPLATES_AUTO_RELOAD'] = True  # تحميل القوالب مباشرة بعد تعديلها
+app.jinja_env.auto_reload = True
 
 # مسار ملفات البيانات
 DATA_PATH = Path(app.root_path) / 'data'
@@ -70,6 +72,12 @@ def project_detail(slug):
     if not project:
         return render_template('404.html'), 404
     return render_template('project_detail.html', project=project)
+
+
+@app.route('/benchmarking')
+def benchmarking():
+    """صفحة المقارنات المرجعية"""
+    return render_template('benchmarking.html')
 
 
 @app.route('/reports')
