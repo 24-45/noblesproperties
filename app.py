@@ -183,22 +183,35 @@ def api_questionnaire_submit():
         with open(responses_file, 'r', encoding='utf-8') as f:
             responses = json.load(f)
     else:
-        responses = {"responses": []}
+        responses = {"responses": {}}
     
-    # إضافة الاستجابة الجديدة
+    # تحديث الاستجابة للمشروع (استبدال القديمة)
     from datetime import datetime
-    new_response = {
-        "project": project_slug,
+    responses["responses"][project_slug] = {
         "timestamp": datetime.now().isoformat(),
         "answers": answers
     }
-    responses["responses"].append(new_response)
     
     # حفظ الملف
     with open(responses_file, 'w', encoding='utf-8') as f:
         json.dump(responses, f, ensure_ascii=False, indent=2)
     
     return jsonify({"success": True, "message": "تم حفظ الاستبانة بنجاح"})
+
+
+@app.route('/api/questionnaire/<slug>')
+def api_questionnaire_get(slug):
+    """API: جلب إجابات الاستبانة المحفوظة"""
+    responses_file = DATA_PATH / 'questionnaire_responses.json'
+    
+    if responses_file.exists():
+        with open(responses_file, 'r', encoding='utf-8') as f:
+            responses = json.load(f)
+        
+        if slug in responses.get("responses", {}):
+            return jsonify(responses["responses"][slug])
+    
+    return jsonify({"answers": {}})
 
 
 # ==================== صفحات PDF ====================

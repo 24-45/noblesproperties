@@ -292,49 +292,25 @@
             color: var(--gray-500);
         }
         
-        /* Submit Section */
-        .submit-section {
-            background: white;
+        /* Auto Save Status */
+        .auto-save-status {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border: 2px solid #81c784;
             border-radius: 16px;
-            padding: 30px;
+            padding: 20px 30px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #2e7d32;
+            font-weight: 600;
+            font-size: 1rem;
         }
         
-        .submit-section h3 {
-            color: var(--gray-800);
-            margin-bottom: 10px;
-        }
-        
-        .submit-section p {
-            color: var(--gray-600);
-            margin-bottom: 20px;
-        }
-        
-        .submit-btn {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-            color: white;
-            border: none;
-            padding: 15px 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Tajawal', sans-serif;
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(220, 31, 39, 0.3);
-        }
-        
-        .submit-btn:disabled {
-            background: var(--gray-400);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .auto-save-status i {
+            font-size: 1.3rem;
         }
         
         /* Footer */
@@ -759,21 +735,10 @@
                 </div>
             </div>
             
-            <!-- Submit Section -->
-            <div class="submit-section" id="submitSection">
-                <h3><i class="fas fa-paper-plane"></i> إرسال الإجابات</h3>
-                <p>بعد الانتهاء من تعبئة جميع الأسئلة، اضغط على زر الإرسال</p>
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    <i class="fas fa-check-circle"></i>
-                    إرسال الاستبانة
-                </button>
-            </div>
-            
-            <!-- Success Message -->
-            <div class="success-message" id="successMessage">
-                <i class="fas fa-check-circle"></i>
-                <h3>تم إرسال الاستبانة بنجاح!</h3>
-                <p>شكراً لك على وقتك. سيتم التواصل معك قريباً.</p>
+            <!-- Auto Save Status -->
+            <div class="auto-save-status" id="autoSaveStatus">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>الحفظ التلقائي مفعّل - يتم حفظ إجاباتك تلقائياً</span>
             </div>
         </form>
     </main>
@@ -793,7 +758,7 @@
             toggle.classList.toggle('collapsed');
         }
         
-        // Update Progress
+        // Update Progress and Auto-Save
         function updateProgress() {
             const textareas = document.querySelectorAll('textarea');
             let filled = 0;
@@ -810,8 +775,14 @@
             document.getElementById('progressBar').style.width = percentage + '%';
             document.getElementById('progressCount').textContent = filled + '/' + total + ' سؤال';
             
-            // Save to localStorage
+            // Auto-save to localStorage
             saveToLocalStorage();
+            
+            // Show save indicator
+            showSaveIndicator();
+            
+            // Auto-save to server
+            autoSaveToServer();
         }
         
         // Save to localStorage
@@ -834,50 +805,77 @@
                         textarea.value = formData[key];
                     }
                 });
-                updateProgress();
+                // Update progress without triggering save
+                const textareas = document.querySelectorAll('textarea');
+                let filled = 0;
+                textareas.forEach(textarea => {
+                    if (textarea.value.trim() !== '') {
+                        filled++;
+                    }
+                });
+                const total = textareas.length;
+                const percentage = Math.round((filled / total) * 100);
+                document.getElementById('progressBar').style.width = percentage + '%';
+                document.getElementById('progressCount').textContent = filled + '/' + total + ' سؤال';
             }
         }
         
-        // Form Submit
-        document.getElementById('questionnaireForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Show save indicator
+        function showSaveIndicator() {
+            const status = document.getElementById('autoSaveStatus');
+            status.innerHTML = '<i class="fas fa-check-circle" style="color: #28a745;"></i> <span>تم الحفظ تلقائياً</span>';
             
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
-            
-            // Send to server
-            fetch('/api/questionnaire/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    project: '{{ project_slug }}',
-                    answers: data
-                })
-            })
-            .then(response => response.json())
-            .then(result => {
-                document.getElementById('submitSection').style.display = 'none';
-                document.getElementById('successMessage').classList.add('show');
+            setTimeout(() => {
+                status.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> <span>الحفظ التلقائي مفعّل</span>';
+            }, 2000);
+        }
+        
+        // Auto-save to server (debounced)
+        let saveTimeout;
+        function autoSaveToServer() {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                const formData = {};
+                document.querySelectorAll('textarea').forEach(textarea => {
+                    formData[textarea.name] = textarea.value;
+                });
                 
-                // Clear localStorage
-                localStorage.removeItem('questionnaire_{{ project_slug }}');
-                
-                // Scroll to success message
-                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
-            })
-            .catch(error => {
-                alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.');
-            });
-        });
+                fetch('/api/questionnaire/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        project: '{{ project_slug }}',
+                        answers: formData
+                    })
+                }).catch(error => {
+                    console.log('Auto-save error:', error);
+                });
+            }, 1000); // Wait 1 second after typing stops
+        }
         
         // Load saved data on page load
         document.addEventListener('DOMContentLoaded', function() {
             loadFromLocalStorage();
+            
+            // Also load from server
+            fetch('/api/questionnaire/{{ project_slug }}')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.answers) {
+                        Object.keys(data.answers).forEach(key => {
+                            const textarea = document.querySelector(`textarea[name="${key}"]`);
+                            if (textarea && data.answers[key]) {
+                                textarea.value = data.answers[key];
+                            }
+                        });
+                        updateProgress();
+                    }
+                })
+                .catch(error => {
+                    console.log('Load error:', error);
+                });
         });
     </script>
 </body>
