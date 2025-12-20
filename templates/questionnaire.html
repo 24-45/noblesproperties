@@ -775,13 +775,7 @@
             document.getElementById('progressBar').style.width = percentage + '%';
             document.getElementById('progressCount').textContent = filled + '/' + total + ' سؤال';
             
-            // Auto-save to localStorage
-            saveToLocalStorage();
-            
-            // Show save indicator
-            showSaveIndicator();
-            
-            // Auto-save to server
+            // Auto-save to server (يتضمن localStorage أيضاً)
             autoSaveToServer();
         }
         
@@ -821,25 +815,36 @@
         }
         
         // Show save indicator
-        function showSaveIndicator() {
-            const status = document.getElementById('autoSaveStatus');
-            status.innerHTML = '<i class="fas fa-check-circle" style="color: #28a745;"></i> <span>تم الحفظ تلقائياً</span>';
-            
-            setTimeout(() => {
-                status.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> <span>الحفظ التلقائي مفعّل</span>';
-            }, 2000);
+        function showSaveIndicator(status) {
+            const statusEl = document.getElementById('autoSaveStatus');
+            if (status === 'saving') {
+                statusEl.innerHTML = '<i class="fas fa-spinner fa-spin" style="color: #ffc107;"></i> <span>جاري الحفظ...</span>';
+            } else if (status === 'saved') {
+                statusEl.innerHTML = '<i class="fas fa-check-circle" style="color: #28a745;"></i> <span>تم الحفظ تلقائياً</span>';
+                setTimeout(() => {
+                    statusEl.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> <span>الحفظ التلقائي مفعّل</span>';
+                }, 2000);
+            } else if (status === 'error') {
+                statusEl.innerHTML = '<i class="fas fa-exclamation-circle" style="color: #dc3545;"></i> <span>خطأ في الحفظ</span>';
+            }
         }
         
         // Auto-save to server (debounced)
         let saveTimeout;
         function autoSaveToServer() {
             clearTimeout(saveTimeout);
+            showSaveIndicator('saving');
+            
             saveTimeout = setTimeout(() => {
                 const formData = {};
                 document.querySelectorAll('textarea').forEach(textarea => {
                     formData[textarea.name] = textarea.value;
                 });
                 
+                // حفظ في localStorage أولاً (للاحتياط)
+                localStorage.setItem('questionnaire_{{ project_slug }}', JSON.stringify(formData));
+                
+                // ثم حفظ على السيرفر
                 fetch('/api/questionnaire/submit', {
                     method: 'POST',
                     headers: {
@@ -849,42 +854,72 @@
                         project: '{{ project_slug }}',
                         answers: formData
                     })
-                }).catch(error => {
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Save response:', data);
+                    if (data.success) {
+                        showSaveIndicator('saved');
+                    } else {
+                        showSaveIndicator('error');
+                    }
+                })
+                .catch(error => {
                     console.log('Auto-save error:', error);
+                    showSaveIndicator('error');
                 });
             }, 1000); // Wait 1 second after typing stops
         }
         
+        // تحديث شريط التقدم
+        function updateProgressBar() {
+            const textareas = document.querySelectorAll('textarea');
+            let filled = 0;
+            textareas.forEach(textarea => {
+                if (textarea.value.trim() !== '') {
+                    filled++;
+                }
+            });
+            const total = textareas.length;
+            const percentage = Math.round((filled / total) * 100);
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressCount').textContent = filled + '/' + total + ' سؤال';
+        }
+        
         // Load saved data on page load - Server data has priority
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Loading questionnaire data...');
+            
             // Load from server first (shared data for all users)
             fetch('/api/questionnaire/{{ project_slug }}')
-                .then(response => response.json())
+                .then(response => {
+                    console.log('Server response status:', response.status);
+                    return response.json();
+                })
                 .then(data => {
+                    console.log('Server data received:', data);
                     if (data.answers && Object.keys(data.answers).length > 0) {
                         // Server has data - use it
+                        console.log('Loading answers from server...');
                         Object.keys(data.answers).forEach(key => {
                             const textarea = document.querySelector(`textarea[name="${key}"]`);
                             if (textarea && data.answers[key]) {
                                 textarea.value = data.answers[key];
+                                console.log('Loaded:', key, '=', data.answers[key].substring(0, 50) + '...');
                             }
                         });
-                        // Update progress bar
-                        const textareas = document.querySelectorAll('textarea');
-                        let filled = 0;
-                        textareas.forEach(textarea => {
-                            if (textarea.value.trim() !== '') {
-                                filled++;
-                            }
-                        });
-                        const total = textareas.length;
-                        const percentage = Math.round((filled / total) * 100);
-                        document.getElementById('progressBar').style.width = percentage + '%';
-                        document.getElementById('progressCount').textContent = filled + '/' + total + ' سؤال';
+                        updateProgressBar();
+                        console.log('Data loaded from server successfully');
+                    } else {
+                        // No server data, try localStorage
+                        console.log('No server data, trying localStorage...');
+                        loadFromLocalStorage();
                     }
                 })
                 .catch(error => {
-                    console.log('Load error:', error);
+                    console.log('Server load error:', error);
+                    // Fallback to localStorage
+                    loadFromLocalStorage();
                 });
         });
     </script>
