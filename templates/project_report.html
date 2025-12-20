@@ -20549,53 +20549,84 @@
                                     المرحلة الأولى: التهيئة والتشويق (25-31 ديسمبر)
                                 </h4>
                             </div>
-                            <div style="background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.2); border-top: none; border-radius: 0 0 12px 12px; overflow: hidden;">
-                                <table style="width: 100%; border-collapse: collapse;">
+                            <div style="background: rgba(245, 158, 11, 0.05); border: 1px solid rgba(245, 158, 11, 0.2); border-top: none; border-radius: 0 0 12px 12px; overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; min-width: 900px;">
                                     <thead>
                                         <tr style="background: rgba(245, 158, 11, 0.1);">
-                                            <th style="padding: 12px 15px; text-align: right; color: #f59e0b; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2);">#</th>
-                                            <th style="padding: 12px 15px; text-align: right; color: #f59e0b; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2);">المنتج</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #f59e0b; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2);">تاريخ البدء</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #f59e0b; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2);">تاريخ الانتهاء</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #f59e0b; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2);">القنوات</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #f59e0b; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2);">الحالة</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #f59e0b; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2); width: 30px;">#</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #f59e0b; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2); width: 140px;">المنتج</th>
+                                            <th style="padding: 12px 10px; text-align: center; color: #f59e0b; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2); width: 80px;">التاريخ</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #f59e0b; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2);">القنوات الأساسية</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #f59e0b; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2);">القنوات الداعمة</th>
+                                            <th style="padding: 12px 10px; text-align: center; color: #f59e0b; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2); width: 70px;">مدفوع</th>
+                                            <th style="padding: 12px 10px; text-align: center; color: #f59e0b; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(245, 158, 11, 0.2); width: 60px;">الحالة</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">1</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">التيزر التشويقي</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">25 ديسمبر</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">28 ديسمبر</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">Social Media</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">1</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">التيزر التشويقي</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">25-28 ديسمبر</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(0, 119, 181, 0.2); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">LinkedIn</span>
+                                                    <span style="background: rgba(225, 48, 108, 0.2); color: #f472b6; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">Instagram</span>
+                                                    <span style="background: rgba(29, 161, 242, 0.2); color: #60a5fa; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">X</span>
+                                                    <span style="background: rgba(255, 0, 0, 0.2); color: #f87171; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">YouTube</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">عمر زوربا، د. معن القطامين</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">✓ $500</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">2</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">الخبر الصحفي التمهيدي</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">28 ديسمبر</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">30 ديسمبر</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(168, 85, 247, 0.2); color: #c4b5fd; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">عمون، الغد</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">2</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">الخبر الصحفي التمهيدي</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">28-30 ديسمبر</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(168, 85, 247, 0.2); color: #c4b5fd; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">عمون</span>
+                                                    <span style="background: rgba(59, 130, 246, 0.2); color: #93c5fd; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">الغد</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">م. موسى الساكت (LinkedIn)</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(100, 116, 139, 0.2); color: #94a3b8; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">—</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">3</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">سلسلة العد التنازلي</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">28 ديسمبر</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">31 ديسمبر</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">Social Media</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">3</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">سلسلة العد التنازلي</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">28-31 ديسمبر</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(225, 48, 108, 0.2); color: #f472b6; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">Instagram</span>
+                                                    <span style="background: rgba(29, 161, 242, 0.2); color: #60a5fa; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">X</span>
+                                                    <span style="background: rgba(24, 119, 242, 0.2); color: #60a5fa; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">Facebook</span>
+                                                    <span style="background: rgba(0, 119, 181, 0.2); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">LinkedIn</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">—</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">✓ $500</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">4</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">دعوة "احفظ التاريخ"</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">26 ديسمبر</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">29 ديسمبر</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">Email + WhatsApp</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">4</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">دعوة "احفظ التاريخ"</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">26-29 ديسمبر</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">Email</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">WhatsApp (فتحي الجغبير، خليل الحاج توفيق)</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(100, 116, 139, 0.2); color: #94a3b8; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">—</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); border-top: none; border-radius: 0 0 12px 12px; padding: 10px 15px;">
+                                <p style="color: #fbbf24; font-size: 0.75rem; margin: 0;"><i class="fas fa-dollar-sign" style="margin-left: 5px;"></i><strong>ميزانية الترويج المدفوع للمرحلة:</strong> $1,000 (Facebook/Instagram Ads + LinkedIn Sponsored)</p>
                             </div>
                         </div>
 
@@ -20607,61 +20638,94 @@
                                     المرحلة الثانية: الإطلاق الاستراتيجي (1-15 يناير)
                                 </h4>
                             </div>
-                            <div style="background: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.2); border-top: none; border-radius: 0 0 12px 12px; overflow: hidden;">
-                                <table style="width: 100%; border-collapse: collapse;">
+                            <div style="background: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.2); border-top: none; border-radius: 0 0 12px 12px; overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; min-width: 900px;">
                                     <thead>
                                         <tr style="background: rgba(34, 197, 94, 0.1);">
-                                            <th style="padding: 12px 15px; text-align: right; color: #22c55e; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2);">#</th>
-                                            <th style="padding: 12px 15px; text-align: right; color: #22c55e; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2);">المنتج</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #22c55e; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2);">تاريخ البدء</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #22c55e; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2);">تاريخ الانتهاء</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #22c55e; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2);">القنوات</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #22c55e; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2);">الحالة</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #22c55e; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2); width: 30px;">#</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #22c55e; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2); width: 140px;">المنتج</th>
+                                            <th style="padding: 12px 10px; text-align: center; color: #22c55e; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2); width: 80px;">التاريخ</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #22c55e; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2);">القنوات الأساسية</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #22c55e; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2);">القنوات الداعمة</th>
+                                            <th style="padding: 12px 10px; text-align: center; color: #22c55e; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2); width: 70px;">مدفوع</th>
+                                            <th style="padding: 12px 10px; text-align: center; color: #22c55e; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(34, 197, 94, 0.2); width: 60px;">الحالة</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">5</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">حدث الإطلاق الرسمي</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">1 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">1 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(239, 68, 68, 0.2); color: #f87171; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">The Warehouse</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">5</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">حدث الإطلاق الرسمي</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">1 يناير</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(239, 68, 68, 0.2); color: #f87171; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">The Warehouse</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">TV، البث المباشر، Social Media</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">✓ $1,500</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">6</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">الحقيبة الإعلامية الرقمية</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">1 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">5 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(6, 182, 212, 0.2); color: #22d3ee; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">Microsite</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">6</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">الحقيبة الإعلامية الرقمية</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">1-5 يناير</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(6, 182, 212, 0.2); color: #22d3ee; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">Microsite</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">QR Codes، Media Distribution</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(100, 116, 139, 0.2); color: #94a3b8; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">—</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">7</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">حملة المحتوى المتكاملة</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">2 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">10 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">Digital Ads</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">7</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">حملة المحتوى المتكاملة</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">2-10 يناير</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">Meta Ads</span>
+                                                    <span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">Google Ads</span>
+                                                    <span style="background: rgba(0, 119, 181, 0.2); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">LinkedIn Ads</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">YouTube Pre-roll، Native Ads</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">✓ $2,000</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">8</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">سلسلة فيديوهات الخبراء</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">5 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">15 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(0, 119, 181, 0.2); color: #38bdf8; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">LinkedIn</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">8</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">سلسلة فيديوهات الخبراء</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">5-15 يناير</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(0, 119, 181, 0.2); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">LinkedIn</span>
+                                                    <span style="background: rgba(255, 0, 0, 0.2); color: #f87171; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">YouTube</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">د. فارس الخرابشة، أ. زيد خلف، أ. ليث الوحيدي</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">✓ $500</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">9</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">الشراكات الإعلامية المتكاملة</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">1 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">15 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(168, 85, 247, 0.2); color: #c4b5fd; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">TV + Digital</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">9</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">الشراكات الإعلامية</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">1-15 يناير</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(168, 85, 247, 0.2); color: #c4b5fd; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">المملكة</span>
+                                                    <span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">رؤيا</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">Digital Partnership، Sponsored Content</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">✓ $1,000</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div style="background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.2); border-top: none; border-radius: 0 0 12px 12px; padding: 10px 15px;">
+                                <p style="color: #4ade80; font-size: 0.75rem; margin: 0;"><i class="fas fa-dollar-sign" style="margin-left: 5px;"></i><strong>ميزانية الترويج المدفوع للمرحلة:</strong> $5,000 (55% من إجمالي الميزانية)</p>
                             </div>
                         </div>
 
@@ -20673,53 +20737,82 @@
                                     المرحلة الثالثة: ترسيخ الريادة (16 يناير - 8 فبراير)
                                 </h4>
                             </div>
-                            <div style="background: rgba(139, 92, 246, 0.05); border: 1px solid rgba(139, 92, 246, 0.2); border-top: none; border-radius: 0 0 12px 12px; overflow: hidden;">
-                                <table style="width: 100%; border-collapse: collapse;">
+                            <div style="background: rgba(139, 92, 246, 0.05); border: 1px solid rgba(139, 92, 246, 0.2); border-top: none; border-radius: 0 0 12px 12px; overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; min-width: 900px;">
                                     <thead>
                                         <tr style="background: rgba(139, 92, 246, 0.1);">
-                                            <th style="padding: 12px 15px; text-align: right; color: #a78bfa; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">#</th>
-                                            <th style="padding: 12px 15px; text-align: right; color: #a78bfa; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">المنتج</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #a78bfa; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">تاريخ البدء</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #a78bfa; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">تاريخ الانتهاء</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #a78bfa; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">القنوات</th>
-                                            <th style="padding: 12px 15px; text-align: center; color: #a78bfa; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">الحالة</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #a78bfa; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2); width: 30px;">#</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #a78bfa; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2); width: 140px;">المنتج</th>
+                                            <th style="padding: 12px 10px; text-align: center; color: #a78bfa; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2); width: 80px;">التاريخ</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #a78bfa; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">القنوات الأساسية</th>
+                                            <th style="padding: 12px 10px; text-align: right; color: #a78bfa; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2);">القنوات الداعمة</th>
+                                            <th style="padding: 12px 10px; text-align: center; color: #a78bfa; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2); width: 70px;">مدفوع</th>
+                                            <th style="padding: 12px 10px; text-align: center; color: #a78bfa; font-size: 0.75rem; font-weight: 600; border-bottom: 1px solid rgba(139, 92, 246, 0.2); width: 60px;">الحالة</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">10</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">إعلان أول استثمار</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">20 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">25 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(168, 85, 247, 0.2); color: #c4b5fd; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">صحفي + Digital</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">10</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">إعلان أول استثمار</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">20-25 يناير</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(168, 85, 247, 0.2); color: #c4b5fd; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">عمون</span>
+                                                    <span style="background: rgba(59, 130, 246, 0.2); color: #93c5fd; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">الغد</span>
+                                                    <span style="background: rgba(0, 119, 181, 0.2); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">LinkedIn</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">Social Media Campaign</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">✓ $800</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">11</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">التقرير السنوي التفاعلي</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">1 فبراير</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">8 فبراير</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(6, 182, 212, 0.2); color: #22d3ee; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">Print + Digital</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">11</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">التقرير السنوي التفاعلي</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">1-8 فبراير</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(6, 182, 212, 0.2); color: #22d3ee; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">Print</span>
+                                                    <span style="background: rgba(139, 92, 246, 0.2); color: #a78bfa; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">Digital</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">QR Codes، Interactive Microsite</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(100, 116, 139, 0.2); color: #94a3b8; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">—</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                         <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">12</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">سلسلة قادة المستقبل</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">16 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">8 فبراير</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(0, 119, 181, 0.2); color: #38bdf8; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">LinkedIn</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">12</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">سلسلة قادة المستقبل</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">16 يناير - 8 فبراير</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(0, 119, 181, 0.2); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">LinkedIn</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">LinkedIn Pulse، Company Page</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">✓ $700</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding: 12px 15px; color: #94a3b8; font-size: 0.85rem;">13</td>
-                                            <td style="padding: 12px 15px; color: #f1f5f9; font-size: 0.85rem; font-weight: 600;">التسويق عبر المؤثرين 2.0</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">20 يناير</td>
-                                            <td style="padding: 12px 15px; text-align: center; color: #94a3b8; font-size: 0.85rem;">8 فبراير</td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">Social Media</span></td>
-                                            <td style="padding: 12px 15px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem;">⏳ قادم</span></td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.8rem;">13</td>
+                                            <td style="padding: 10px; color: #f1f5f9; font-size: 0.8rem; font-weight: 600;">التسويق عبر المؤثرين 2.0</td>
+                                            <td style="padding: 10px; text-align: center; color: #94a3b8; font-size: 0.75rem;">20 يناير - 8 فبراير</td>
+                                            <td style="padding: 10px;">
+                                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                                    <span style="background: rgba(225, 48, 108, 0.2); color: #f472b6; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">Instagram</span>
+                                                    <span style="background: rgba(0, 119, 181, 0.2); color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">LinkedIn</span>
+                                                    <span style="background: rgba(255, 0, 0, 0.2); color: #f87171; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem;">YouTube</span>
+                                                </div>
+                                            </td>
+                                            <td style="padding: 10px; color: #94a3b8; font-size: 0.7rem;">ورش عمل، مقابلات فيديو</td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem;">✓ $1,500</span></td>
+                                            <td style="padding: 10px; text-align: center;"><span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; padding: 2px 6px; border-radius: 8px; font-size: 0.65rem;">⏳</span></td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div style="background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.2); border-top: none; border-radius: 0 0 12px 12px; padding: 10px 15px;">
+                                <p style="color: #a78bfa; font-size: 0.75rem; margin: 0;"><i class="fas fa-dollar-sign" style="margin-left: 5px;"></i><strong>ميزانية الترويج المدفوع للمرحلة:</strong> $3,000 (30% من إجمالي الميزانية)</p>
                             </div>
                         </div>
                     </div>
