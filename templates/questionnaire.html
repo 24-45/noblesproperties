@@ -886,41 +886,45 @@
         
         // Load saved data on page load - Firestore first
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Loading questionnaire data from Firestore...');
+            console.log('=== بداية تحميل الاستبانة ===');
+            console.log('Project Slug:', projectSlug);
             showSaveIndicator('loading');
             
             // Load from Firestore
             db.collection('questionnaires').doc(projectSlug).get()
                 .then((doc) => {
+                    console.log('Document exists:', doc.exists);
                     if (doc.exists) {
                         const data = doc.data();
-                        console.log('Firestore data:', data);
+                        console.log('Firestore data:', JSON.stringify(data));
                         
                         if (data.answers && Object.keys(data.answers).length > 0) {
                             // Firestore has data - use it
-                            console.log('Loading answers from Firestore...');
+                            console.log('عدد الإجابات:', Object.keys(data.answers).length);
                             Object.keys(data.answers).forEach(key => {
                                 const textarea = document.querySelector(`textarea[name="${key}"]`);
                                 if (textarea && data.answers[key]) {
                                     textarea.value = data.answers[key];
+                                    console.log('تم تحميل:', key);
                                 }
                             });
                             updateProgressBar();
                             showSaveIndicator('saved');
-                            console.log('✓ Data loaded from Firestore successfully');
+                            console.log('✓ تم تحميل البيانات من Firestore بنجاح');
                         } else {
+                            console.log('لا توجد إجابات في Firestore');
                             loadFromLocalStorage();
                             showSaveIndicator('saved');
                         }
                     } else {
                         // No Firestore data, try localStorage
-                        console.log('No Firestore data, trying localStorage...');
+                        console.log('Document غير موجود في Firestore');
                         loadFromLocalStorage();
                         showSaveIndicator('saved');
                     }
                 })
                 .catch((error) => {
-                    console.error('Firestore load error:', error);
+                    console.error('خطأ Firestore:', error.message);
                     // Fallback to localStorage
                     loadFromLocalStorage();
                     showSaveIndicator('error');
