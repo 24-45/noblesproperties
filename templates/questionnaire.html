@@ -11,6 +11,10 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
     <style>
         :root {
             --primary-color: #dc1f27;
@@ -749,6 +753,22 @@
     </footer>
     
     <script>
+        // Firebase Configuration - نفس المشروع الموجود
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcJ14KaBqyVrHlSGqrf4SXY8nw61c218Q",
+            authDomain: "nobles-c3e07.firebaseapp.com",
+            projectId: "nobles-c3e07",
+            storageBucket: "nobles-c3e07.firebasestorage.app",
+            messagingSenderId: "110014465208",
+            appId: "1:110014465208:web:2bae52630c6729df6a604d",
+            measurementId: "G-YDEWJPBC45"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const projectSlug = '{{ project_slug }}';
+        
         // Toggle Section
         function toggleSection(header) {
             const body = header.nextElementSibling;
@@ -775,43 +795,8 @@
             document.getElementById('progressBar').style.width = percentage + '%';
             document.getElementById('progressCount').textContent = filled + '/' + total + ' سؤال';
             
-            // Auto-save to server (يتضمن localStorage أيضاً)
-            autoSaveToServer();
-        }
-        
-        // Save to localStorage
-        function saveToLocalStorage() {
-            const formData = {};
-            document.querySelectorAll('textarea').forEach(textarea => {
-                formData[textarea.name] = textarea.value;
-            });
-            localStorage.setItem('questionnaire_{{ project_slug }}', JSON.stringify(formData));
-        }
-        
-        // Load from localStorage
-        function loadFromLocalStorage() {
-            const saved = localStorage.getItem('questionnaire_{{ project_slug }}');
-            if (saved) {
-                const formData = JSON.parse(saved);
-                Object.keys(formData).forEach(key => {
-                    const textarea = document.querySelector(`textarea[name="${key}"]`);
-                    if (textarea) {
-                        textarea.value = formData[key];
-                    }
-                });
-                // Update progress without triggering save
-                const textareas = document.querySelectorAll('textarea');
-                let filled = 0;
-                textareas.forEach(textarea => {
-                    if (textarea.value.trim() !== '') {
-                        filled++;
-                    }
-                });
-                const total = textareas.length;
-                const percentage = Math.round((filled / total) * 100);
-                document.getElementById('progressBar').style.width = percentage + '%';
-                document.getElementById('progressCount').textContent = filled + '/' + total + ' سؤال';
-            }
+            // Auto-save to Firebase
+            autoSaveToFirebase();
         }
         
         // Show save indicator
@@ -820,55 +805,48 @@
             if (status === 'saving') {
                 statusEl.innerHTML = '<i class="fas fa-spinner fa-spin" style="color: #ffc107;"></i> <span>جاري الحفظ...</span>';
             } else if (status === 'saved') {
-                statusEl.innerHTML = '<i class="fas fa-check-circle" style="color: #28a745;"></i> <span>تم الحفظ تلقائياً</span>';
+                statusEl.innerHTML = '<i class="fas fa-check-circle" style="color: #28a745;"></i> <span>تم الحفظ ✓</span>';
                 setTimeout(() => {
-                    statusEl.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> <span>الحفظ التلقائي مفعّل</span>';
+                    statusEl.innerHTML = '<i class="fas fa-cloud" style="color: #28a745;"></i> <span>متصل</span>';
                 }, 2000);
             } else if (status === 'error') {
                 statusEl.innerHTML = '<i class="fas fa-exclamation-circle" style="color: #dc3545;"></i> <span>خطأ في الحفظ</span>';
+            } else if (status === 'loading') {
+                statusEl.innerHTML = '<i class="fas fa-spinner fa-spin" style="color: #17a2b8;"></i> <span>جاري تحميل البيانات...</span>';
             }
         }
         
-        // Auto-save to server (debounced)
+        // Auto-save to Firebase Firestore (debounced)
         let saveTimeout;
-        function autoSaveToServer() {
+        function autoSaveToFirebase() {
             clearTimeout(saveTimeout);
             showSaveIndicator('saving');
             
             saveTimeout = setTimeout(() => {
                 const formData = {};
                 document.querySelectorAll('textarea').forEach(textarea => {
-                    formData[textarea.name] = textarea.value;
+                    if (textarea.value.trim() !== '') {
+                        formData[textarea.name] = textarea.value;
+                    }
                 });
                 
-                // حفظ في localStorage أولاً (للاحتياط)
-                localStorage.setItem('questionnaire_{{ project_slug }}', JSON.stringify(formData));
+                // حفظ في localStorage كاحتياط
+                localStorage.setItem('questionnaire_' + projectSlug, JSON.stringify(formData));
                 
-                // ثم حفظ على السيرفر
-                fetch('/api/questionnaire/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        project: '{{ project_slug }}',
-                        answers: formData
-                    })
+                // حفظ في Firestore
+                db.collection('questionnaires').doc(projectSlug).set({
+                    answers: formData,
+                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true })
+                .then(() => {
+                    console.log('✓ Data saved to Firestore');
+                    showSaveIndicator('saved');
                 })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Save response:', data);
-                    if (data.success) {
-                        showSaveIndicator('saved');
-                    } else {
-                        showSaveIndicator('error');
-                    }
-                })
-                .catch(error => {
-                    console.log('Auto-save error:', error);
+                .catch((error) => {
+                    console.error('Firestore save error:', error);
                     showSaveIndicator('error');
                 });
-            }, 1000); // Wait 1 second after typing stops
+            }, 800); // Wait 800ms after typing stops
         }
         
         // تحديث شريط التقدم
@@ -886,40 +864,66 @@
             document.getElementById('progressCount').textContent = filled + '/' + total + ' سؤال';
         }
         
-        // Load saved data on page load - Server data has priority
+        // Load from localStorage (fallback)
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('questionnaire_' + projectSlug);
+            if (saved) {
+                try {
+                    const formData = JSON.parse(saved);
+                    Object.keys(formData).forEach(key => {
+                        const textarea = document.querySelector(`textarea[name="${key}"]`);
+                        if (textarea && formData[key]) {
+                            textarea.value = formData[key];
+                        }
+                    });
+                    updateProgressBar();
+                    console.log('Data loaded from localStorage');
+                } catch(e) {
+                    console.error('localStorage parse error:', e);
+                }
+            }
+        }
+        
+        // Load saved data on page load - Firestore first
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Loading questionnaire data...');
+            console.log('Loading questionnaire data from Firestore...');
+            showSaveIndicator('loading');
             
-            // Load from server first (shared data for all users)
-            fetch('/api/questionnaire/{{ project_slug }}')
-                .then(response => {
-                    console.log('Server response status:', response.status);
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Server data received:', data);
-                    if (data.answers && Object.keys(data.answers).length > 0) {
-                        // Server has data - use it
-                        console.log('Loading answers from server...');
-                        Object.keys(data.answers).forEach(key => {
-                            const textarea = document.querySelector(`textarea[name="${key}"]`);
-                            if (textarea && data.answers[key]) {
-                                textarea.value = data.answers[key];
-                                console.log('Loaded:', key, '=', data.answers[key].substring(0, 50) + '...');
-                            }
-                        });
-                        updateProgressBar();
-                        console.log('Data loaded from server successfully');
+            // Load from Firestore
+            db.collection('questionnaires').doc(projectSlug).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        console.log('Firestore data:', data);
+                        
+                        if (data.answers && Object.keys(data.answers).length > 0) {
+                            // Firestore has data - use it
+                            console.log('Loading answers from Firestore...');
+                            Object.keys(data.answers).forEach(key => {
+                                const textarea = document.querySelector(`textarea[name="${key}"]`);
+                                if (textarea && data.answers[key]) {
+                                    textarea.value = data.answers[key];
+                                }
+                            });
+                            updateProgressBar();
+                            showSaveIndicator('saved');
+                            console.log('✓ Data loaded from Firestore successfully');
+                        } else {
+                            loadFromLocalStorage();
+                            showSaveIndicator('saved');
+                        }
                     } else {
-                        // No server data, try localStorage
-                        console.log('No server data, trying localStorage...');
+                        // No Firestore data, try localStorage
+                        console.log('No Firestore data, trying localStorage...');
                         loadFromLocalStorage();
+                        showSaveIndicator('saved');
                     }
                 })
-                .catch(error => {
-                    console.log('Server load error:', error);
+                .catch((error) => {
+                    console.error('Firestore load error:', error);
                     // Fallback to localStorage
                     loadFromLocalStorage();
+                    showSaveIndicator('error');
                 });
         });
     </script>
