@@ -4911,6 +4911,191 @@
     margin-bottom: 30px;
 }
 
+/* زر فتح/إغلاق الاستبانة */
+.questionnaire-toggle-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid #e0e0e0;
+    border-radius: 16px;
+    padding: 20px 25px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: right;
+    position: relative;
+    overflow: hidden;
+}
+
+.questionnaire-toggle-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, #dc1f27, #ff6b6b);
+    transition: width 0.3s ease;
+}
+
+.questionnaire-toggle-btn:hover {
+    border-color: #dc1f27;
+    box-shadow: 0 8px 30px rgba(220, 31, 39, 0.15);
+    transform: translateY(-2px);
+}
+
+.questionnaire-toggle-btn:hover::before {
+    width: 8px;
+}
+
+.questionnaire-toggle-btn.active {
+    background: linear-gradient(135deg, #dc1f27 0%, #b81920 100%);
+    border-color: #dc1f27;
+}
+
+.questionnaire-toggle-btn.active::before {
+    display: none;
+}
+
+.questionnaire-toggle-btn.active .toggle-btn-text h3,
+.questionnaire-toggle-btn.active .toggle-btn-text p,
+.questionnaire-toggle-btn.active .toggle-btn-arrow i,
+.questionnaire-toggle-btn.active .mini-progress-text {
+    color: #fff !important;
+}
+
+.questionnaire-toggle-btn.active .toggle-btn-icon {
+    background: rgba(255,255,255,0.2);
+}
+
+.questionnaire-toggle-btn.active .toggle-btn-icon i {
+    color: #fff;
+}
+
+.questionnaire-toggle-btn.active .mini-progress-bar {
+    background: rgba(255,255,255,0.2);
+}
+
+.questionnaire-toggle-btn.active .mini-progress-fill {
+    background: #fff;
+}
+
+.toggle-btn-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.toggle-btn-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #dc1f27, #ff6b6b);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn-icon i {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.toggle-btn-text {
+    flex: 1;
+}
+
+.toggle-btn-text h3 {
+    color: #1a1a1a;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    transition: color 0.3s ease;
+}
+
+.toggle-btn-text p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+.toggle-btn-arrow {
+    width: 40px;
+    height: 40px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.questionnaire-toggle-btn.active .toggle-btn-arrow {
+    background: rgba(255,255,255,0.2);
+    transform: rotate(180deg);
+}
+
+.toggle-btn-arrow i {
+    color: #666;
+    font-size: 1rem;
+    transition: all 0.4s ease;
+}
+
+.toggle-btn-progress {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.questionnaire-toggle-btn.active .toggle-btn-progress {
+    border-top-color: rgba(255,255,255,0.2);
+}
+
+.mini-progress-bar {
+    flex: 1;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.mini-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #dc1f27, #ff6b6b);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.mini-progress-text {
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* محتوى الاستبانة القابل للطي */
+.questionnaire-collapsible-content {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed #e0e0e0;
+    animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .questionnaire-accordion {
     border-radius: 12px;
     overflow: hidden;
@@ -13788,10 +13973,32 @@
                     </div>
                 </div>
 
-                <!-- استبانة الاتصال الاستراتيجي -->
+                <!-- استبانة الاتصال الاستراتيجي - قابل للطي -->
                 <div class="section-card questionnaire-section">
-                    <h3><i class="fas fa-bullseye"></i> استبانة الاتصال الاستراتيجي</h3>
-                    <p class="text-muted mb-4">أسئلة موجّهة لبناء استراتيجية اتصالية فعّالة للمشروع - تُستكمل بالتنسيق مع العميل</p>
+                    <!-- زر فتح/إغلاق الاستبانة -->
+                    <button class="questionnaire-toggle-btn" type="button" onclick="toggleQuestionnaire()" id="questionnaireToggleBtn">
+                        <div class="toggle-btn-content">
+                            <div class="toggle-btn-icon">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <div class="toggle-btn-text">
+                                <h3><i class="fas fa-bullseye" style="margin-left: 10px;"></i> استبانة الاتصال الاستراتيجي</h3>
+                                <p>أسئلة موجّهة لبناء استراتيجية اتصالية فعّالة للمشروع - تُستكمل بالتنسيق مع العميل</p>
+                            </div>
+                            <div class="toggle-btn-arrow">
+                                <i class="fas fa-chevron-down" id="questionnaireArrow"></i>
+                            </div>
+                        </div>
+                        <div class="toggle-btn-progress">
+                            <div class="mini-progress-bar">
+                                <div class="mini-progress-fill" id="miniProgressFill" style="width: 0%"></div>
+                            </div>
+                            <span class="mini-progress-text" id="miniProgressText">0/22 سؤال</span>
+                        </div>
+                    </button>
+                    
+                    <!-- محتوى الاستبانة القابل للطي -->
+                    <div class="questionnaire-collapsible-content" id="questionnaireContent" style="display: none;">
                     
                     <!-- Progress Bar -->
                     <div class="questionnaire-progress">
@@ -13799,7 +14006,7 @@
                         <div class="progress-bar-custom">
                             <div class="progress-fill" style="width: 0%"></div>
                         </div>
-                        <span class="progress-count">0/20 سؤال</span>
+                        <span class="progress-count">0/22 سؤال</span>
                     </div>
 
                     <div class="questionnaire-accordion" id="questionnaireAccordion">
@@ -14124,6 +14331,8 @@
                             <span>الحفظ التلقائي مفعّل</span>
                         </div>
                     </div>
+                    
+                    </div><!-- نهاية questionnaire-collapsible-content -->
                 </div>
             </div>
 
@@ -22545,6 +22754,33 @@ function renderTimeline(data) {
     container.innerHTML = html || '<p style="color: rgba(255,255,255,0.5);">لم يتم تحديد الجدول الزمني بعد</p>';
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// دالة فتح/إغلاق الاستبانة
+// ═══════════════════════════════════════════════════════════════════════════════
+function toggleQuestionnaire() {
+    const content = document.getElementById('questionnaireContent');
+    const btn = document.getElementById('questionnaireToggleBtn');
+    const arrow = document.getElementById('questionnaireArrow');
+    
+    if (content.style.display === 'none') {
+        content.style.display = 'block';
+        btn.classList.add('active');
+    } else {
+        content.style.display = 'none';
+        btn.classList.remove('active');
+    }
+}
+
+// تحديث شريط التقدم المصغر
+function updateMiniProgress(filledCount, totalQuestions) {
+    const percentage = Math.round((filledCount / totalQuestions) * 100);
+    const miniProgressFill = document.getElementById('miniProgressFill');
+    const miniProgressText = document.getElementById('miniProgressText');
+    
+    if (miniProgressFill) miniProgressFill.style.width = percentage + '%';
+    if (miniProgressText) miniProgressText.textContent = `${filledCount}/${totalQuestions} سؤال`;
+}
+
 function updateProgress() {
     const textareas = document.querySelectorAll('.questionnaire-section textarea');
     let filledCount = 0;
@@ -22562,6 +22798,9 @@ function updateProgress() {
     
     if (progressFill) progressFill.style.width = percentage + '%';
     if (progressCount) progressCount.textContent = `${filledCount}/${totalQuestions} سؤال`;
+    
+    // تحديث شريط التقدم المصغر أيضاً
+    updateMiniProgress(filledCount, totalQuestions);
 }
 
 // Auto-save timer
