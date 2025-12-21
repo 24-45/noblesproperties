@@ -22406,44 +22406,48 @@ function renderExecutiveSummary(data) {
     
     // الهدف الرئيسي من سؤال 1
     if (data.q1) {
-        const goalText = data.q1.length > 50 ? data.q1.substring(0, 50) + '...' : data.q1;
         cards.push(`
-            <div style="background: rgba(220,31,39,0.2); padding: 20px; border-radius: 12px; text-align: center;">
-                <div style="color: #ff6b6b; font-size: 0.85rem; margin-bottom: 5px;">الهدف الرئيسي</div>
-                <div style="color: #fff; font-weight: 700; font-size: 0.95rem;">${goalText}</div>
+            <div style="background: rgba(220,31,39,0.2); padding: 20px; border-radius: 12px; text-align: right;">
+                <div style="color: #ff6b6b; font-size: 0.85rem; margin-bottom: 8px; font-weight: 600;">
+                    <i class="fas fa-bullseye" style="margin-left: 5px;"></i> الهدف الرئيسي
+                </div>
+                <div style="color: #fff; font-weight: 500; font-size: 0.9rem; line-height: 1.7; white-space: pre-line;">${data.q1}</div>
             </div>
         `);
     }
     
     // مؤشر النجاح من سؤال 2
     if (data.q2) {
-        const kpiText = data.q2.length > 50 ? data.q2.substring(0, 50) + '...' : data.q2;
         cards.push(`
-            <div style="background: rgba(16,185,129,0.2); padding: 20px; border-radius: 12px; text-align: center;">
-                <div style="color: #34d399; font-size: 0.85rem; margin-bottom: 5px;">مؤشر النجاح</div>
-                <div style="color: #fff; font-weight: 700; font-size: 0.95rem;">${kpiText}</div>
+            <div style="background: rgba(16,185,129,0.2); padding: 20px; border-radius: 12px; text-align: right;">
+                <div style="color: #34d399; font-size: 0.85rem; margin-bottom: 8px; font-weight: 600;">
+                    <i class="fas fa-chart-line" style="margin-left: 5px;"></i> مؤشر النجاح
+                </div>
+                <div style="color: #fff; font-weight: 500; font-size: 0.9rem; line-height: 1.7; white-space: pre-line;">${data.q2}</div>
             </div>
         `);
     }
     
     // الإطلاق من سؤال 20
     if (data.q20) {
-        const launchText = data.q20.length > 50 ? data.q20.substring(0, 50) + '...' : data.q20;
         cards.push(`
-            <div style="background: rgba(59,130,246,0.2); padding: 20px; border-radius: 12px; text-align: center;">
-                <div style="color: #60a5fa; font-size: 0.85rem; margin-bottom: 5px;">الإطلاق المتوقع</div>
-                <div style="color: #fff; font-weight: 700; font-size: 0.95rem;">${launchText}</div>
+            <div style="background: rgba(59,130,246,0.2); padding: 20px; border-radius: 12px; text-align: right;">
+                <div style="color: #60a5fa; font-size: 0.85rem; margin-bottom: 8px; font-weight: 600;">
+                    <i class="fas fa-rocket" style="margin-left: 5px;"></i> الإطلاق المتوقع
+                </div>
+                <div style="color: #fff; font-weight: 500; font-size: 0.9rem; line-height: 1.7; white-space: pre-line;">${data.q20}</div>
             </div>
         `);
     }
     
     // الأولوية من سؤال 21
     if (data.q21) {
-        const priorityText = data.q21.length > 50 ? data.q21.substring(0, 50) + '...' : data.q21;
         cards.push(`
-            <div style="background: rgba(168,85,247,0.2); padding: 20px; border-radius: 12px; text-align: center;">
-                <div style="color: #c084fc; font-size: 0.85rem; margin-bottom: 5px;">الأولوية الفورية</div>
-                <div style="color: #fff; font-weight: 700; font-size: 0.95rem;">${priorityText}</div>
+            <div style="background: rgba(168,85,247,0.2); padding: 20px; border-radius: 12px; text-align: right;">
+                <div style="color: #c084fc; font-size: 0.85rem; margin-bottom: 8px; font-weight: 600;">
+                    <i class="fas fa-flag" style="margin-left: 5px;"></i> الأولوية الفورية
+                </div>
+                <div style="color: #fff; font-weight: 500; font-size: 0.9rem; line-height: 1.7; white-space: pre-line;">${data.q21}</div>
             </div>
         `);
     }
