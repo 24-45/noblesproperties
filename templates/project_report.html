@@ -22558,8 +22558,8 @@
                 <!-- ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════ -->
                 <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); border-radius: 24px; padding: 35px; margin-top: 50px; border: 1px solid rgba(34, 197, 94, 0.3); box-shadow: 0 20px 60px rgba(0,0,0,0.4); max-width: 1100px; margin-left: auto; margin-right: auto;">
                     
-                    <!-- العنوان الرئيسي -->
-                    <div style="text-align: center; margin-bottom: 40px;">
+                    <!-- العنوان الرئيسي - Collapsible Header -->
+                    <div onclick="togglePhase('paidPromotion')" style="text-align: center; margin-bottom: 20px; cursor: pointer; padding: 20px; border-radius: 16px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(34, 197, 94, 0.1)';" onmouseout="this.style.background='transparent';">
                         <div style="display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.1)); padding: 12px 30px; border-radius: 50px; margin-bottom: 20px; border: 1px solid rgba(34, 197, 94, 0.3);">
                             <i class="fas fa-dollar-sign" style="color: #22c55e; font-size: 1.3rem; margin-left: 12px;"></i>
                             <span style="color: #22c55e; font-size: 1rem; font-weight: 700; letter-spacing: 1px;">PAID PROMOTION STRATEGY</span>
@@ -22567,9 +22567,14 @@
                         <h2 style="color: #f1f5f9; font-size: 2.2rem; font-weight: 800; margin: 0 0 15px 0;">
                             <i class="fas fa-bullhorn" style="color: #22c55e; margin-left: 15px;"></i>
                             استراتيجية الترويج المدفوع
+                            <i id="paidPromotion-icon" class="fas fa-chevron-down" style="font-size: 1.2rem; margin-right: 15px; transition: transform 0.3s ease; color: #22c55e;"></i>
                         </h2>
                         <p style="color: #94a3b8; font-size: 1.1rem; max-width: 700px; margin: 0 auto;">خطة متكاملة للإعلانات المدفوعة لضمان أقصى وصول وتأثير للحملة</p>
+                        <p style="color: #64748b; font-size: 0.9rem; margin-top: 15px;"><i class="fas fa-hand-pointer" style="margin-left: 8px;"></i> اضغط للعرض/الإخفاء</p>
                     </div>
+
+                    <!-- Collapsible Content -->
+                    <div id="paidPromotion-content" style="display: none;">
 
                     <!-- نظرة عامة على الميزانية -->
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
@@ -22901,6 +22906,7 @@
                             </div>
                         </div>
                     </div>
+                    </div><!-- End paidPromotion-content -->
 
                 </div>
 
