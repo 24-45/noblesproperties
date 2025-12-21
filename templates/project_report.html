@@ -19300,9 +19300,9 @@
                     <div style="position: absolute; bottom: -150px; left: -150px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
                     
                     <!-- ============================================ -->
-                    <!-- HEADER SECTION -->
+                    <!-- HEADER SECTION - Collapsible Button -->
                     <!-- ============================================ -->
-                    <div style="text-align: center; padding: 60px 50px 40px; position: relative; z-index: 1;">
+                    <div onclick="togglePhase('analysisDashboard')" style="text-align: center; padding: 60px 50px 40px; position: relative; z-index: 1; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(220, 31, 39, 0.1)';" onmouseout="this.style.background='transparent';">
                         <!-- Project Badge -->
                         <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(220, 31, 39, 0.15); border: 1px solid rgba(220, 31, 39, 0.3); padding: 8px 20px; border-radius: 30px; margin-bottom: 25px;">
                             <i class="fas fa-industry" style="color: #dc1f27;"></i>
@@ -19317,6 +19317,7 @@
                         <!-- Main Title with Glow -->
                         <h2 style="color: #ffffff; font-size: 2.2rem; font-weight: 800; margin: 0 0 15px 0; text-shadow: 0 0 30px rgba(255,255,255,0.3), 0 4px 20px rgba(0,0,0,0.5); letter-spacing: -0.5px;">
                             لوحة التحليل الاتصالي
+                            <i id="analysisDashboard-icon" class="fas fa-chevron-down" style="font-size: 1.2rem; margin-right: 15px; transition: transform 0.3s ease; color: #dc1f27;"></i>
                         </h2>
                         
                         <!-- Subtitle -->
@@ -19348,8 +19349,11 @@
                                 <div style="color: #fde68a; font-size: 0.8rem;">2026 الإطلاق</div>
                             </div>
                         </div>
+                        <p style="color: #64748b; font-size: 0.9rem; margin-top: 20px;"><i class="fas fa-hand-pointer" style="margin-left: 8px;"></i> اضغط للعرض/الإخفاء</p>
                     </div>
                     
+                    <!-- Collapsible Content -->
+                    <div id="analysisDashboard-content" style="display: none;">
                     <!-- ============================================ -->
                     <!-- ROW 1: SWOT ANALYSIS - 4 Cards in One Row -->
                     <!-- ============================================ -->
@@ -19827,6 +19831,7 @@
                             </div>
                         </div>
                     </div>
+                    </div><!-- End analysisDashboard-content -->
                 </div>
 
                 <!-- End Strategic Analysis Section -->
