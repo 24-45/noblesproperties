@@ -22474,15 +22474,15 @@ function renderBrandIdentity(data) {
     if (!container) return;
     
     if (data.q3) {
-        // تقسيم النص إلى نقاط
-        const points = data.q3.split(/[\n,،.؛;]/g).filter(p => p.trim().length > 0);
+        // تقسيم النص إلى نقاط بناءً على الأرقام أو الأسطر الجديدة
+        const points = data.q3.split(/\d+\.\s*|\n+/g).filter(p => p.trim().length > 3);
         const icons = ['fa-star', 'fa-brain', 'fa-map-marker-alt', 'fa-hand-holding-usd', 'fa-gift', 'fa-shield-alt'];
         const colors = ['#fbbf24', '#60a5fa', '#34d399', '#f472b6', '#a78bfa', '#fb923c'];
         
         const tags = points.slice(0, 6).map((point, i) => `
-            <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 10px; display: flex; align-items: center; gap: 12px;">
-                <i class="fas ${icons[i % icons.length]}" style="color: ${colors[i % colors.length]};"></i>
-                <span style="color: #fff; font-size: 0.9rem;">${point.trim().substring(0, 40)}</span>
+            <div style="background: rgba(255,255,255,0.08); padding: 15px; border-radius: 10px; display: flex; align-items: flex-start; gap: 12px;">
+                <i class="fas ${icons[i % icons.length]}" style="color: ${colors[i % colors.length]}; margin-top: 4px; flex-shrink: 0;"></i>
+                <span style="color: #fff; font-size: 0.9rem; line-height: 1.6;">${point.trim()}</span>
             </div>
         `);
         
@@ -22503,7 +22503,7 @@ function renderTargetAudience(data) {
         html += `
             <div style="background: linear-gradient(135deg, #dc1f27, #ff6b6b); padding: 15px; border-radius: 10px; margin-bottom: 10px;">
                 <div style="color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-bottom: 5px;">صانعو القرار</div>
-                <div style="color: #fff; font-weight: 600; font-size: 0.9rem;">${data.q4.substring(0, 100)}</div>
+                <div style="color: #fff; font-weight: 600; font-size: 0.9rem; white-space: pre-line; line-height: 1.6;">${data.q4}</div>
             </div>
         `;
     }
@@ -22513,7 +22513,7 @@ function renderTargetAudience(data) {
         html += `
             <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px;">
                 <div style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-bottom: 5px;">التحدي الرئيسي للعملاء</div>
-                <div style="color: rgba(255,255,255,0.8); font-size: 0.85rem;">${data.q5.substring(0, 120)}</div>
+                <div style="color: rgba(255,255,255,0.8); font-size: 0.85rem; white-space: pre-line; line-height: 1.6;">${data.q5}</div>
             </div>
         `;
     }
@@ -22554,7 +22554,7 @@ function renderCompetitiveAdvantages(data) {
     if (data.q8) {
         advantages.push({
             title: 'الميزة الرئيسية',
-            desc: data.q8.substring(0, 60)
+            desc: data.q8
         });
     }
     
@@ -22562,7 +22562,7 @@ function renderCompetitiveAdvantages(data) {
     if (data.q14) {
         advantages.push({
             title: 'نقطة التفوق',
-            desc: data.q14.substring(0, 60)
+            desc: data.q14
         });
     }
     
@@ -22570,16 +22570,16 @@ function renderCompetitiveAdvantages(data) {
     if (data.q15) {
         advantages.push({
             title: 'التصنيف المطلوب',
-            desc: data.q15.substring(0, 60)
+            desc: data.q15
         });
     }
     
     const html = advantages.map((adv, i) => `
-        <div style="display: flex; align-items: center; gap: 15px; background: linear-gradient(90deg, ${medals[i % medals.length].gradient}, transparent); padding: 15px; border-radius: 10px; border-right: 4px solid ${medals[i % medals.length].bg};">
+        <div style="display: flex; align-items: flex-start; gap: 15px; background: linear-gradient(90deg, ${medals[i % medals.length].gradient}, transparent); padding: 15px; border-radius: 10px; border-right: 4px solid ${medals[i % medals.length].bg};">
             <span style="background: ${medals[i % medals.length].bg}; color: #0f172a; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">${i + 1}</span>
             <div>
                 <div style="color: #fff; font-weight: 600; font-size: 0.95rem;">${adv.title}</div>
-                <div style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">${adv.desc}</div>
+                <div style="color: rgba(255,255,255,0.6); font-size: 0.85rem; white-space: pre-line; line-height: 1.5;">${adv.desc}</div>
             </div>
         </div>
     `).join('');
@@ -22608,7 +22608,7 @@ function renderPartnerships(data) {
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
                 <span style="background: ${colors[i % colors.length].badge}; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; color: #fff;">شراكة ${i + 1}</span>
             </div>
-            <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin: 0; line-height: 1.6;">${p.trim().substring(0, 150)}</p>
+            <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin: 0; line-height: 1.6; white-space: pre-line;">${p.trim()}</p>
         </div>
     `).join('');
     
@@ -22652,8 +22652,8 @@ function renderCommunicationChannels(data) {
         
         return `
             <div style="display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.08); padding: 12px 15px; border-radius: 8px;">
-                <i class="${icon}" style="color: #60a5fa; width: 20px;"></i>
-                <span style="color: #fff; font-size: 0.9rem;">${ch.substring(0, 35)}</span>
+                <i class="${icon}" style="color: #60a5fa; width: 20px; flex-shrink: 0;"></i>
+                <span style="color: #fff; font-size: 0.9rem;">${ch}</span>
             </div>
         `;
     }).join('');
@@ -22719,7 +22719,7 @@ function renderTimeline(data) {
                 </div>
                 <div>
                     <div style="color: #fff; font-weight: 600; font-size: 0.95rem;">الإطلاق</div>
-                    <div style="color: rgba(255,255,255,0.6); font-size: 0.85rem;">${data.q20.substring(0, 80)}</div>
+                    <div style="color: rgba(255,255,255,0.6); font-size: 0.85rem; white-space: pre-line; line-height: 1.5;">${data.q20}</div>
                 </div>
             </div>
         `;
@@ -22734,7 +22734,7 @@ function renderTimeline(data) {
                 </div>
                 <div>
                     <div style="color: #fff; font-weight: 600; font-size: 0.95rem;">أولوية 3 أشهر</div>
-                    <div style="color: rgba(255,255,255,0.6); font-size: 0.85rem;">${data.q21.substring(0, 80)}</div>
+                    <div style="color: rgba(255,255,255,0.6); font-size: 0.85rem; white-space: pre-line; line-height: 1.5;">${data.q21}</div>
                 </div>
             </div>
         `;
@@ -22749,7 +22749,7 @@ function renderTimeline(data) {
                 </div>
                 <div>
                     <div style="color: #fff; font-weight: 600; font-size: 0.95rem;">الميزانية</div>
-                    <div style="color: rgba(255,255,255,0.6); font-size: 0.85rem;">${data.q22.substring(0, 80)}</div>
+                    <div style="color: rgba(255,255,255,0.6); font-size: 0.85rem; white-space: pre-line; line-height: 1.5;">${data.q22}</div>
                 </div>
             </div>
         `;
