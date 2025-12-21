@@ -13912,6 +13912,50 @@
                             </div>
                         </div>
 
+                        <!-- القيمة المقدمة للعميل (q6) -->
+                        <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1);">
+                            <h4 style="color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-gem"></i> القيمة المقدمة للعميل
+                            </h4>
+                            <div id="valuePropositionContent" style="background: rgba(16,185,129,0.1); padding: 20px; border-radius: 12px; border-right: 4px solid #10b981;">
+                                <p id="valuePropositionText" style="color: rgba(255,255,255,0.9); font-size: 1rem; line-height: 1.8; margin: 0; white-space: pre-line;">جاري التحميل...</p>
+                            </div>
+                        </div>
+
+                        <!-- الرسائل الأولية والمنافسون -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 30px;">
+                            
+                            <!-- الرسائل الأولية (q12) -->
+                            <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
+                                <h4 style="color: #fbbf24; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-comment-dots"></i> الرسائل الأولية
+                                </h4>
+                                <div id="initialMessagesContent" style="display: flex; flex-direction: column; gap: 12px;">
+                                    <!-- سيتم تعبئته من Firebase -->
+                                </div>
+                            </div>
+
+                            <!-- المنافسون (q13) -->
+                            <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
+                                <h4 style="color: #fbbf24; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-chess"></i> البيئة التنافسية
+                                </h4>
+                                <div id="competitorsContent" style="display: flex; flex-direction: column; gap: 12px;">
+                                    <!-- سيتم تعبئته من Firebase -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- الإنجازات (q17) -->
+                        <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1);">
+                            <h4 style="color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-award"></i> الإنجازات والمعالم البارزة
+                            </h4>
+                            <div id="achievementsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                <!-- سيتم تعبئته من Firebase -->
+                            </div>
+                        </div>
+
                         <!-- الشراكات والأصول الإعلامية -->
                         <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1);">
                             <h4 style="color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
@@ -22366,34 +22410,46 @@ function renderCreativeBrief(data) {
     
     creativeBriefSection.style.display = 'block';
     
-    // 1. الملخص التنفيذي
+    // 1. الملخص التنفيذي (q1, q2, q20, q21)
     renderExecutiveSummary(data);
     
-    // 2. الرسالة المركزية
+    // 2. الرسالة المركزية (q7)
     renderCoreMessage(data);
     
-    // 3. الهوية المطلوبة (من سؤال 3)
+    // 3. الهوية المطلوبة (q3)
     renderBrandIdentity(data);
     
-    // 4. الجمهور المستهدف
+    // 4. الجمهور المستهدف (q4, q5, q16)
     renderTargetAudience(data);
     
-    // 5. المزايا التنافسية
+    // 5. المزايا التنافسية (q8, q14, q15)
     renderCompetitiveAdvantages(data);
     
-    // 6. الشراكات
+    // 6. القيمة المقدمة للعميل (q6)
+    renderValueProposition(data);
+    
+    // 7. الرسائل الأولية (q12)
+    renderInitialMessages(data);
+    
+    // 8. المنافسون (q13)
+    renderCompetitors(data);
+    
+    // 9. الإنجازات (q17)
+    renderAchievements(data);
+    
+    // 10. الشراكات (q18)
     renderPartnerships(data);
     
-    // 7. القنوات الاتصالية
+    // 11. القنوات الاتصالية (q10, q11)
     renderCommunicationChannels(data);
     
-    // 8. المتحدثون الرسميون
+    // 12. المتحدثون الرسميون (q19)
     renderSpokespersons(data);
     
-    // 9. المحاذير الاتصالية
+    // 13. المحاذير الاتصالية (q9)
     renderRedLines(data);
     
-    // 10. الجدول الزمني والأولويات
+    // 14. الجدول الزمني والأولويات (q20, q21, q22)
     renderTimeline(data);
 }
 
@@ -22581,6 +22637,96 @@ function renderCompetitiveAdvantages(data) {
                 <div style="color: #fff; font-weight: 600; font-size: 0.95rem;">${adv.title}</div>
                 <div style="color: rgba(255,255,255,0.6); font-size: 0.85rem; white-space: pre-line; line-height: 1.5;">${adv.desc}</div>
             </div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = html;
+}
+
+// القيمة المقدمة للعميل من سؤال 6
+function renderValueProposition(data) {
+    const container = document.getElementById('valuePropositionContent');
+    const textEl = document.getElementById('valuePropositionText');
+    if (!container || !textEl) return;
+    
+    if (data.q6) {
+        textEl.textContent = data.q6;
+        container.style.display = 'block';
+    } else {
+        container.style.display = 'none';
+    }
+}
+
+// الرسائل الأولية من سؤال 12
+function renderInitialMessages(data) {
+    const container = document.getElementById('initialMessagesContent');
+    if (!container) return;
+    
+    if (!data.q12) {
+        container.innerHTML = '<p style="color: rgba(255,255,255,0.5);">لم يتم تحديد رسائل أولية بعد</p>';
+        return;
+    }
+    
+    // تقسيم الرسائل
+    const messages = data.q12.split(/[\n]/g).filter(m => m.trim().length > 5);
+    
+    const html = messages.slice(0, 5).map((msg, i) => `
+        <div style="background: rgba(59,130,246,0.15); padding: 15px; border-radius: 10px; border-right: 3px solid #3b82f6;">
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                <span style="background: #3b82f6; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0;">${i + 1}</span>
+                <p style="color: rgba(255,255,255,0.85); font-size: 0.9rem; margin: 0; line-height: 1.6;">${msg.trim()}</p>
+            </div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = html;
+}
+
+// المنافسون من سؤال 13
+function renderCompetitors(data) {
+    const container = document.getElementById('competitorsContent');
+    if (!container) return;
+    
+    if (!data.q13) {
+        container.innerHTML = '<p style="color: rgba(255,255,255,0.5);">لم يتم تحديد المنافسين بعد</p>';
+        return;
+    }
+    
+    // تقسيم المنافسين
+    const competitors = data.q13.split(/[\n,،]/g).filter(c => c.trim().length > 3);
+    
+    const html = competitors.slice(0, 5).map(comp => `
+        <div style="display: flex; align-items: center; gap: 12px; background: rgba(168,85,247,0.15); padding: 12px 15px; border-radius: 8px;">
+            <i class="fas fa-building" style="color: #a78bfa; flex-shrink: 0;"></i>
+            <span style="color: rgba(255,255,255,0.85); font-size: 0.9rem;">${comp.trim()}</span>
+        </div>
+    `).join('');
+    
+    container.innerHTML = html;
+}
+
+// الإنجازات من سؤال 17
+function renderAchievements(data) {
+    const container = document.getElementById('achievementsGrid');
+    if (!container) return;
+    
+    if (!data.q17) {
+        container.innerHTML = '<p style="color: rgba(255,255,255,0.5); text-align: center;">لم يتم إضافة إنجازات بعد</p>';
+        return;
+    }
+    
+    // تقسيم الإنجازات
+    const achievements = data.q17.split(/[\n]/g).filter(a => a.trim().length > 5);
+    
+    const icons = ['fa-trophy', 'fa-medal', 'fa-star', 'fa-award', 'fa-certificate'];
+    const colors = ['#fbbf24', '#60a5fa', '#34d399', '#f472b6', '#a78bfa'];
+    
+    const html = achievements.slice(0, 5).map((ach, i) => `
+        <div style="background: rgba(255,255,255,0.08); padding: 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 15px;">
+            <div style="width: 45px; height: 45px; background: ${colors[i % colors.length]}20; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <i class="fas ${icons[i % icons.length]}" style="color: ${colors[i % colors.length]}; font-size: 1.2rem;"></i>
+            </div>
+            <p style="color: rgba(255,255,255,0.85); font-size: 0.9rem; margin: 0; line-height: 1.6;">${ach.trim()}</p>
         </div>
     `).join('');
     
