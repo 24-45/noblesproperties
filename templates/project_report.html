@@ -19843,9 +19843,9 @@
                     <div style="position: absolute; bottom: -150px; left: -150px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
                     
                     <!-- ============================================ -->
-                    <!-- HEADER SECTION -->
+                    <!-- HEADER SECTION - Collapsible Button -->
                     <!-- ============================================ -->
-                    <div style="text-align: center; padding: 60px 50px 40px; position: relative; z-index: 1;">
+                    <div onclick="togglePhase('commDirection')" style="text-align: center; padding: 60px 50px 40px; position: relative; z-index: 1; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(14, 165, 233, 0.1)';" onmouseout="this.style.background='transparent';">
                         <!-- Glowing Compass Icon -->
                         <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; box-shadow: 0 0 40px rgba(14, 165, 233, 0.5), 0 10px 30px rgba(14, 165, 233, 0.3); animation: pulse-glow 3s ease-in-out infinite;">
                             <i class="fas fa-compass" style="color: white; font-size: 40px;"></i>
@@ -19854,6 +19854,7 @@
                         <!-- Main Title with Glow -->
                         <h2 style="color: #ffffff; font-size: 2rem; font-weight: 800; margin: 0 0 15px 0; text-shadow: 0 0 30px rgba(255,255,255,0.3), 0 4px 20px rgba(0,0,0,0.5); letter-spacing: -0.5px;">
                             التوجه الاتصالي
+                            <i id="commDirection-icon" class="fas fa-chevron-down" style="font-size: 1.2rem; margin-right: 15px; transition: transform 0.3s ease; color: #38bdf8;"></i>
                         </h2>
                         
                         <!-- Subtitle -->
@@ -19865,8 +19866,11 @@
                         <p style="color: #cbd5e1; font-size: 1.1rem; line-height: 2; max-width: 900px; margin: 0 auto; text-align: center;">
                             <strong style="color: #38bdf8;">ما الذي نريد الوصول إليه؟</strong> - تحديد الأهداف والجمهور والرسائل الاتصالية بناءً على التحليل الاستراتيجي
                         </p>
+                        <p style="color: #64748b; font-size: 0.9rem; margin-top: 15px;"><i class="fas fa-hand-pointer" style="margin-left: 8px;"></i> اضغط للعرض/الإخفاء</p>
                     </div>
                     
+                    <!-- Collapsible Content -->
+                    <div id="commDirection-content" style="display: none;">
                     <!-- ============================================ -->
                     <!-- ROW 1: STRATEGIC COMMUNICATION OBJECTIVES -->
                     <!-- الأهداف الاستراتيجية الاتصالية -->
@@ -21125,6 +21129,7 @@
                             </div>
                         </div>
                     </div>
+                    </div><!-- End commDirection-content -->
                 </div>
 
                 <!-- End Communication Direction Section -->
