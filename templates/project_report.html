@@ -22595,9 +22595,28 @@ function renderPartnerships(data) {
         return;
     }
     
-    // استخراج الاتفاقيات المرقمة فقط (تجاهل المقدمة)
-    const matches = data.q18.match(/\d+\.\s*[^0-9]+/g);
-    const partnerships = matches ? matches.map(m => m.replace(/^\d+\.\s*/, '').trim()).filter(p => p.length > 10) : [];
+    // تقسيم النص على أساس الترقيم (1. 2. 3.) مع الحفاظ على النص الكامل
+    const text = data.q18;
+    const partnerships = [];
+    
+    // البحث عن كل نقطة مرقمة واستخراج النص حتى النقطة التالية
+    const regex = /(?:^|\n)\s*(\d+)\.\s*/g;
+    let match;
+    let positions = [];
+    
+    while ((match = regex.exec(text)) !== null) {
+        positions.push({ index: match.index, end: match.index + match[0].length, num: match[1] });
+    }
+    
+    // استخراج النص بين كل موضعين
+    for (let i = 0; i < positions.length; i++) {
+        const start = positions[i].end;
+        const end = positions[i + 1] ? positions[i + 1].index : text.length;
+        const content = text.substring(start, end).trim();
+        if (content.length > 10) {
+            partnerships.push(content);
+        }
+    }
     
     const colors = [
         { bg: 'rgba(220,31,39,0.2)', border: 'rgba(220,31,39,0.3)', badge: '#dc1f27' },
