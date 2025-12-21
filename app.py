@@ -43,6 +43,15 @@ def get_project_by_slug(slug):
     return None
 
 
+# ==================== ملفات ثابتة إضافية ====================
+
+@app.route('/favicon.ico')
+def favicon():
+    """تقديم الأيقونة الافتراضية للمتصفحات"""
+    static_path = Path(app.root_path) / 'static'
+    return send_from_directory(static_path, 'images/favicon.svg', mimetype='image/svg+xml')
+
+
 # ==================== الصفحات الرئيسية ====================
 
 @app.route('/')
