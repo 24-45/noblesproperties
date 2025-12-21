@@ -144,13 +144,19 @@
             
             <hr>
             
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="copyright">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <p class="copyright mb-0">
                         © {{ now().year if now is defined else '2025' }} نوبلز العقارية. جميع الحقوق محفوظة.
                     </p>
                 </div>
-                <div class="col-md-6 text-md-start">
+                <div class="col-md-4 text-center my-3 my-md-0">
+                    <div style="display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 8px;">
+                        <span style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">تطوير وإعداد الخطط الاتصالية</span>
+                        <img src="{{ url_for('static', filename='images/Logo-Turjuman1.png') }}" alt="ترجمان" style="height: 30px; filter: brightness(1.1);">
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-start">
                     <a href="https://noblesproperties.com/ar/terms-of-use" target="_blank">شروط الاستخدام</a>
                     <span class="mx-2">|</span>
                     <a href="https://noblesproperties.com/ar/privacy-policy" target="_blank">سياسة الخصوصية</a>
