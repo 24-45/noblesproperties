@@ -13821,7 +13821,7 @@
                 {% endif %}
 
                 <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
-                <!-- قسم اللب الإبداعي - Creative Brief - التحليل الاستراتيجي المتكامل -->
+                <!-- قسم الموجز الإبداعي - Creative Brief - التحليل الاستراتيجي المتكامل -->
                 <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
                 <div class="section-card creative-brief-section" id="creativeBriefSection" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius: 24px; padding: 0; overflow: hidden; margin-top: 30px; display: none;">
                     
@@ -13834,7 +13834,7 @@
                                 <i class="fas fa-lightbulb" style="font-size: 2rem; color: #fff;"></i>
                             </div>
                             <div>
-                                <h3 style="color: #fff; font-size: 1.8rem; font-weight: 800; margin: 0;">اللب الإبداعي</h3>
+                                <h3 style="color: #fff; font-size: 1.8rem; font-weight: 800; margin: 0;">الموجز الإبداعي</h3>
                                 <p style="color: rgba(255,255,255,0.8); margin: 5px 0 0 0; font-size: 1.1rem;">Creative Brief - التحليل الاستراتيجي المتكامل</p>
                             </div>
                         </div>
@@ -22340,7 +22340,7 @@ async function loadQuestionnaireFromFirebase() {
             
             console.log('✅ تم تحميل البيانات من Firebase');
             
-            // تحميل وعرض اللب الإبداعي
+            // تحميل وعرض الموجز الإبداعي
             renderCreativeBrief(data);
         }
     } catch (error) {
@@ -22351,12 +22351,12 @@ async function loadQuestionnaireFromFirebase() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// دالة عرض اللب الإبداعي - Creative Brief
+// دالة عرض الموجز الإبداعي - Creative Brief
 // ═══════════════════════════════════════════════════════════════════════════════
 function renderCreativeBrief(data) {
     const creativeBriefSection = document.getElementById('creativeBriefSection');
     
-    // التحقق من وجود بيانات كافية لعرض اللب الإبداعي
+    // التحقق من وجود بيانات كافية لعرض الموجز الإبداعي
     const hasData = data.q1 || data.q2 || data.q7 || data.q4;
     
     if (!hasData) {
