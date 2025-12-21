@@ -22595,8 +22595,10 @@ function renderPartnerships(data) {
         return;
     }
     
-    // تقسيم الشراكات
-    const partnerships = data.q18.split(/\d+\./g).filter(p => p.trim());
+    // استخراج الاتفاقيات المرقمة فقط (تجاهل المقدمة)
+    const matches = data.q18.match(/\d+\.\s*[^0-9]+/g);
+    const partnerships = matches ? matches.map(m => m.replace(/^\d+\.\s*/, '').trim()).filter(p => p.length > 10) : [];
+    
     const colors = [
         { bg: 'rgba(220,31,39,0.2)', border: 'rgba(220,31,39,0.3)', badge: '#dc1f27' },
         { bg: 'rgba(16,185,129,0.2)', border: 'rgba(16,185,129,0.3)', badge: '#10b981' },
@@ -22608,7 +22610,7 @@ function renderPartnerships(data) {
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
                 <span style="background: ${colors[i % colors.length].badge}; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; color: #fff;">شراكة ${i + 1}</span>
             </div>
-            <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin: 0; line-height: 1.6; white-space: pre-line;">${p.trim()}</p>
+            <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin: 0; line-height: 1.6; white-space: pre-line;">${p}</p>
         </div>
     `).join('');
     
