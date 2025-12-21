@@ -23392,6 +23392,22 @@
 
 {% block extra_js %}
 <script>
+// Toggle Phase Accordion Function for Media Products
+function togglePhase(phaseId) {
+    const content = document.getElementById(phaseId + '-content');
+    const icon = document.getElementById(phaseId + '-icon');
+    
+    if (content && icon) {
+        if (content.style.display === 'none' || content.style.display === '') {
+            content.style.display = 'block';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            content.style.display = 'none';
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+}
+
 // Toggle Section for Collapsible Sections
 function toggleSection(sectionId, button) {
     const content = document.getElementById(sectionId);
@@ -24271,36 +24287,6 @@ if (bypassCode === 'nobles2025') {
         }
     });
 }
-
-// Toggle Phase Accordion Function
-function togglePhase(phaseId) {
-    const content = document.getElementById(phaseId + '-content');
-    const icon = document.getElementById(phaseId + '-icon');
-    
-    if (content.style.display === 'none' || content.style.display === '') {
-        content.style.display = 'block';
-        icon.style.transform = 'rotate(180deg)';
-    } else {
-        content.style.display = 'none';
-        icon.style.transform = 'rotate(0deg)';
-    }
-}
-
-// Add CSS animation for smooth sliding
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-`;
-document.head.appendChild(style);
 </script>
 </div>
 {% endblock %}
