@@ -28183,16 +28183,29 @@ window.openUsersModalInternal = async function() {
     // التأكد من وجود المستخدم الحالي في قاعدة البيانات
     await ensureCurrentUserInDB();
     
-    const modal = document.getElementById('users-modal');
+    let modal = document.getElementById('users-modal');
     console.log('modal element:', modal);
     if (!modal) {
         console.error('users-modal not found!');
         return;
     }
     
-    // إظهار الـ modal مع التأكد من الظهور فوق كل شيء
-    modal.style.cssText = 'display: flex !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background: rgba(0, 0, 0, 0.8) !important; z-index: 99999 !important; align-items: center !important; justify-content: center !important; backdrop-filter: blur(10px) !important;';
-    console.log('modal display set to flex');
+    // نقل الـ modal إلى body مباشرة لضمان ظهوره فوق كل شيء
+    if (modal.parentElement !== document.body) {
+        document.body.appendChild(modal);
+        console.log('Modal moved to body');
+    }
+    
+    // إظهار الـ modal
+    modal.style.cssText = 'display: flex !important; position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background: rgba(0, 0, 0, 0.9) !important; z-index: 999999 !important; align-items: center !important; justify-content: center !important; backdrop-filter: blur(10px) !important;';
+    
+    // التأكد من أن المحتوى الداخلي يظهر
+    const modalContent = modal.querySelector('div');
+    if (modalContent) {
+        modalContent.style.cssText = modalContent.style.cssText + '; display: block !important; visibility: visible !important; opacity: 1 !important;';
+    }
+    
+    console.log('modal display set to flex, computed:', window.getComputedStyle(modal).display);
     
     await loadUsersList();
 };
