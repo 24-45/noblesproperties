@@ -28142,12 +28142,20 @@ function updateUIForRole() {
 // ============================================
 
 async function openUsersModal() {
+    console.log('openUsersModal called');
+    console.log('auth.currentUser:', auth.currentUser);
+    console.log('hasPermission result:', hasPermission('manage_users'));
+    
     if (!hasPermission('manage_users')) {
         showToast('ليس لديك صلاحية للوصول لهذه الصفحة', 'error');
         return;
     }
     
     const modal = document.getElementById('users-modal');
+    if (!modal) {
+        console.error('users-modal not found!');
+        return;
+    }
     modal.style.display = 'flex';
     
     await loadUsersList();
