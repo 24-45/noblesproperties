@@ -28075,6 +28075,13 @@ async function getCurrentUserData() {
 // التحقق من الصلاحية
 function hasPermission(permission) {
     if (!currentUserData) return false;
+    
+    // التحقق من الأدمن عبر الإيميل
+    const user = auth.currentUser;
+    if (user && ADMIN_EMAILS.includes(user.email.toLowerCase())) {
+        return true; // الأدمن لديه كل الصلاحيات
+    }
+    
     const userRole = ROLES[currentUserData.role];
     if (!userRole) return false;
     return userRole.permissions.includes('all') || userRole.permissions.includes(permission);
