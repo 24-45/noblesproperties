@@ -28153,11 +28153,13 @@ window.openUsersModalInternal = async function() {
     }
     
     const modal = document.getElementById('users-modal');
+    console.log('modal element:', modal);
     if (!modal) {
         console.error('users-modal not found!');
         return;
     }
     modal.style.display = 'flex';
+    console.log('modal display set to flex, current style:', modal.style.display);
     
     await loadUsersList();
 };
