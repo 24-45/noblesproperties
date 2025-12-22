@@ -28119,7 +28119,7 @@ function updateUIForRole() {
     
     // إظهار/إخفاء عناصر الأدمن
     adminElements.forEach(el => {
-        el.style.display = hasPermission('manage_users') ? '' : 'none';
+        el.style.display = hasPermission('manage_users') ? 'flex' : 'none';
     });
     
     // إظهار/إخفاء عناصر المدير
