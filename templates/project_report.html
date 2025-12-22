@@ -28263,14 +28263,25 @@ async function loadUsersList() {
         
         usersSnapshot.forEach(doc => {
             const user = { id: doc.id, ...doc.data() };
-            if (user.status === 'pending') {
+            const isAdmin = ADMIN_EMAILS.includes(user.email?.toLowerCase());
+            
+            // الأدمن دائماً approved
+            if (isAdmin) {
+                approvedUsers.push(user);
+            } else if (user.status === 'pending' || !user.status) {
+                // المستخدمين بدون status أو بـ pending يذهبون للمعلقين
                 pendingUsers.push(user);
             } else if (user.status === 'rejected') {
                 rejectedUsers.push(user);
-            } else {
+            } else if (user.status === 'approved') {
                 approvedUsers.push(user);
+            } else {
+                // أي حالة أخرى غير معروفة → معلق
+                pendingUsers.push(user);
             }
         });
+        
+        console.log('📋 Pending:', pendingUsers.length, 'Approved:', approvedUsers.length, 'Rejected:', rejectedUsers.length);
         
         let html = '';
         
@@ -28559,14 +28570,21 @@ async function suspendUser(userId) {
 async function updatePendingRequestsBadge() {
     console.log('🔔 updatePendingRequestsBadge called');
     try {
-        const pendingSnapshot = await db.collection('users').where('status', '==', 'pending').get();
-        const count = pendingSnapshot.size;
-        console.log('🔔 Pending users count:', count);
+        // جلب كل المستخدمين لحساب المعلقين (بما فيهم من بدون status)
+        const allUsersSnapshot = await db.collection('users').get();
+        let count = 0;
         
-        // عرض المستخدمين المعلقين في console
-        pendingSnapshot.forEach(doc => {
-            console.log('🔔 Pending user:', doc.data().email);
+        allUsersSnapshot.forEach(doc => {
+            const user = doc.data();
+            const isAdmin = ADMIN_EMAILS.includes(user.email?.toLowerCase());
+            // المعلقين = من لديهم status: pending أو بدون status (وليسوا أدمن)
+            if (!isAdmin && (user.status === 'pending' || !user.status)) {
+                count++;
+                console.log('🔔 Pending user:', user.email);
+            }
         });
+        
+        console.log('🔔 Total pending users count:', count);
         
         const badge = document.getElementById('pending-requests-badge');
         console.log('🔔 Badge element:', badge);
