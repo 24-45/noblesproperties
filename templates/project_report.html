@@ -27870,16 +27870,28 @@ async function handleRegister(event) {
     try {
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         
+        // التحقق إذا كان أدمن
+        const isAdmin = ADMIN_EMAILS.includes(email.toLowerCase());
+        
         // إنشاء ملف المستخدم
         await db.collection('users').doc(userCredential.user.uid).set({
             name: name,
             email: email,
-            role: 'viewer', // دور افتراضي
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            role: isAdmin ? 'admin' : 'viewer',
+            status: isAdmin ? 'approved' : 'pending', // ← الإضافة المهمة!
+            isActive: true,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+            provider: 'email'
         });
         
         closeModal('register-modal');
-        showToast('تم إنشاء الحساب بنجاح', 'success');
+        
+        if (isAdmin) {
+            showToast('مرحباً بك كمدير للنظام!', 'success');
+        } else {
+            showToast('تم إنشاء الحساب بنجاح! بانتظار موافقة المدير', 'info');
+        }
     } catch (error) {
         console.error('خطأ في إنشاء الحساب:', error);
         showToast('حدث خطأ في إنشاء الحساب', 'error');
