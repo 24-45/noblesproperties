@@ -27964,6 +27964,7 @@ async function signInWithGoogle() {
         if (!userDoc.exists) {
             // إنشاء مستخدم جديد - الأدمن يُوافق تلقائياً، الباقي بانتظار الموافقة
             const isAdmin = ADMIN_EMAILS.includes(user.email.toLowerCase());
+            console.log('🆕 Creating new user:', user.email, 'isAdmin:', isAdmin);
             await db.collection('users').doc(user.uid).set({
                 name: user.displayName || 'مستخدم جديد',
                 email: user.email,
@@ -27975,6 +27976,7 @@ async function signInWithGoogle() {
                 lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
                 provider: 'google'
             });
+            console.log('🆕 User created with status:', isAdmin ? 'approved' : 'pending');
             
             if (isAdmin) {
                 showToast('مرحباً بك كمدير للنظام!', 'success');
@@ -28510,17 +28512,27 @@ async function suspendUser(userId) {
 
 // تحديث شارة طلبات الانضمام المعلقة
 async function updatePendingRequestsBadge() {
+    console.log('🔔 updatePendingRequestsBadge called');
     try {
         const pendingSnapshot = await db.collection('users').where('status', '==', 'pending').get();
         const count = pendingSnapshot.size;
+        console.log('🔔 Pending users count:', count);
+        
+        // عرض المستخدمين المعلقين في console
+        pendingSnapshot.forEach(doc => {
+            console.log('🔔 Pending user:', doc.data().email);
+        });
         
         const badge = document.getElementById('pending-requests-badge');
+        console.log('🔔 Badge element:', badge);
         if (badge) {
             if (count > 0) {
                 badge.textContent = count;
                 badge.style.display = 'flex';
+                console.log('🔔 Badge shown with count:', count);
             } else {
                 badge.style.display = 'none';
+                console.log('🔔 Badge hidden (no pending)');
             }
         }
     } catch (error) {
