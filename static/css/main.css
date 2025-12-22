@@ -155,8 +155,8 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('../images/hero-bg.jpg') center/cover no-repeat;
-    opacity: 0.2;
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, rgba(59, 130, 246, 0.2) 100%);
+    opacity: 0.5;
 }
 
 .hero-content {
