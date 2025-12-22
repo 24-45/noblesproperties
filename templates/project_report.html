@@ -28343,18 +28343,25 @@ function renderUserCard(user, status) {
             </div>
         `;
     } else if (status === 'approved') {
+        // لا تظهر أزرار التعديل للأدمن نفسه
+        const isCurrentUserAdmin = ADMIN_EMAILS.includes(user.email?.toLowerCase());
         actionButtons = `
             <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                <select onchange="updateUserRole('${user.id}', this.value)" style="padding: 10px 15px; background: rgba(0,0,0,0.3); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 10px; color: #f1f5f9; font-size: 0.85rem; cursor: pointer;">
+                <select onchange="updateUserRole('${user.id}', this.value)" style="padding: 10px 15px; background: rgba(0,0,0,0.3); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 10px; color: #f1f5f9; font-size: 0.85rem; cursor: pointer;" ${isCurrentUserAdmin ? 'disabled' : ''}>
                     <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>مدير النظام</option>
                     <option value="manager" ${user.role === 'manager' ? 'selected' : ''}>مدير المشروع</option>
                     <option value="lead" ${user.role === 'lead' ? 'selected' : ''}>رئيس فريق</option>
                     <option value="member" ${user.role === 'member' ? 'selected' : ''}>عضو</option>
                     <option value="viewer" ${user.role === 'viewer' ? 'selected' : ''}>مشاهد</option>
                 </select>
+                ${!isCurrentUserAdmin ? `
+                <button onclick="setPendingUser('${user.id}')" style="padding: 10px 15px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 10px; color: #fcd34d; cursor: pointer; font-size: 0.8rem;">
+                    <i class="fas fa-clock"></i> إعادة للمراجعة
+                </button>
                 <button onclick="suspendUser('${user.id}')" style="padding: 10px 15px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 10px; color: #fca5a5; cursor: pointer; font-size: 0.8rem;">
                     <i class="fas fa-user-slash"></i> تعليق
                 </button>
+                ` : '<span style="color: #64748b; font-size: 0.8rem;">أنت</span>'}
             </div>
         `;
     } else if (status === 'rejected') {
@@ -28481,6 +28488,32 @@ async function rejectUser(userId) {
     } catch (error) {
         console.error('خطأ:', error);
         showToast('حدث خطأ في رفض المستخدم', 'error');
+    }
+}
+
+// إعادة مستخدم للمراجعة (من approved إلى pending)
+async function setPendingUser(userId) {
+    if (!hasPermission('manage_users')) {
+        showToast('ليس لديك صلاحية لهذا الإجراء', 'error');
+        return;
+    }
+    
+    if (!confirm('هل تريد إعادة هذا المستخدم لقائمة المراجعة؟')) return;
+    
+    try {
+        await db.collection('users').doc(userId).update({
+            status: 'pending',
+            setPendingAt: firebase.firestore.FieldValue.serverTimestamp(),
+            setPendingBy: auth.currentUser.uid
+        });
+        
+        showToast('تم إعادة المستخدم لقائمة المراجعة', 'info');
+        await loadUsersList();
+        updatePendingRequestsBadge();
+        
+    } catch (error) {
+        console.error('خطأ:', error);
+        showToast('حدث خطأ', 'error');
     }
 }
 
