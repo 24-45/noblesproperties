@@ -27983,10 +27983,21 @@ async function signInWithGoogle() {
             }
         } else {
             // تحديث آخر تسجيل دخول
-            await db.collection('users').doc(user.uid).update({
+            const existingData = userDoc.data();
+            const isAdmin = ADMIN_EMAILS.includes(user.email.toLowerCase());
+            
+            // إضافة حقل status للمستخدمين القدامى الذين لا يملكونه
+            const updateData = {
                 lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
-                photoURL: user.photoURL || userDoc.data().photoURL
-            });
+                photoURL: user.photoURL || existingData.photoURL
+            };
+            
+            // إذا لم يكن لديه status، أضفه
+            if (!existingData.status) {
+                updateData.status = isAdmin ? 'approved' : 'pending';
+            }
+            
+            await db.collection('users').doc(user.uid).update(updateData);
         }
         
         closeModal('login-modal');
@@ -28995,18 +29006,12 @@ if (bypassCode === 'nobles2025') {
             // الحصول على بيانات المستخدم
             await getCurrentUserData();
             
+            // التحقق إذا كان أدمن (يتجاوز فحص الموافقة)
+            const isAdmin = ADMIN_EMAILS.includes(user.email.toLowerCase());
+            
             // التحقق من حالة الموافقة
-            if (currentUserData && currentUserData.status === 'pending') {
-                // المستخدم بانتظار الموافقة
-                authLoading.style.display = 'none';
-                if (pendingScreen) pendingScreen.style.display = 'flex';
-                pageContent.classList.remove('visible');
-            } else if (currentUserData && currentUserData.status === 'rejected') {
-                // المستخدم مرفوض
-                authLoading.style.display = 'none';
-                showRejectedScreen();
-            } else {
-                // المستخدم مُوافق عليه
+            if (isAdmin || (currentUserData && currentUserData.status === 'approved')) {
+                // المستخدم مُوافق عليه أو أدمن
                 updateUIForRole();
                 authLoading.style.display = 'none';
                 if (pendingScreen) pendingScreen.style.display = 'none';
@@ -29016,10 +29021,21 @@ if (bypassCode === 'nobles2025') {
                 if (hasPermission('manage_users')) {
                     updatePendingRequestsBadge();
                 }
+            } else if (currentUserData && currentUserData.status === 'rejected') {
+                // المستخدم مرفوض
+                authLoading.style.display = 'none';
+                pageContent.classList.remove('visible');
+                showRejectedScreen();
+            } else {
+                // المستخدم بانتظار الموافقة أو لم يُحدد له status
+                authLoading.style.display = 'none';
+                if (pendingScreen) pendingScreen.style.display = 'flex';
+                pageContent.classList.remove('visible');
             }
         } else {
             // غير مسجل دخول - إظهار صفحة تسجيل الدخول
             authLoading.style.display = 'none';
+            pageContent.classList.remove('visible');
             showLoginPrompt();
         }
     });
