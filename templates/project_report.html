@@ -25965,126 +25965,40 @@
                         </div>
                         
                         <!-- ============================================ -->
-                        <!-- قائمة المهام التنفيذية -->
+                        <!-- قائمة المنتجات التفاعلية مع نظام المهام -->
                         <!-- ============================================ -->
                         <div style="margin-bottom: 40px;">
-                            <h3 style="color: #f1f5f9; font-size: 1.4rem; font-weight: 700; margin: 0 0 25px 0; display: flex; align-items: center; gap: 12px;">
-                                <i class="fas fa-clipboard-list" style="color: #f59e0b;"></i>
-                                قائمة المهام التنفيذية
-                            </h3>
-                            
-                            <!-- المرحلة الأولى -->
-                            <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.03) 100%); border-radius: 16px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(251, 191, 36, 0.2);">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                                    <div style="display: flex; align-items: center; gap: 12px;">
-                                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #1e293b;">1</div>
-                                        <span style="color: #fbbf24; font-size: 1.1rem; font-weight: 700;">مرحلة التهيئة والتشويق</span>
-                                    </div>
-                                    <span style="background: rgba(251, 191, 36, 0.2); color: #fcd34d; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem;">5 منتجات</span>
-                                </div>
-                                <div style="display: flex; flex-direction: column; gap: 10px;">
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #fbbf24; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">منشور LinkedIn تشويقي</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">1 يناير</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #fbbf24; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">بيان صحفي الكشف عن ALIC</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">26 ديسمبر</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #fbbf24; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">حملة SMS لغرفة الصناعة</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">27-28 ديسمبر</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #fbbf24; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">فيديو تشويقي (Teaser)</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">5 يناير</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #fbbf24; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">مقال رأي اقتصادي</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">10 يناير</span>
-                                    </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+                                <h3 style="color: #f1f5f9; font-size: 1.4rem; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 12px;">
+                                    <i class="fas fa-tasks" style="color: #f59e0b;"></i>
+                                    منتجات الحملة ومهامها
+                                </h3>
+                                <div id="admin-add-product-btn" style="display: none;">
+                                    <button onclick="showAddProductModal()" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); border: none; color: white; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                                        <i class="fas fa-plus-circle"></i> إضافة منتج جديد
+                                    </button>
                                 </div>
                             </div>
                             
-                            <!-- المرحلة الثانية -->
-                            <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.03) 100%); border-radius: 16px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(16, 185, 129, 0.2);">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                                    <div style="display: flex; align-items: center; gap: 12px;">
-                                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #1e293b;">2</div>
-                                        <span style="color: #10b981; font-size: 1.1rem; font-weight: 700;">مرحلة الإطلاق الاستراتيجي</span>
-                                    </div>
-                                    <span style="background: rgba(16, 185, 129, 0.2); color: #6ee7b7; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem;">10 منتجات</span>
-                                </div>
-                                <div style="display: flex; flex-direction: column; gap: 10px;">
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #10b981; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">حدث تسليم محامص الشعب</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">15 يناير</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #10b981; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">فيديو محامص الشعب (قصة النجاح)</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">15 يناير</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #10b981; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">بيان صحفي الإطلاق الرسمي</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">15 يناير</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #10b981; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">مقابلة تلفزيونية (رؤيا/المملكة)</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">16 يناير</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #10b981; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">جولة إعلامية في الموقع</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">17 يناير</span>
-                                    </div>
-                                </div>
+                            <!-- فلتر المراحل -->
+                            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                                <button onclick="filterProducts('all')" class="phase-filter active" data-phase="all" style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); color: #a5b4fc; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s;">
+                                    الكل <span style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; margin-right: 5px; font-size: 0.75rem;">20</span>
+                                </button>
+                                <button onclick="filterProducts(1)" class="phase-filter" data-phase="1" style="background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); color: #fcd34d; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s;">
+                                    التهيئة <span style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px; margin-right: 5px; font-size: 0.75rem;">5</span>
+                                </button>
+                                <button onclick="filterProducts(2)" class="phase-filter" data-phase="2" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #6ee7b7; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s;">
+                                    الإطلاق <span style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px; margin-right: 5px; font-size: 0.75rem;">10</span>
+                                </button>
+                                <button onclick="filterProducts(3)" class="phase-filter" data-phase="3" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); color: #93c5fd; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s;">
+                                    الترسيخ <span style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px; margin-right: 5px; font-size: 0.75rem;">5</span>
+                                </button>
                             </div>
                             
-                            <!-- المرحلة الثالثة -->
-                            <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.03) 100%); border-radius: 16px; padding: 20px; border: 1px solid rgba(59, 130, 246, 0.2);">
-                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
-                                    <div style="display: flex; align-items: center; gap: 12px;">
-                                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: white;">3</div>
-                                        <span style="color: #3b82f6; font-size: 1.1rem; font-weight: 700;">مرحلة ترسيخ الريادة</span>
-                                    </div>
-                                    <span style="background: rgba(59, 130, 246, 0.2); color: #93c5fd; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem;">5 منتجات</span>
-                                </div>
-                                <div style="display: flex; flex-direction: column; gap: 10px;">
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #3b82f6; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">ملف Case Study محامص الشعب</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">22 يناير</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #3b82f6; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">Infographic الإنجازات</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">25 يناير</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #3b82f6; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">تقرير أثر اقتصادي</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">28 يناير</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #3b82f6; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">حملة LinkedIn B2B</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">21-31 يناير</span>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
-                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #3b82f6; cursor: pointer;">
-                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">تقرير ختام الحملة</span>
-                                        <span style="color: #94a3b8; font-size: 0.75rem;">31 يناير</span>
-                                    </div>
-                                </div>
+                            <!-- قائمة المنتجات -->
+                            <div id="products-container" style="display: flex; flex-direction: column; gap: 15px;">
+                                <!-- المنتجات ستُحمّل هنا ديناميكياً -->
                             </div>
                         </div>
                         
@@ -26397,6 +26311,67 @@
                                 جاري تحميل المستخدمين...
                             </div>
                         </div>
+                    </div>
+                </div>
+                
+                <!-- ============================================ -->
+                <!-- Modal: إضافة مهمة جديدة (للأدمن) -->
+                <!-- ============================================ -->
+                <div id="add-task-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(10px); overflow-y: auto; padding: 20px;">
+                    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 24px; padding: 40px; max-width: 550px; width: 95%; position: relative; border: 1px solid rgba(59, 130, 246, 0.3); box-shadow: 0 30px 80px rgba(0,0,0,0.5); margin: auto;">
+                        <button onclick="closeModal('add-task-modal')" style="position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.1); border: none; color: #94a3b8; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-size: 1.2rem;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fas fa-plus" style="color: white; font-size: 1.8rem;"></i>
+                            </div>
+                            <h3 style="color: #f1f5f9; font-size: 1.5rem; font-weight: 700; margin: 0;">إضافة مهمة جديدة</h3>
+                            <p id="add-task-product-name" style="color: #64748b; font-size: 0.9rem; margin: 10px 0 0 0;">للمنتج: اسم المنتج</p>
+                        </div>
+                        <form id="add-task-form" onsubmit="submitNewTask(event)">
+                            <input type="hidden" id="task-product-id">
+                            <div style="margin-bottom: 20px;">
+                                <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 8px;">عنوان المهمة *</label>
+                                <input type="text" id="new-task-title" required style="width: 100%; padding: 14px 18px; background: rgba(0,0,0,0.3); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; color: #f1f5f9; font-size: 1rem; outline: none;" placeholder="مثال: كتابة النص الإعلاني">
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 8px;">الوصف</label>
+                                <textarea id="new-task-description" rows="3" style="width: 100%; padding: 14px 18px; background: rgba(0,0,0,0.3); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; color: #f1f5f9; font-size: 1rem; outline: none; resize: vertical;" placeholder="تفاصيل المهمة..."></textarea>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                                <div>
+                                    <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 8px;">تعيين إلى</label>
+                                    <select id="new-task-assignee" style="width: 100%; padding: 14px 18px; background: rgba(0,0,0,0.3); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; color: #f1f5f9; font-size: 0.9rem; cursor: pointer;">
+                                        <option value="">-- اختر --</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 8px;">تاريخ التسليم</label>
+                                    <input type="date" id="new-task-deadline" style="width: 100%; padding: 14px 18px; background: rgba(0,0,0,0.3); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; color: #f1f5f9; font-size: 0.9rem; cursor: pointer;">
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 25px;">
+                                <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 10px;">الموافقات المطلوبة</label>
+                                <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                    <label style="display: flex; align-items: center; gap: 8px; color: #e2e8f0; cursor: pointer;">
+                                        <input type="checkbox" id="approval-content" checked style="accent-color: #3b82f6; width: 18px; height: 18px;">
+                                        <span style="font-size: 0.9rem;">المحتوى</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; color: #e2e8f0; cursor: pointer;">
+                                        <input type="checkbox" id="approval-design" checked style="accent-color: #10b981; width: 18px; height: 18px;">
+                                        <span style="font-size: 0.9rem;">التصميم</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; color: #e2e8f0; cursor: pointer;">
+                                        <input type="checkbox" id="approval-publish" checked style="accent-color: #f59e0b; width: 18px; height: 18px;">
+                                        <span style="font-size: 0.9rem;">النشر</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; border-radius: 12px; color: white; font-size: 1.1rem; font-weight: 700; cursor: pointer;">
+                                <i class="fas fa-plus" style="margin-left: 8px;"></i> إضافة المهمة
+                            </button>
+                        </form>
                     </div>
                 </div>
                 
@@ -28248,13 +28223,501 @@ toastStyles.textContent = `
         background: rgba(0,0,0,0.35) !important;
         transform: translateX(-3px);
     }
+    .product-card {
+        transition: all 0.3s ease;
+    }
+    .product-card:hover {
+        transform: translateY(-2px);
+    }
+    .product-tasks {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+    .product-tasks.expanded {
+        max-height: 2000px;
+    }
+    .task-row:hover {
+        background: rgba(255,255,255,0.05) !important;
+    }
+    .approval-badge {
+        transition: all 0.2s ease;
+    }
+    .approval-badge:hover {
+        transform: scale(1.1);
+    }
 `;
 document.head.appendChild(toastStyles);
 
+// ============================================
+// بيانات المنتجات الأساسية
+// ============================================
+const CAMPAIGN_PRODUCTS = [
+    // المرحلة 1: التهيئة والتشويق
+    { id: 'p1', name: 'منشور LinkedIn تشويقي', phase: 1, date: '1 يناير', type: 'social' },
+    { id: 'p2', name: 'بيان صحفي الكشف عن ALIC', phase: 1, date: '26 ديسمبر', type: 'pr' },
+    { id: 'p3', name: 'حملة SMS لغرفة الصناعة', phase: 1, date: '27-28 ديسمبر', type: 'campaign' },
+    { id: 'p4', name: 'فيديو تشويقي (Teaser)', phase: 1, date: '5 يناير', type: 'video' },
+    { id: 'p5', name: 'مقال رأي اقتصادي', phase: 1, date: '10 يناير', type: 'content' },
+    // المرحلة 2: الإطلاق
+    { id: 'p6', name: 'حدث تسليم محامص الشعب', phase: 2, date: '15 يناير', type: 'event' },
+    { id: 'p7', name: 'فيديو محامص الشعب', phase: 2, date: '15 يناير', type: 'video' },
+    { id: 'p8', name: 'بيان صحفي الإطلاق الرسمي', phase: 2, date: '15 يناير', type: 'pr' },
+    { id: 'p9', name: 'مقابلة تلفزيونية', phase: 2, date: '16 يناير', type: 'media' },
+    { id: 'p10', name: 'جولة إعلامية في الموقع', phase: 2, date: '17 يناير', type: 'event' },
+    { id: 'p11', name: 'حملة Google Ads', phase: 2, date: '15-20 يناير', type: 'ads' },
+    { id: 'p12', name: 'سلسلة Stories تفاعلية', phase: 2, date: '15-20 يناير', type: 'social' },
+    { id: 'p13', name: 'Newsletter للشركاء', phase: 2, date: '16 يناير', type: 'email' },
+    { id: 'p14', name: 'منشورات تويتر', phase: 2, date: '15-20 يناير', type: 'social' },
+    { id: 'p15', name: 'مقال ضيف Forbes ME', phase: 2, date: '18 يناير', type: 'pr' },
+    // المرحلة 3: الترسيخ
+    { id: 'p16', name: 'Case Study محامص الشعب', phase: 3, date: '22 يناير', type: 'content' },
+    { id: 'p17', name: 'Infographic الإنجازات', phase: 3, date: '25 يناير', type: 'design' },
+    { id: 'p18', name: 'تقرير أثر اقتصادي', phase: 3, date: '28 يناير', type: 'content' },
+    { id: 'p19', name: 'حملة LinkedIn B2B', phase: 3, date: '21-31 يناير', type: 'campaign' },
+    { id: 'p20', name: 'تقرير ختام الحملة', phase: 3, date: '31 يناير', type: 'report' }
+];
+
+const PHASE_COLORS = {
+    1: { bg: 'rgba(251, 191, 36, 0.1)', border: 'rgba(251, 191, 36, 0.25)', color: '#fbbf24', name: 'التهيئة والتشويق' },
+    2: { bg: 'rgba(16, 185, 129, 0.1)', border: 'rgba(16, 185, 129, 0.25)', color: '#10b981', name: 'الإطلاق الاستراتيجي' },
+    3: { bg: 'rgba(59, 130, 246, 0.1)', border: 'rgba(59, 130, 246, 0.25)', color: '#3b82f6', name: 'ترسيخ الريادة' }
+};
+
+const PRODUCT_ICONS = {
+    social: 'fa-hashtag',
+    pr: 'fa-newspaper',
+    campaign: 'fa-bullhorn',
+    video: 'fa-video',
+    content: 'fa-pen-fancy',
+    event: 'fa-calendar-check',
+    media: 'fa-tv',
+    ads: 'fa-ad',
+    email: 'fa-envelope',
+    design: 'fa-palette',
+    report: 'fa-chart-pie'
+};
+
+let productsData = {};
+let currentFilter = 'all';
+
+// ============================================
+// تحميل وعرض المنتجات
+// ============================================
+async function loadProductsFromFirebase() {
+    const container = document.getElementById('products-container');
+    if (!container) return;
+    
+    container.innerHTML = '<div style="text-align: center; padding: 40px; color: #64748b;"><i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i><p style="margin-top: 15px;">جاري تحميل المنتجات...</p></div>';
+    
+    try {
+        // تحميل المنتجات من Firebase أو استخدام البيانات المحلية
+        const productsRef = db.collection('products');
+        const snapshot = await productsRef.get();
+        
+        if (snapshot.empty) {
+            // إذا لم تكن هناك بيانات، استخدم البيانات المحلية
+            await seedProductsData();
+        } else {
+            snapshot.forEach(doc => {
+                productsData[doc.id] = { id: doc.id, ...doc.data() };
+            });
+        }
+        
+        renderProducts();
+    } catch (error) {
+        console.error('Error loading products:', error);
+        // عرض البيانات المحلية كفallback
+        CAMPAIGN_PRODUCTS.forEach(p => {
+            productsData[p.id] = { ...p, tasks: [], progress: 0 };
+        });
+        renderProducts();
+    }
+}
+
+async function seedProductsData() {
+    const batch = db.batch();
+    
+    for (const product of CAMPAIGN_PRODUCTS) {
+        const ref = db.collection('products').doc(product.id);
+        batch.set(ref, {
+            ...product,
+            tasks: [],
+            progress: 0,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        productsData[product.id] = { ...product, tasks: [], progress: 0 };
+    }
+    
+    try {
+        await batch.commit();
+        console.log('Products seeded successfully');
+    } catch (error) {
+        console.error('Error seeding products:', error);
+    }
+}
+
+function renderProducts() {
+    const container = document.getElementById('products-container');
+    if (!container) return;
+    
+    let filteredProducts = CAMPAIGN_PRODUCTS;
+    if (currentFilter !== 'all') {
+        filteredProducts = CAMPAIGN_PRODUCTS.filter(p => p.phase === parseInt(currentFilter));
+    }
+    
+    let html = '';
+    
+    filteredProducts.forEach(product => {
+        const phaseStyle = PHASE_COLORS[product.phase];
+        const icon = PRODUCT_ICONS[product.type] || 'fa-box';
+        const productData = productsData[product.id] || { tasks: [], progress: 0 };
+        const tasksCount = productData.tasks?.length || 0;
+        const completedTasks = productData.tasks?.filter(t => t.status === 'completed').length || 0;
+        const progress = tasksCount > 0 ? Math.round((completedTasks / tasksCount) * 100) : 0;
+        
+        html += `
+            <div class="product-card" data-phase="${product.phase}" style="background: linear-gradient(135deg, ${phaseStyle.bg} 0%, rgba(0,0,0,0.2) 100%); border-radius: 16px; border: 1px solid ${phaseStyle.border}; overflow: hidden;">
+                <!-- Header - قابل للنقر -->
+                <div onclick="toggleProductTasks('${product.id}')" style="padding: 18px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 15px;">
+                    <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                        <div style="width: 45px; height: 45px; background: linear-gradient(135deg, ${phaseStyle.color}40 0%, ${phaseStyle.color}20 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas ${icon}" style="color: ${phaseStyle.color}; font-size: 1.1rem;"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #f1f5f9; font-size: 1rem; font-weight: 600; margin: 0 0 5px 0;">${product.name}</h4>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <span style="color: #64748b; font-size: 0.8rem;"><i class="far fa-calendar" style="margin-left: 5px;"></i>${product.date}</span>
+                                <span style="color: ${phaseStyle.color}; font-size: 0.75rem; background: ${phaseStyle.color}20; padding: 2px 8px; border-radius: 10px;">م${product.phase}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="text-align: left; min-width: 80px;">
+                            <div style="color: #94a3b8; font-size: 0.75rem; margin-bottom: 4px;">${tasksCount} مهام</div>
+                            <div style="background: rgba(0,0,0,0.3); height: 6px; border-radius: 3px; width: 80px;">
+                                <div style="background: ${phaseStyle.color}; height: 100%; width: ${progress}%; border-radius: 3px; transition: width 0.3s;"></div>
+                            </div>
+                        </div>
+                        <i id="arrow-${product.id}" class="fas fa-chevron-down" style="color: #64748b; transition: transform 0.3s;"></i>
+                    </div>
+                </div>
+                
+                <!-- Tasks Container - مخفي بشكل افتراضي -->
+                <div id="tasks-${product.id}" class="product-tasks" style="border-top: 1px solid ${phaseStyle.border};">
+                    <div style="padding: 15px 20px; background: rgba(0,0,0,0.15);">
+                        <!-- Admin Add Task Button -->
+                        <div id="admin-add-task-${product.id}" class="admin-only" style="display: none; margin-bottom: 15px;">
+                            <button onclick="showAddTaskModal('${product.id}', '${product.name}')" style="width: 100%; padding: 12px; background: rgba(59, 130, 246, 0.15); border: 1px dashed rgba(59, 130, 246, 0.4); border-radius: 10px; color: #93c5fd; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s;">
+                                <i class="fas fa-plus-circle"></i> إضافة مهمة جديدة
+                            </button>
+                        </div>
+                        
+                        <!-- Tasks List -->
+                        <div id="tasks-list-${product.id}">
+                            ${renderProductTasks(product.id, phaseStyle)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html || '<div style="text-align: center; padding: 40px; color: #64748b;">لا توجد منتجات للعرض</div>';
+    
+    // تحديث أزرار الأدمن
+    updateAdminElements();
+}
+
+function renderProductTasks(productId, phaseStyle) {
+    const productData = productsData[productId];
+    const tasks = productData?.tasks || [];
+    
+    if (tasks.length === 0) {
+        return `<div style="text-align: center; padding: 30px; color: #64748b; font-size: 0.9rem;">
+            <i class="fas fa-tasks" style="font-size: 2rem; margin-bottom: 10px; opacity: 0.3; display: block;"></i>
+            لم تتم إضافة مهام بعد
+        </div>`;
+    }
+    
+    let html = '';
+    tasks.forEach((task, index) => {
+        const statusColors = {
+            pending: { bg: 'rgba(100, 116, 139, 0.2)', color: '#94a3b8', icon: 'fa-clock', label: 'بانتظار' },
+            'in-progress': { bg: 'rgba(245, 158, 11, 0.2)', color: '#fcd34d', icon: 'fa-spinner', label: 'قيد التنفيذ' },
+            'needs-approval': { bg: 'rgba(139, 92, 246, 0.2)', color: '#c4b5fd', icon: 'fa-hourglass-half', label: 'بانتظار الموافقة' },
+            completed: { bg: 'rgba(16, 185, 129, 0.2)', color: '#6ee7b7', icon: 'fa-check', label: 'مكتمل' }
+        };
+        const status = statusColors[task.status] || statusColors.pending;
+        
+        html += `
+            <div class="task-row" style="background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05);">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <h5 style="color: #e2e8f0; font-size: 0.95rem; font-weight: 600; margin: 0 0 8px 0;">${task.title}</h5>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <span style="background: ${status.bg}; color: ${status.color}; padding: 4px 10px; border-radius: 15px; font-size: 0.75rem;">
+                                <i class="fas ${status.icon}" style="margin-left: 4px;"></i>${status.label}
+                            </span>
+                            ${task.assignee ? `<span style="color: #64748b; font-size: 0.8rem;"><i class="fas fa-user" style="margin-left: 4px;"></i>${task.assigneeName || 'غير محدد'}</span>` : ''}
+                            ${task.deadline ? `<span style="color: #64748b; font-size: 0.8rem;"><i class="far fa-calendar" style="margin-left: 4px;"></i>${task.deadline}</span>` : ''}
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <!-- Approval Badges -->
+                        ${task.approvals?.content !== undefined ? `
+                            <div class="approval-badge" title="موافقة المحتوى" style="width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: ${task.approvals.content ? 'rgba(16, 185, 129, 0.2)' : 'rgba(100, 116, 139, 0.2)'}; cursor: ${hasPermission('approve') ? 'pointer' : 'default'};" onclick="${hasPermission('approve') ? `toggleApproval('${productId}', ${index}, 'content')` : ''}">
+                                <i class="fas fa-file-alt" style="color: ${task.approvals.content ? '#10b981' : '#64748b'}; font-size: 0.85rem;"></i>
+                            </div>
+                        ` : ''}
+                        ${task.approvals?.design !== undefined ? `
+                            <div class="approval-badge" title="موافقة التصميم" style="width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: ${task.approvals.design ? 'rgba(59, 130, 246, 0.2)' : 'rgba(100, 116, 139, 0.2)'}; cursor: ${hasPermission('approve') ? 'pointer' : 'default'};" onclick="${hasPermission('approve') ? `toggleApproval('${productId}', ${index}, 'design')` : ''}">
+                                <i class="fas fa-palette" style="color: ${task.approvals.design ? '#3b82f6' : '#64748b'}; font-size: 0.85rem;"></i>
+                            </div>
+                        ` : ''}
+                        ${task.approvals?.publish !== undefined ? `
+                            <div class="approval-badge" title="موافقة النشر" style="width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: ${task.approvals.publish ? 'rgba(245, 158, 11, 0.2)' : 'rgba(100, 116, 139, 0.2)'}; cursor: ${hasPermission('approve') ? 'pointer' : 'default'};" onclick="${hasPermission('approve') ? `toggleApproval('${productId}', ${index}, 'publish')` : ''}">
+                                <i class="fas fa-paper-plane" style="color: ${task.approvals.publish ? '#f59e0b' : '#64748b'}; font-size: 0.85rem;"></i>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Actions -->
+                        ${currentUserData && (hasPermission('edit') || task.assignee === currentUserData.uid) ? `
+                            <button onclick="updateTaskStatus('${productId}', ${index})" style="background: rgba(99, 102, 241, 0.2); border: none; padding: 8px 12px; border-radius: 8px; color: #a5b4fc; cursor: pointer; font-size: 0.8rem;">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    return html;
+}
+
+function toggleProductTasks(productId) {
+    const tasksContainer = document.getElementById(`tasks-${productId}`);
+    const arrow = document.getElementById(`arrow-${productId}`);
+    
+    if (tasksContainer.classList.contains('expanded')) {
+        tasksContainer.classList.remove('expanded');
+        arrow.style.transform = 'rotate(0deg)';
+    } else {
+        tasksContainer.classList.add('expanded');
+        arrow.style.transform = 'rotate(180deg)';
+    }
+}
+
+function filterProducts(phase) {
+    currentFilter = phase;
+    
+    // تحديث الأزرار النشطة
+    document.querySelectorAll('.phase-filter').forEach(btn => {
+        btn.style.opacity = btn.dataset.phase == phase ? '1' : '0.6';
+        btn.style.transform = btn.dataset.phase == phase ? 'scale(1.05)' : 'scale(1)';
+    });
+    
+    renderProducts();
+}
+
+// ============================================
+// إدارة المهام
+// ============================================
+function showAddTaskModal(productId, productName) {
+    if (!hasPermission('manage_users') && !hasPermission('edit')) {
+        showToast('ليس لديك صلاحية لإضافة مهام', 'error');
+        return;
+    }
+    
+    document.getElementById('task-product-id').value = productId;
+    document.getElementById('add-task-product-name').textContent = `للمنتج: ${productName}`;
+    
+    // تحميل قائمة المستخدمين
+    loadUsersForAssignment();
+    
+    // مسح النموذج
+    document.getElementById('new-task-title').value = '';
+    document.getElementById('new-task-description').value = '';
+    document.getElementById('new-task-assignee').value = '';
+    document.getElementById('new-task-deadline').value = '';
+    
+    document.getElementById('add-task-modal').style.display = 'flex';
+}
+
+async function loadUsersForAssignment() {
+    const select = document.getElementById('new-task-assignee');
+    select.innerHTML = '<option value="">-- اختر --</option>';
+    
+    try {
+        const usersSnapshot = await db.collection('users').where('isActive', '!=', false).get();
+        usersSnapshot.forEach(doc => {
+            const user = doc.data();
+            select.innerHTML += `<option value="${doc.id}">${user.name} (${ROLES[user.role]?.name || 'عضو'})</option>`;
+        });
+    } catch (error) {
+        console.error('Error loading users:', error);
+    }
+}
+
+async function submitNewTask(event) {
+    event.preventDefault();
+    
+    const productId = document.getElementById('task-product-id').value;
+    const title = document.getElementById('new-task-title').value.trim();
+    const description = document.getElementById('new-task-description').value.trim();
+    const assignee = document.getElementById('new-task-assignee').value;
+    const deadline = document.getElementById('new-task-deadline').value;
+    
+    if (!title) {
+        showToast('يرجى إدخال عنوان المهمة', 'warning');
+        return;
+    }
+    
+    const approvals = {};
+    if (document.getElementById('approval-content').checked) approvals.content = false;
+    if (document.getElementById('approval-design').checked) approvals.design = false;
+    if (document.getElementById('approval-publish').checked) approvals.publish = false;
+    
+    const newTask = {
+        title,
+        description,
+        assignee: assignee || null,
+        assigneeName: assignee ? document.getElementById('new-task-assignee').selectedOptions[0].text.split(' (')[0] : null,
+        deadline: deadline || null,
+        status: 'pending',
+        approvals,
+        createdAt: new Date().toISOString(),
+        createdBy: currentUserData?.uid
+    };
+    
+    try {
+        // تحديث Firebase
+        const productRef = db.collection('products').doc(productId);
+        await productRef.update({
+            tasks: firebase.firestore.FieldValue.arrayUnion(newTask)
+        });
+        
+        // تحديث البيانات المحلية
+        if (!productsData[productId]) {
+            productsData[productId] = { tasks: [] };
+        }
+        productsData[productId].tasks = productsData[productId].tasks || [];
+        productsData[productId].tasks.push(newTask);
+        
+        closeModal('add-task-modal');
+        showToast('تمت إضافة المهمة بنجاح', 'success');
+        
+        // إعادة رسم المنتجات
+        renderProducts();
+        
+        // فتح المنتج المحدد
+        setTimeout(() => {
+            const tasksContainer = document.getElementById(`tasks-${productId}`);
+            if (tasksContainer && !tasksContainer.classList.contains('expanded')) {
+                toggleProductTasks(productId);
+            }
+        }, 100);
+        
+    } catch (error) {
+        console.error('Error adding task:', error);
+        showToast('حدث خطأ في إضافة المهمة', 'error');
+    }
+}
+
+async function toggleApproval(productId, taskIndex, approvalType) {
+    if (!hasPermission('approve')) {
+        showToast('ليس لديك صلاحية للموافقة', 'error');
+        return;
+    }
+    
+    try {
+        const productData = productsData[productId];
+        if (!productData || !productData.tasks[taskIndex]) return;
+        
+        const task = productData.tasks[taskIndex];
+        task.approvals[approvalType] = !task.approvals[approvalType];
+        
+        // تحديث الحالة بناءً على الموافقات
+        const allApproved = Object.values(task.approvals).every(v => v === true);
+        if (allApproved) {
+            task.status = 'completed';
+        } else if (Object.values(task.approvals).some(v => v === true)) {
+            task.status = 'needs-approval';
+        }
+        
+        // تحديث Firebase
+        const productRef = db.collection('products').doc(productId);
+        await productRef.update({ tasks: productData.tasks });
+        
+        showToast(`تم ${task.approvals[approvalType] ? 'الموافقة على' : 'إلغاء موافقة'} ${approvalType === 'content' ? 'المحتوى' : approvalType === 'design' ? 'التصميم' : 'النشر'}`, 'success');
+        
+        // إعادة رسم المهام
+        const phaseStyle = PHASE_COLORS[CAMPAIGN_PRODUCTS.find(p => p.id === productId)?.phase || 1];
+        document.getElementById(`tasks-list-${productId}`).innerHTML = renderProductTasks(productId, phaseStyle);
+        
+    } catch (error) {
+        console.error('Error toggling approval:', error);
+        showToast('حدث خطأ', 'error');
+    }
+}
+
+async function updateTaskStatus(productId, taskIndex) {
+    const productData = productsData[productId];
+    if (!productData || !productData.tasks[taskIndex]) return;
+    
+    const task = productData.tasks[taskIndex];
+    const statuses = ['pending', 'in-progress', 'needs-approval'];
+    const currentIndex = statuses.indexOf(task.status);
+    const nextStatus = statuses[(currentIndex + 1) % statuses.length];
+    
+    task.status = nextStatus;
+    
+    try {
+        const productRef = db.collection('products').doc(productId);
+        await productRef.update({ tasks: productData.tasks });
+        
+        const statusLabels = {
+            'pending': 'بانتظار',
+            'in-progress': 'قيد التنفيذ',
+            'needs-approval': 'بانتظار الموافقة'
+        };
+        showToast(`تم تحديث الحالة إلى: ${statusLabels[nextStatus]}`, 'info');
+        
+        // إعادة رسم المهام
+        const phaseStyle = PHASE_COLORS[CAMPAIGN_PRODUCTS.find(p => p.id === productId)?.phase || 1];
+        document.getElementById(`tasks-list-${productId}`).innerHTML = renderProductTasks(productId, phaseStyle);
+        
+    } catch (error) {
+        console.error('Error updating task:', error);
+        showToast('حدث خطأ في تحديث الحالة', 'error');
+    }
+}
+
+function updateAdminElements() {
+    // إظهار عناصر الأدمن
+    const adminElements = document.querySelectorAll('.admin-only');
+    const isAdmin = hasPermission('manage_users') || hasPermission('edit');
+    
+    adminElements.forEach(el => {
+        el.style.display = isAdmin ? 'block' : 'none';
+    });
+    
+    // زر إضافة منتج
+    const addProductBtn = document.getElementById('admin-add-product-btn');
+    if (addProductBtn) {
+        addProductBtn.style.display = hasPermission('manage_users') ? 'block' : 'none';
+    }
+}
+
+// ============================================
 // تهيئة النظام عند تحميل الصفحة
+// ============================================
 document.addEventListener('DOMContentLoaded', () => {
     // تأخير قليل للتأكد من تحميل Firebase
-    setTimeout(initTaskSystem, 1000);
+    setTimeout(async () => {
+        await loadProductsFromFirebase();
+    }, 1000);
 });
 
 // التحقق من تسجيل الدخول
