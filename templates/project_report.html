@@ -29020,7 +29020,15 @@ if (bypassCode === 'nobles2025') {
     document.getElementById('authLoading').style.display = 'none';
     document.getElementById('pageContent').classList.add('visible');
 } else {
-    auth.onAuthStateChanged(async (user) => {
+    // التأكد من تحميل Firebase أولاً
+    if (typeof auth === 'undefined') {
+        console.error('Firebase auth not loaded');
+        // انتظر قليلاً ثم حاول مرة أخرى
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
+    } else {
+        auth.onAuthStateChanged(async (user) => {
         const authLoading = document.getElementById('authLoading');
         const pageContent = document.getElementById('pageContent');
         const pendingScreen = document.getElementById('pending-approval-screen');
@@ -29061,6 +29069,7 @@ if (bypassCode === 'nobles2025') {
             showLoginPrompt();
         }
     });
+    }
 }
 
 // إظهار صفحة طلب تسجيل الدخول
