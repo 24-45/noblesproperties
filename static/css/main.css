@@ -995,7 +995,6 @@ img {
 
 /* ==================== Report Page Styles ==================== */
 .report-header {
-    background: var(--white);
     padding: var(--spacing-lg) 0;
     border-bottom: 1px solid var(--gray-200);
 }
