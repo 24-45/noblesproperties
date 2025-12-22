@@ -28141,6 +28141,34 @@ function updateUIForRole() {
 // إدارة المستخدمين (للأدمن فقط)
 // ============================================
 
+// دالة للتأكد من وجود المستخدم الحالي في قاعدة البيانات
+async function ensureCurrentUserInDB() {
+    const user = auth.currentUser;
+    if (!user) return;
+    
+    try {
+        const userDoc = await db.collection('users').doc(user.uid).get();
+        if (!userDoc.exists) {
+            console.log('🔧 Creating user document for:', user.email);
+            const isAdmin = ADMIN_EMAILS.includes(user.email.toLowerCase());
+            await db.collection('users').doc(user.uid).set({
+                name: user.displayName || 'مستخدم جديد',
+                email: user.email,
+                photoURL: user.photoURL || null,
+                role: isAdmin ? 'admin' : 'viewer',
+                status: isAdmin ? 'approved' : 'pending',
+                isActive: true,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+                provider: 'google'
+            });
+            console.log('✅ User document created');
+        }
+    } catch (error) {
+        console.error('Error ensuring user in DB:', error);
+    }
+}
+
 // تعريف الدالة مباشرة على window لتجنب التعارض مع base.html
 window.openUsersModalInternal = async function() {
     console.log('openUsersModalInternal called');
@@ -28151,6 +28179,9 @@ window.openUsersModalInternal = async function() {
         showToast('ليس لديك صلاحية للوصول لهذه الصفحة', 'error');
         return;
     }
+    
+    // التأكد من وجود المستخدم الحالي في قاعدة البيانات
+    await ensureCurrentUserInDB();
     
     const modal = document.getElementById('users-modal');
     console.log('modal element:', modal);
@@ -28181,9 +28212,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadUsersList() {
     const usersList = document.getElementById('users-list');
+    console.log('📋 loadUsersList called');
     
     try {
+        console.log('📋 Fetching users from Firestore...');
         const usersSnapshot = await db.collection('users').orderBy('createdAt', 'desc').get();
+        console.log('📋 Users count:', usersSnapshot.size);
         
         if (usersSnapshot.empty) {
             usersList.innerHTML = `
