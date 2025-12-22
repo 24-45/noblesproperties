@@ -28141,8 +28141,9 @@ function updateUIForRole() {
 // إدارة المستخدمين (للأدمن فقط)
 // ============================================
 
-async function openUsersModal() {
-    console.log('openUsersModal called');
+// تعريف الدالة مباشرة على window لتجنب التعارض مع base.html
+window.openUsersModalInternal = async function() {
+    console.log('openUsersModalInternal called');
     console.log('auth.currentUser:', auth.currentUser);
     console.log('hasPermission result:', hasPermission('manage_users'));
     
@@ -28159,10 +28160,7 @@ async function openUsersModal() {
     modal.style.display = 'flex';
     
     await loadUsersList();
-}
-
-// جعل الدالة متاحة للاستدعاء من base.html
-window.openUsersModalInternal = openUsersModal;
+};
 
 // التحقق من فتح modal المستخدمين من URL
 document.addEventListener('DOMContentLoaded', () => {
@@ -28171,7 +28169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // انتظار تحميل Firebase والمستخدم
         setTimeout(() => {
             if (auth.currentUser && hasPermission('manage_users')) {
-                openUsersModal();
+                window.openUsersModalInternal();
             }
         }, 2000);
     }
