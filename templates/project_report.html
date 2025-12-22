@@ -28156,6 +28156,22 @@ async function openUsersModal() {
     await loadUsersList();
 }
 
+// جعل الدالة متاحة للاستدعاء من base.html
+window.openUsersModalInternal = openUsersModal;
+
+// التحقق من فتح modal المستخدمين من URL
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('openUsers') === 'true') {
+        // انتظار تحميل Firebase والمستخدم
+        setTimeout(() => {
+            if (auth.currentUser && hasPermission('manage_users')) {
+                openUsersModal();
+            }
+        }, 2000);
+    }
+});
+
 async function loadUsersList() {
     const usersList = document.getElementById('users-list');
     
