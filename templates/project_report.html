@@ -13621,223 +13621,504 @@
         <div class="tab-content" id="report-content">
             <!-- Tab 1: Overview -->
             <div class="tab-pane active" id="overview" data-title="نظرة عامة على المشروع">
-                <div class="section-card">
-                    <h3><i class="fas fa-info-circle"></i> معلومات المشروع الأساسية</h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <label>اسم المشروع</label>
-                            <span>{{ project.name }}</span>
+                
+                <!-- معلومات المشروع الأساسية - تصميم Premium مشابه لموجز القيادة التنفيذية -->
+                <div class="executive-summary-epic" style="margin-bottom: 30px;">
+                    <div class="summary-body" style="padding: 40px;">
+                        <div class="summary-hero">
+                            <div class="hero-content">
+                                <span class="hero-badge"><i class="fas fa-info-circle"></i> معلومات المشروع الأساسية</span>
+                                <h3>{{ project.name }}</h3>
+                                <p>{{ project.description[:200] }}{% if project.description|length > 200 %}...{% endif %}</p>
+                                <div class="hero-chips">
+                                    <span class="hero-chip"><i class="fas fa-building" style="margin-left:6px;font-size:0.8rem;"></i> {{ project.type }}</span>
+                                    <span class="hero-chip"><i class="fas fa-map-marker-alt" style="margin-left:6px;font-size:0.8rem;"></i> {{ project.location }}</span>
+                                    <span class="hero-chip" style="color: #34d399;"><i class="fas fa-circle" style="margin-left:6px;font-size:0.5rem;"></i> {{ project.status }}</span>
+                                </div>
+                            </div>
+                            <div class="hero-stats">
+                                {% if project.total_area %}
+                                <div class="hero-stat">
+                                    <div class="stat-value" style="font-size: 1.8rem;">{{ project.total_area }}</div>
+                                    <div class="stat-label">المساحة الإجمالية</div>
+                                </div>
+                                {% endif %}
+                                {% if project.leasable_area %}
+                                <div class="hero-stat">
+                                    <div class="stat-value" style="font-size: 1.8rem;">{{ project.leasable_area }}</div>
+                                    <div class="stat-label">المساحة القابلة للتأجير</div>
+                                </div>
+                                {% endif %}
+                                {% if project.expected_completion %}
+                                <div class="hero-stat">
+                                    <div class="stat-value" style="font-size: 1.5rem;">{{ project.expected_completion }}</div>
+                                    <div class="stat-label">تاريخ التسليم المتوقع</div>
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="info-item">
-                            <label>الاسم بالإنجليزية</label>
-                            <span>{{ project.name_en }}</span>
+                        
+                        <!-- تفاصيل إضافية - تصميم Premium -->
+                        <div class="scope-panel" style="margin-top: 30px;">
+                            <div class="scope-header">
+                                <div class="scope-icon"><i class="fas fa-clipboard-list"></i></div>
+                                <div class="scope-text">
+                                    <h4>التفاصيل الأساسية</h4>
+                                    <span>Basic Details</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Grid للتفاصيل بتصميم بطاقات -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0; padding: 0;">
+                                <!-- اسم المشروع بالإنجليزية -->
+                                <div style="padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(220, 31, 39, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-language" style="color: #f87171; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 5px;">الاسم بالإنجليزية</span>
+                                        <span style="color: #fff; font-size: 1.1rem; font-weight: 600;">{{ project.name_en }}</span>
+                                    </div>
+                                </div>
+                                
+                                {% if project.address %}
+                                <!-- العنوان التفصيلي -->
+                                <div style="padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(59, 130, 246, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-map-marker-alt" style="color: #60a5fa; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 5px;">العنوان التفصيلي</span>
+                                        <span style="color: #fff; font-size: 1.1rem; font-weight: 600;">{{ project.address }}</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if project.start_date %}
+                                <!-- تاريخ البدء -->
+                                <div style="padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(16, 185, 129, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-calendar-alt" style="color: #34d399; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 5px;">تاريخ البدء</span>
+                                        <span style="color: #fff; font-size: 1.1rem; font-weight: 600;">{{ project.start_date }}</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                <!-- نوع المشروع -->
+                                <div style="padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(168, 85, 247, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-building" style="color: #a78bfa; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 5px;">نوع المشروع</span>
+                                        <span style="color: #fff; font-size: 1.1rem; font-weight: 600;">{{ project.type }}</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- الموقع -->
+                                <div style="padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(251, 191, 36, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-globe-americas" style="color: #fbbf24; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 5px;">الموقع</span>
+                                        <span style="color: #fff; font-size: 1.1rem; font-weight: 600;">{{ project.location }}</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- الحالة -->
+                                <div style="padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(6, 182, 212, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-check-circle" style="color: #22d3ee; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 5px;">حالة المشروع</span>
+                                        <span style="color: #34d399; font-size: 1.1rem; font-weight: 600;">{{ project.status }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {% if project.unit_sizes %}
+                            <!-- أحجام الوحدات -->
+                            <div style="padding: 30px; border-top: 1px solid rgba(255,255,255,0.08);">
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                    <div style="width: 45px; height: 45px; background: linear-gradient(135deg, #dc1f27, #b81920); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-cubes" style="color: #fff; font-size: 1.2rem;"></i>
+                                    </div>
+                                    <div>
+                                        <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.1rem;">أحجام الوحدات المتاحة</h5>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Available Unit Sizes</span>
+                                    </div>
+                                </div>
+                                <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                                    {% for size in project.unit_sizes.split('|') %}
+                                    <span style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 12px 22px; border-radius: 14px; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(220, 31, 39, 0.2)'; this.style.borderColor='rgba(220, 31, 39, 0.4)';" onmouseout="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.15)';">
+                                        <i class="fas fa-cube" style="color: #fbbf24;"></i>
+                                        {{ size.strip() }}
+                                    </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
-                        <div class="info-item">
-                            <label>نوع المشروع</label>
-                            <span>{{ project.type }}</span>
-                        </div>
-                        <div class="info-item">
-                            <label>الموقع</label>
-                            <span>{{ project.location }}</span>
-                        </div>
-                        {% if project.address %}
-                        <div class="info-item">
-                            <label>العنوان التفصيلي</label>
-                            <span>{{ project.address }}</span>
-                        </div>
-                        {% endif %}
-                        <div class="info-item">
-                            <label>الحالة</label>
-                            <span class="badge" style="background: #1a1a2e; color: #fff;">{{ project.status }}</span>
-                        </div>
-                        {% if project.total_area %}
-                        <div class="info-item">
-                            <label>المساحة الإجمالية</label>
-                            <span>{{ project.total_area }}</span>
-                        </div>
-                        {% endif %}
-                        {% if project.leasable_area %}
-                        <div class="info-item">
-                            <label>المساحة القابلة للتأجير</label>
-                            <span>{{ project.leasable_area }}</span>
-                        </div>
-                        {% endif %}
-                        {% if project.unit_sizes %}
-                        <div class="info-item" style="grid-column: span 2;">
-                            <label>أحجام الوحدات</label>
-                            <ul style="list-style: none; padding: 0; margin: 10px 0 0 0;">
-                                {% for size in project.unit_sizes.split('|') %}
-                                <li style="padding: 8px 15px; background: #f0f0f0; border-radius: 6px; margin-bottom: 8px; display: flex; align-items: center;">
-                                    <i class="fas fa-cube" style="color: #dc1f27; margin-left: 10px;"></i>
-                                    {{ size.strip() }}
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        {% endif %}
-                        {% if project.start_date %}
-                        <div class="info-item">
-                            <label>تاريخ البدء</label>
-                            <span>{{ project.start_date }}</span>
-                        </div>
-                        {% endif %}
-                        {% if project.expected_completion %}
-                        <div class="info-item">
-                            <label>تاريخ التسليم المتوقع</label>
-                            <span>{{ project.expected_completion }}</span>
-                        </div>
-                        {% endif %}
                     </div>
                 </div>
 
                 {% if project.project_vision or project.project_mission %}
-                <div class="section-card">
-                    <h3><i class="fas fa-eye"></i> الرؤية والرسالة</h3>
-                    <div class="row">
-                        {% if project.project_vision %}
-                        <div class="col-md-6 mb-3">
-                            <div class="p-3 rounded h-100" style="background: linear-gradient(135deg, #dc1f27, #b81920); color: #fff;">
-                                <h5 style="color: #fff;"><i class="fas fa-bullseye"></i> الرؤية</h5>
-                                <p class="mb-0">{{ project.project_vision }}</p>
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <!-- قسم الرؤية والرسالة - Premium Design -->
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <div class="executive-summary-epic" style="margin-bottom: 30px;">
+                    <div class="summary-body" style="padding: 0;">
+                        <div class="scope-panel" style="margin-bottom: 0;">
+                            <!-- Header -->
+                            <div class="scope-header">
+                                <div class="scope-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, #dc1f27, #b81920); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(220, 31, 39, 0.3);">
+                                    <i class="fas fa-eye" style="color: #fff; font-size: 1.5rem;"></i>
+                                </div>
+                                <div class="scope-text">
+                                    <h4 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.4rem;">الرؤية والرسالة</h4>
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Vision & Mission</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Content Grid -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 0;">
+                                {% if project.project_vision %}
+                                <!-- الرؤية -->
+                                <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: rgba(220, 31, 39, 0.1); border-radius: 50%;"></div>
+                                    <div style="display: flex; align-items: flex-start; gap: 20px; position: relative; z-index: 1;">
+                                        <div style="width: 55px; height: 55px; background: rgba(220, 31, 39, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                            <i class="fas fa-bullseye" style="color: #f87171; font-size: 1.4rem;"></i>
+                                        </div>
+                                        <div style="flex: 1;">
+                                            <h5 style="color: #fff; font-weight: 700; margin: 0 0 8px 0; font-size: 1.15rem; display: flex; align-items: center; gap: 10px;">
+                                                الرؤية
+                                                <span style="background: rgba(220, 31, 39, 0.2); color: #f87171; padding: 3px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;">Vision</span>
+                                            </h5>
+                                            <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 1rem; line-height: 1.8;">{{ project.project_vision }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if project.project_mission %}
+                                <!-- الرسالة -->
+                                <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden;">
+                                    <div style="position: absolute; bottom: -30px; left: -30px; width: 100px; height: 100px; background: rgba(59, 130, 246, 0.1); border-radius: 50%;"></div>
+                                    <div style="display: flex; align-items: flex-start; gap: 20px; position: relative; z-index: 1;">
+                                        <div style="width: 55px; height: 55px; background: rgba(59, 130, 246, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                            <i class="fas fa-rocket" style="color: #60a5fa; font-size: 1.4rem;"></i>
+                                        </div>
+                                        <div style="flex: 1;">
+                                            <h5 style="color: #fff; font-weight: 700; margin: 0 0 8px 0; font-size: 1.15rem; display: flex; align-items: center; gap: 10px;">
+                                                الرسالة
+                                                <span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 3px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 600;">Mission</span>
+                                            </h5>
+                                            <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 1rem; line-height: 1.8;">{{ project.project_mission }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
-                        {% endif %}
-                        {% if project.project_mission %}
-                        <div class="col-md-6 mb-3">
-                            <div class="p-3 rounded h-100" style="background: #1a1a2e; color: #fff;">
-                                <h5 style="color: #fff;"><i class="fas fa-rocket"></i> الرسالة</h5>
-                                <p class="mb-0">{{ project.project_mission }}</p>
-                            </div>
-                        </div>
-                        {% endif %}
                     </div>
                 </div>
                 {% endif %}
 
-                <div class="section-card">
-                    <h3><i class="fas fa-file-alt"></i> وصف المشروع</h3>
-                    <p style="line-height: 1.8; color: #555;">{{ project.description }}</p>
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <!-- قسم وصف المشروع - Premium Design -->
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <div class="executive-summary-epic" style="margin-bottom: 30px;">
+                    <div class="summary-body" style="padding: 0;">
+                        <div class="scope-panel" style="margin-bottom: 0;">
+                            <!-- Header -->
+                            <div class="scope-header">
+                                <div class="scope-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);">
+                                    <i class="fas fa-file-alt" style="color: #fff; font-size: 1.5rem;"></i>
+                                </div>
+                                <div class="scope-text">
+                                    <h4 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.4rem;">وصف المشروع</h4>
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Project Description</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Content -->
+                            <div style="padding: 35px; position: relative; overflow: hidden;">
+                                <div style="position: absolute; top: 20px; left: 20px; width: 150px; height: 150px; background: rgba(16, 185, 129, 0.05); border-radius: 50%;"></div>
+                                <div style="position: relative; z-index: 1;">
+                                    <div style="display: flex; align-items: flex-start; gap: 20px;">
+                                        <div style="width: 50px; height: 50px; background: rgba(16, 185, 129, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 5px;">
+                                            <i class="fas fa-quote-right" style="color: #34d399; font-size: 1.2rem;"></i>
+                                        </div>
+                                        <p style="color: rgba(255,255,255,0.85); margin: 0; font-size: 1.05rem; line-height: 2; flex: 1;">{{ project.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {% if project.target_sectors %}
-                <div class="section-card">
-                    <h3><i class="fas fa-industry"></i> القطاعات المستهدفة</h3>
-                    <div class="row">
-                        {% for sector in project.target_sectors %}
-                        <div class="col-md-4 col-6 mb-3">
-                            <div class="d-flex align-items-center gap-2 p-2 rounded" style="background: #f0f0f0;">
-                                <i class="fas fa-building text-danger"></i>
-                                <span>{{ sector }}</span>
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <!-- قسم القطاعات المستهدفة - Premium Design -->
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <div class="executive-summary-epic" style="margin-bottom: 30px;">
+                    <div class="summary-body" style="padding: 0;">
+                        <div class="scope-panel" style="margin-bottom: 0;">
+                            <!-- Header -->
+                            <div class="scope-header">
+                                <div class="scope-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, #8b5cf6, #7c3aed); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);">
+                                    <i class="fas fa-industry" style="color: #fff; font-size: 1.5rem;"></i>
+                                </div>
+                                <div class="scope-text">
+                                    <h4 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.4rem;">القطاعات المستهدفة</h4>
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Target Sectors</span>
+                                </div>
+                                <div style="margin-right: auto; background: rgba(139, 92, 246, 0.2); padding: 8px 20px; border-radius: 30px;">
+                                    <span style="color: #a78bfa; font-weight: 600; font-size: 0.95rem;">{{ project.target_sectors|length }} قطاع</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Content -->
+                            <div style="padding: 35px;">
+                                <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                    {% for sector in project.target_sectors %}
+                                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 18px 28px; border-radius: 16px; display: flex; align-items: center; gap: 15px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(139, 92, 246, 0.15)'; this.style.borderColor='rgba(139, 92, 246, 0.3)'; this.style.transform='translateY(-3px)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)';">
+                                        <div style="width: 42px; height: 42px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-building" style="color: #a78bfa; font-size: 1.1rem;"></i>
+                                        </div>
+                                        <span style="color: #fff; font-weight: 600; font-size: 1rem;">{{ sector }}</span>
+                                    </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
                 {% endif %}
 
                 {% if project.competitive_advantages %}
-                <div class="section-card">
-                    <h3><i class="fas fa-trophy"></i> المزايا التنافسية</h3>
-                    <div class="row">
-                        {% for advantage in project.competitive_advantages %}
-                        <div class="col-md-6 mb-3">
-                            <div class="d-flex align-items-center gap-2">
-                                <i class="fas fa-check-circle text-success" style="font-size: 1.2rem;"></i>
-                                <span style="font-weight: 500;">{{ advantage }}</span>
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <!-- قسم المزايا التنافسية - Premium Design -->
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <div class="executive-summary-epic" style="margin-bottom: 30px;">
+                    <div class="summary-body" style="padding: 0;">
+                        <div class="scope-panel" style="margin-bottom: 0;">
+                            <!-- Header -->
+                            <div class="scope-header">
+                                <div class="scope-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);">
+                                    <i class="fas fa-trophy" style="color: #fff; font-size: 1.5rem;"></i>
+                                </div>
+                                <div class="scope-text">
+                                    <h4 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.4rem;">المزايا التنافسية</h4>
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Competitive Advantages</span>
+                                </div>
+                                <div style="margin-right: auto; background: rgba(245, 158, 11, 0.2); padding: 8px 20px; border-radius: 30px;">
+                                    <span style="color: #fbbf24; font-weight: 600; font-size: 0.95rem;"><i class="fas fa-star" style="margin-left: 8px;"></i>{{ project.competitive_advantages|length }} ميزة</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Content -->
+                            <div style="padding: 35px;">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                                    {% for advantage in project.competitive_advantages %}
+                                    <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05)); border: 1px solid rgba(245, 158, 11, 0.2); padding: 22px 25px; border-radius: 16px; display: flex; align-items: center; gap: 18px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(-5px)'; this.style.boxShadow='0 10px 30px rgba(245, 158, 11, 0.15)';" onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none';">
+                                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25);">
+                                            <i class="fas fa-check" style="color: #fff; font-size: 1.2rem;"></i>
+                                        </div>
+                                        <span style="color: #fff; font-weight: 600; font-size: 1.05rem; line-height: 1.6;">{{ advantage }}</span>
+                                    </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
                 {% endif %}
 
                 {% if project.features %}
-                <div class="section-card">
-                    <h3><i class="fas fa-star"></i> المميزات والمرافق</h3>
-                    <div class="row">
-                        {% for feature in project.features %}
-                        <div class="col-md-4 col-6 mb-3">
-                            <div class="d-flex align-items-center gap-2">
-                                <i class="fas fa-check-circle text-success"></i>
-                                <span>{{ feature }}</span>
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <!-- قسم المميزات والمرافق - Premium Design -->
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <div class="executive-summary-epic" style="margin-bottom: 30px;">
+                    <div class="summary-body" style="padding: 0;">
+                        <div class="scope-panel" style="margin-bottom: 0;">
+                            <!-- Header -->
+                            <div class="scope-header">
+                                <div class="scope-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, #06b6d4, #0891b2); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);">
+                                    <i class="fas fa-star" style="color: #fff; font-size: 1.5rem;"></i>
+                                </div>
+                                <div class="scope-text">
+                                    <h4 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.4rem;">المميزات والمرافق</h4>
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Features & Facilities</span>
+                                </div>
+                                <div style="margin-right: auto; background: rgba(6, 182, 212, 0.2); padding: 8px 20px; border-radius: 30px;">
+                                    <span style="color: #22d3ee; font-weight: 600; font-size: 0.95rem;">{{ project.features|length }} ميزة</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Content -->
+                            <div style="padding: 35px;">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                                    {% for feature in project.features %}
+                                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 16px 20px; border-radius: 14px; display: flex; align-items: center; gap: 14px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(6, 182, 212, 0.15)'; this.style.borderColor='rgba(6, 182, 212, 0.3)';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
+                                        <div style="width: 36px; height: 36px; background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.1)); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                            <i class="fas fa-check" style="color: #22d3ee; font-size: 0.9rem;"></i>
+                                        </div>
+                                        <span style="color: rgba(255,255,255,0.9); font-weight: 500; font-size: 0.95rem;">{{ feature }}</span>
+                                    </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
                 {% endif %}
 
                 {% if project.infrastructure %}
-                <div class="section-card">
-                    <h3><i class="fas fa-network-wired"></i> البنية التحتية</h3>
-                    <div class="row">
-                        {% if project.infrastructure.roads %}
-                        <div class="col-md-4 col-6 mb-3">
-                            <div class="info-item">
-                                <label><i class="fas fa-road text-danger"></i> الطرق</label>
-                                <span>{{ project.infrastructure.roads }}</span>
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <!-- قسم البنية التحتية - Premium Design -->
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <div class="executive-summary-epic" style="margin-bottom: 30px;">
+                    <div class="summary-body" style="padding: 0;">
+                        <div class="scope-panel" style="margin-bottom: 0;">
+                            <!-- Header -->
+                            <div class="scope-header">
+                                <div class="scope-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, #3b82f6, #2563eb); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);">
+                                    <i class="fas fa-network-wired" style="color: #fff; font-size: 1.5rem;"></i>
+                                </div>
+                                <div class="scope-text">
+                                    <h4 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.4rem;">البنية التحتية</h4>
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Infrastructure</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Content Grid -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0;">
+                                {% if project.infrastructure.roads %}
+                                <!-- الطرق -->
+                                <div style="padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(220, 31, 39, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-road" style="color: #f87171; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 5px;">الطرق</span>
+                                        <span style="color: #fff; font-size: 1.1rem; font-weight: 600;">{{ project.infrastructure.roads }}</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if project.infrastructure.electricity %}
+                                <!-- الكهرباء -->
+                                <div style="padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(251, 191, 36, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-bolt" style="color: #fbbf24; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 5px;">الكهرباء</span>
+                                        <span style="color: #fff; font-size: 1.1rem; font-weight: 600;">{{ project.infrastructure.electricity }}</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if project.infrastructure.water %}
+                                <!-- المياه -->
+                                <div style="padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(6, 182, 212, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-tint" style="color: #22d3ee; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 5px;">المياه</span>
+                                        <span style="color: #fff; font-size: 1.1rem; font-weight: 600;">{{ project.infrastructure.water }}</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if project.infrastructure.telecom %}
+                                <!-- الاتصالات -->
+                                <div style="padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(59, 130, 246, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-wifi" style="color: #60a5fa; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 5px;">الاتصالات</span>
+                                        <span style="color: #fff; font-size: 1.1rem; font-weight: 600;">{{ project.infrastructure.telecom }}</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                
+                                {% if project.infrastructure.security %}
+                                <!-- الأمن -->
+                                <div style="padding: 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(16, 185, 129, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-shield-alt" style="color: #34d399; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; display: block; margin-bottom: 5px;">الأمن</span>
+                                        <span style="color: #fff; font-size: 1.1rem; font-weight: 600;">{{ project.infrastructure.security }}</span>
+                                    </div>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
-                        {% endif %}
-                        {% if project.infrastructure.electricity %}
-                        <div class="col-md-4 col-6 mb-3">
-                            <div class="info-item">
-                                <label><i class="fas fa-bolt text-warning"></i> الكهرباء</label>
-                                <span>{{ project.infrastructure.electricity }}</span>
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% if project.infrastructure.water %}
-                        <div class="col-md-4 col-6 mb-3">
-                            <div class="info-item">
-                                <label><i class="fas fa-tint text-info"></i> المياه</label>
-                                <span>{{ project.infrastructure.water }}</span>
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% if project.infrastructure.telecom %}
-                        <div class="col-md-4 col-6 mb-3">
-                            <div class="info-item">
-                                <label><i class="fas fa-wifi text-primary"></i> الاتصالات</label>
-                                <span>{{ project.infrastructure.telecom }}</span>
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% if project.infrastructure.security %}
-                        <div class="col-md-4 col-6 mb-3">
-                            <div class="info-item">
-                                <label><i class="fas fa-shield-alt text-success"></i> الأمن</label>
-                                <span>{{ project.infrastructure.security }}</span>
-                            </div>
-                        </div>
-                        {% endif %}
                     </div>
                 </div>
                 {% endif %}
 
                 {% if project.total_units > 0 %}
-                <div class="section-card">
-                    <h3><i class="fas fa-building"></i> إحصائيات الوحدات</h3>
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <div class="kpi-card">
-                                <i class="fas fa-building"></i>
-                                <span class="value">{{ project.total_units }}</span>
-                                <span class="label">إجمالي الوحدات</span>
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <!-- قسم إحصائيات الوحدات - Premium Design -->
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <div class="executive-summary-epic" style="margin-bottom: 30px;">
+                    <div class="summary-body" style="padding: 0;">
+                        <div class="scope-panel" style="margin-bottom: 0;">
+                            <!-- Header -->
+                            <div class="scope-header">
+                                <div class="scope-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, #ec4899, #db2777); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);">
+                                    <i class="fas fa-building" style="color: #fff; font-size: 1.5rem;"></i>
+                                </div>
+                                <div class="scope-text">
+                                    <h4 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.4rem;">إحصائيات الوحدات</h4>
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Units Statistics</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="kpi-card green">
-                                <i class="fas fa-check-circle"></i>
-                                <span class="value">{{ project.sold_units }}</span>
-                                <span class="label">وحدات مباعة</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="kpi-card blue">
-                                <i class="fas fa-door-open"></i>
-                                <span class="value">{{ project.total_units - project.sold_units }}</span>
-                                <span class="label">وحدات متاحة</span>
+                            
+                            <!-- Content Grid -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0;">
+                                <!-- إجمالي الوحدات -->
+                                <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); text-align: center; position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: rgba(236, 72, 153, 0.1); border-radius: 50%;"></div>
+                                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(236, 72, 153, 0.1)); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; position: relative; z-index: 1;">
+                                        <i class="fas fa-building" style="color: #f472b6; font-size: 1.8rem;"></i>
+                                    </div>
+                                    <span style="color: #fff; font-size: 2.8rem; font-weight: 800; display: block; margin-bottom: 8px;">{{ project.total_units }}</span>
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 0.95rem;">إجمالي الوحدات</span>
+                                </div>
+                                
+                                <!-- وحدات مباعة -->
+                                <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); text-align: center; position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: rgba(16, 185, 129, 0.1); border-radius: 50%;"></div>
+                                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1)); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; position: relative; z-index: 1;">
+                                        <i class="fas fa-check-circle" style="color: #34d399; font-size: 1.8rem;"></i>
+                                    </div>
+                                    <span style="color: #34d399; font-size: 2.8rem; font-weight: 800; display: block; margin-bottom: 8px;">{{ project.sold_units }}</span>
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 0.95rem;">وحدات مباعة</span>
+                                </div>
+                                
+                                <!-- وحدات متاحة -->
+                                <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); text-align: center; position: relative; overflow: hidden;">
+                                    <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: rgba(59, 130, 246, 0.1); border-radius: 50%;"></div>
+                                    <div style="width: 70px; height: 70px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1)); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; position: relative; z-index: 1;">
+                                        <i class="fas fa-door-open" style="color: #60a5fa; font-size: 1.8rem;"></i>
+                                    </div>
+                                    <span style="color: #60a5fa; font-size: 2.8rem; font-weight: 800; display: block; margin-bottom: 8px;">{{ project.total_units - project.sold_units }}</span>
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 0.95rem;">وحدات متاحة</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -13847,197 +14128,267 @@
                 <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
                 <!-- قسم الموجز الإبداعي - Creative Brief - التحليل الاستراتيجي المتكامل -->
                 <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
-                <div class="section-card creative-brief-section" id="creativeBriefSection" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius: 24px; padding: 0; overflow: hidden; margin-top: 30px; display: none;">
-                    
-                    <!-- Header -->
-                    <div style="background: linear-gradient(135deg, #dc1f27 0%, #b81920 100%); padding: 30px 40px; position: relative; overflow: hidden;">
-                        <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
-                        <div style="position: absolute; bottom: -30px; left: -30px; width: 100px; height: 100px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>
-                        <div style="position: relative; z-index: 1; display: flex; align-items: center; gap: 20px;">
-                            <div style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 16px; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-lightbulb" style="font-size: 2rem; color: #fff;"></i>
+                <!-- قسم الموجز الإبداعي - Creative Brief - Premium Design -->
+                <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+                <div class="executive-summary-epic creative-brief-section" id="creativeBriefSection" style="margin-bottom: 30px; display: none;">
+                    <div class="summary-body" style="padding: 0;">
+                        <div class="scope-panel" style="margin-bottom: 0;">
+                            <!-- Header -->
+                            <div class="scope-header">
+                                <div class="scope-icon" style="width: 60px; height: 60px; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);">
+                                    <i class="fas fa-lightbulb" style="color: #fff; font-size: 1.5rem;"></i>
+                                </div>
+                                <div class="scope-text">
+                                    <h4 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.4rem;">الموجز الإبداعي</h4>
+                                    <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Creative Brief - التحليل الاستراتيجي المتكامل</span>
+                                </div>
+                                <div style="margin-right: auto; background: rgba(245, 158, 11, 0.2); padding: 8px 20px; border-radius: 30px;">
+                                    <span style="color: #fbbf24; font-weight: 600; font-size: 0.9rem;"><i class="fas fa-clipboard-check" style="margin-left: 8px;"></i>مستخلص من استبانة الاتصال</span>
+                                </div>
                             </div>
-                            <div>
-                                <h3 style="color: #fff; font-size: 1.8rem; font-weight: 800; margin: 0;">الموجز الإبداعي</h3>
-                                <p style="color: rgba(255,255,255,0.8); margin: 5px 0 0 0; font-size: 1.1rem;">Creative Brief - التحليل الاستراتيجي المتكامل</p>
-                            </div>
-                        </div>
-                        <div style="position: relative; z-index: 1; margin-top: 15px;">
-                            <span style="background: rgba(255,255,255,0.2); padding: 8px 20px; border-radius: 30px; font-size: 0.85rem; color: #fff;">
-                                <i class="fas fa-clipboard-check" style="margin-left: 8px;"></i>
-                                مستخلص من استبانة الاتصال الاستراتيجي
-                            </span>
-                        </div>
-                    </div>
-
-                    <div style="padding: 40px;">
-                        
-                        <!-- الملخص التنفيذي -->
-                        <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1);">
-                            <h4 style="color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                <i class="fas fa-file-alt"></i> الملخص التنفيذي
-                            </h4>
-                            <div id="executiveSummaryCards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                                <!-- سيتم تعبئته من Firebase -->
-                            </div>
-                        </div>
-
-                        <!-- التموضع الاستراتيجي -->
-                        <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1);">
-                            <h4 style="color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                <i class="fas fa-crosshairs"></i> التموضع الاستراتيجي
-                            </h4>
                             
-                            <!-- الرسالة المركزية -->
-                            <div id="coreMessageBox" style="background: linear-gradient(135deg, #dc1f27, #ff6b6b); padding: 25px; border-radius: 16px; margin-bottom: 20px; position: relative; overflow: hidden;">
-                                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.1;"></div>
-                                <div style="position: relative; z-index: 1;">
-                                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
-                                        <i class="fas fa-quote-right" style="color: rgba(255,255,255,0.5); font-size: 1.5rem;"></i>
-                                        <span style="color: rgba(255,255,255,0.8); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px;">الرسالة المركزية</span>
+                            <!-- الملخص التنفيذي -->
+                            <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(251, 191, 36, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-file-alt" style="color: #fbbf24; font-size: 1.3rem;"></i>
                                     </div>
-                                    <p id="coreMessageText" style="color: #fff; font-size: 1.3rem; font-weight: 700; line-height: 1.8; margin: 0; text-align: center;">
-                                        جاري التحميل...
-                                    </p>
+                                    <div>
+                                        <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.15rem;">الملخص التنفيذي</h5>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Executive Summary</span>
+                                    </div>
+                                </div>
+                                <div id="executiveSummaryCards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                    <!-- سيتم تعبئته من Firebase -->
                                 </div>
                             </div>
 
-                            <!-- الهوية المطلوبة -->
-                            <div id="brandIdentityTags" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
-                                <!-- سيتم تعبئته من Firebase -->
+                            <!-- التموضع الاستراتيجي -->
+                            <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(220, 31, 39, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-crosshairs" style="color: #f87171; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.15rem;">التموضع الاستراتيجي</h5>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Strategic Positioning</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- الرسالة المركزية -->
+                                <div id="coreMessageBox" style="background: linear-gradient(135deg, rgba(220, 31, 39, 0.2), rgba(220, 31, 39, 0.1)); padding: 25px; border-radius: 16px; margin-bottom: 20px; border: 1px solid rgba(220, 31, 39, 0.3); position: relative; overflow: hidden;">
+                                    <div style="position: relative; z-index: 1;">
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                                            <i class="fas fa-quote-right" style="color: rgba(220, 31, 39, 0.5); font-size: 1.5rem;"></i>
+                                            <span style="color: rgba(255,255,255,0.6); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px;">الرسالة المركزية</span>
+                                        </div>
+                                        <p id="coreMessageText" style="color: #fff; font-size: 1.2rem; font-weight: 600; line-height: 1.8; margin: 0; text-align: center;">
+                                            جاري التحميل...
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- الهوية المطلوبة -->
+                                <div id="brandIdentityTags" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                                    <!-- سيتم تعبئته من Firebase -->
+                                </div>
                             </div>
+
+                            <!-- الجمهور والمزايا -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 0;">
+                                <!-- الجمهور المستهدف -->
+                                <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08);">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                        <div style="width: 50px; height: 50px; background: rgba(59, 130, 246, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-users" style="color: #60a5fa; font-size: 1.3rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.1rem;">صانعو القرار المستهدفون</h5>
+                                            <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Target Decision Makers</span>
+                                        </div>
+                                    </div>
+                                    <div id="targetAudienceContent" style="margin-bottom: 20px;">
+                                        <!-- سيتم تعبئته من Firebase -->
+                                    </div>
+                                    <div style="margin-top: 15px;">
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.85rem; display: block; margin-bottom: 12px;">القطاعات المستهدفة:</span>
+                                        <div id="targetSectorsTags" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                            <!-- سيتم تعبئته من Firebase -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- المزايا التنافسية -->
+                                <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                        <div style="width: 50px; height: 50px; background: rgba(245, 158, 11, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-trophy" style="color: #fbbf24; font-size: 1.3rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.1rem;">المزايا التنافسية الفريدة</h5>
+                                            <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Unique Selling Points</span>
+                                        </div>
+                                    </div>
+                                    <div id="competitiveAdvantages" style="display: flex; flex-direction: column; gap: 12px;">
+                                        <!-- سيتم تعبئته من Firebase -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- القيمة المقدمة للعميل -->
+                            <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(16, 185, 129, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-gem" style="color: #34d399; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.15rem;">القيمة المقدمة للعميل</h5>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Value Proposition</span>
+                                    </div>
+                                </div>
+                                <div id="valuePropositionContent" style="background: rgba(16,185,129,0.1); padding: 20px; border-radius: 14px; border-right: 4px solid #10b981;">
+                                    <p id="valuePropositionText" style="color: rgba(255,255,255,0.9); font-size: 1rem; line-height: 1.8; margin: 0; white-space: pre-line;">جاري التحميل...</p>
+                                </div>
+                            </div>
+
+                            <!-- الرسائل والمنافسون -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 0;">
+                                <!-- الرسائل الأولية -->
+                                <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08);">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                        <div style="width: 50px; height: 50px; background: rgba(168, 85, 247, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-comment-dots" style="color: #a78bfa; font-size: 1.3rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.1rem;">الرسائل الأولية</h5>
+                                            <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Initial Messages</span>
+                                        </div>
+                                    </div>
+                                    <div id="initialMessagesContent" style="display: flex; flex-direction: column; gap: 12px;">
+                                        <!-- سيتم تعبئته من Firebase -->
+                                    </div>
+                                </div>
+
+                                <!-- المنافسون -->
+                                <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                        <div style="width: 50px; height: 50px; background: rgba(236, 72, 153, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-chess" style="color: #f472b6; font-size: 1.3rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.1rem;">البيئة التنافسية</h5>
+                                            <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Competitive Landscape</span>
+                                        </div>
+                                    </div>
+                                    <div id="competitorsContent" style="display: flex; flex-direction: column; gap: 12px;">
+                                        <!-- سيتم تعبئته من Firebase -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- الإنجازات -->
+                            <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(251, 191, 36, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-award" style="color: #fbbf24; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.15rem;">الإنجازات والمعالم البارزة</h5>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Achievements & Milestones</span>
+                                    </div>
+                                </div>
+                                <div id="achievementsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                    <!-- سيتم تعبئته من Firebase -->
+                                </div>
+                            </div>
+
+                            <!-- الشراكات -->
+                            <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                    <div style="width: 50px; height: 50px; background: rgba(6, 182, 212, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-handshake" style="color: #22d3ee; font-size: 1.3rem;"></i>
+                                    </div>
+                                    <div>
+                                        <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.15rem;">الشراكات القابلة للتوظيف إعلامياً</h5>
+                                        <span style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">Media-Worthy Partnerships</span>
+                                    </div>
+                                </div>
+                                <div id="partnershipsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+                                    <!-- سيتم تعبئته من Firebase -->
+                                </div>
+                            </div>
+
+                            <!-- القنوات والمتحدثون -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 0;">
+                                <!-- القنوات الاتصالية -->
+                                <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08);">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                        <div style="width: 50px; height: 50px; background: rgba(59, 130, 246, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-broadcast-tower" style="color: #60a5fa; font-size: 1.3rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.1rem;">القنوات الاتصالية</h5>
+                                            <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Communication Channels</span>
+                                        </div>
+                                    </div>
+                                    <div id="communicationChannels" style="display: flex; flex-direction: column; gap: 10px;">
+                                        <!-- سيتم تعبئته من Firebase -->
+                                    </div>
+                                </div>
+
+                                <!-- المتحدثون الرسميون -->
+                                <div style="padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                        <div style="width: 50px; height: 50px; background: rgba(139, 92, 246, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-microphone" style="color: #a78bfa; font-size: 1.3rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h5 style="color: #fff; font-weight: 700; margin: 0; font-size: 1.1rem;">المتحدثون الرسميون</h5>
+                                            <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Official Spokespersons</span>
+                                        </div>
+                                    </div>
+                                    <div id="officialSpokespersons" style="display: flex; flex-direction: column; gap: 10px;">
+                                        <!-- سيتم تعبئته من Firebase -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- المحاذير والجدول الزمني -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 0;">
+                                <!-- المحاذير الاتصالية -->
+                                <div style="padding: 30px; border-left: 1px solid rgba(255,255,255,0.08);">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                        <div style="width: 50px; height: 50px; background: rgba(239, 68, 68, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-exclamation-triangle" style="color: #f87171; font-size: 1.3rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h5 style="color: #f87171; font-weight: 700; margin: 0; font-size: 1.1rem;">المحاذير الاتصالية</h5>
+                                            <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Communication Red Lines</span>
+                                        </div>
+                                    </div>
+                                    <div id="communicationRedLines" style="display: flex; flex-direction: column; gap: 10px;">
+                                        <!-- سيتم تعبئته من Firebase -->
+                                    </div>
+                                </div>
+
+                                <!-- الجدول الزمني -->
+                                <div style="padding: 30px;">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                        <div style="width: 50px; height: 50px; background: rgba(16, 185, 129, 0.15); border-radius: 14px; display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-calendar-check" style="color: #34d399; font-size: 1.3rem;"></i>
+                                        </div>
+                                        <div>
+                                            <h5 style="color: #34d399; font-weight: 700; margin: 0; font-size: 1.1rem;">الجدول الزمني والأولويات</h5>
+                                            <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Timeline & Priorities</span>
+                                        </div>
+                                    </div>
+                                    <div id="timelinePriorities" style="display: flex; flex-direction: column; gap: 15px;">
+                                        <!-- سيتم تعبئته من Firebase -->
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-
-                        <!-- صف يحتوي على الجمهور المستهدف والمزايا التنافسية -->
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 30px;">
-                            
-                            <!-- الجمهور المستهدف -->
-                            <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
-                                <h4 style="color: #fbbf24; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                    <i class="fas fa-users"></i> صانعو القرار المستهدفون
-                                </h4>
-                                <div id="targetAudienceContent" style="margin-bottom: 20px;">
-                                    <!-- سيتم تعبئته من Firebase -->
-                                </div>
-                                <h5 style="color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 12px;">القطاعات المستهدفة:</h5>
-                                <div id="targetSectorsTags" style="display: flex; flex-wrap: wrap; gap: 8px;">
-                                    <!-- سيتم تعبئته من Firebase -->
-                                </div>
-                            </div>
-
-                            <!-- المزايا التنافسية -->
-                            <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
-                                <h4 style="color: #fbbf24; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                    <i class="fas fa-trophy"></i> المزايا التنافسية الفريدة
-                                </h4>
-                                <div id="competitiveAdvantages" style="display: flex; flex-direction: column; gap: 12px;">
-                                    <!-- سيتم تعبئته من Firebase -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- القيمة المقدمة للعميل (q6) -->
-                        <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1);">
-                            <h4 style="color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                <i class="fas fa-gem"></i> القيمة المقدمة للعميل
-                            </h4>
-                            <div id="valuePropositionContent" style="background: rgba(16,185,129,0.1); padding: 20px; border-radius: 12px; border-right: 4px solid #10b981;">
-                                <p id="valuePropositionText" style="color: rgba(255,255,255,0.9); font-size: 1rem; line-height: 1.8; margin: 0; white-space: pre-line;">جاري التحميل...</p>
-                            </div>
-                        </div>
-
-                        <!-- الرسائل الأولية والمنافسون -->
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 30px;">
-                            
-                            <!-- الرسائل الأولية (q12) -->
-                            <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
-                                <h4 style="color: #fbbf24; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                    <i class="fas fa-comment-dots"></i> الرسائل الأولية
-                                </h4>
-                                <div id="initialMessagesContent" style="display: flex; flex-direction: column; gap: 12px;">
-                                    <!-- سيتم تعبئته من Firebase -->
-                                </div>
-                            </div>
-
-                            <!-- المنافسون (q13) -->
-                            <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
-                                <h4 style="color: #fbbf24; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                    <i class="fas fa-chess"></i> البيئة التنافسية
-                                </h4>
-                                <div id="competitorsContent" style="display: flex; flex-direction: column; gap: 12px;">
-                                    <!-- سيتم تعبئته من Firebase -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- الإنجازات (q17) -->
-                        <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1);">
-                            <h4 style="color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                <i class="fas fa-award"></i> الإنجازات والمعالم البارزة
-                            </h4>
-                            <div id="achievementsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                                <!-- سيتم تعبئته من Firebase -->
-                            </div>
-                        </div>
-
-                        <!-- الشراكات والأصول الإعلامية -->
-                        <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1);">
-                            <h4 style="color: #fbbf24; font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                <i class="fas fa-handshake"></i> الشراكات القابلة للتوظيف إعلامياً
-                            </h4>
-                            <div id="partnershipsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
-                                <!-- سيتم تعبئته من Firebase -->
-                            </div>
-                        </div>
-
-                        <!-- القنوات الاتصالية والمتحدثون -->
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 30px;">
-                            
-                            <!-- القنوات الاتصالية -->
-                            <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
-                                <h4 style="color: #fbbf24; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                    <i class="fas fa-broadcast-tower"></i> القنوات الاتصالية
-                                </h4>
-                                <div id="communicationChannels" style="display: flex; flex-direction: column; gap: 10px;">
-                                    <!-- سيتم تعبئته من Firebase -->
-                                </div>
-                            </div>
-
-                            <!-- المتحدثون الرسميون -->
-                            <div style="background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);">
-                                <h4 style="color: #fbbf24; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                    <i class="fas fa-microphone"></i> المتحدثون الرسميون
-                                </h4>
-                                <div id="officialSpokespersons" style="display: flex; flex-direction: column; gap: 10px;">
-                                    <!-- سيتم تعبئته من Firebase -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- المحاذير والجدول الزمني -->
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
-                            
-                            <!-- المحاذير الاتصالية -->
-                            <div style="background: rgba(239,68,68,0.1); border-radius: 16px; padding: 25px; border: 1px solid rgba(239,68,68,0.3);">
-                                <h4 style="color: #ef4444; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                    <i class="fas fa-exclamation-triangle"></i> المحاذير الاتصالية
-                                </h4>
-                                <div id="communicationRedLines" style="display: flex; flex-direction: column; gap: 10px;">
-                                    <!-- سيتم تعبئته من Firebase -->
-                                </div>
-                            </div>
-
-                            <!-- الجدول الزمني -->
-                            <div style="background: rgba(16,185,129,0.1); border-radius: 16px; padding: 25px; border: 1px solid rgba(16,185,129,0.3);">
-                                <h4 style="color: #10b981; font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
-                                    <i class="fas fa-calendar-check"></i> الجدول الزمني والأولويات
-                                </h4>
-                                <div id="timelinePriorities" style="display: flex; flex-direction: column; gap: 15px;">
-                                    <!-- سيتم تعبئته من Firebase -->
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
@@ -19264,32 +19615,32 @@
                                 
                                 <!-- Target Items -->
                                 <div class="exec-targets-list">
-                                    <!-- Jordan 80% -->
+                                    <!-- Jordan 85% -->
                                     <div class="exec-target-item">
                                         <div class="exec-target-header">
                                             <div class="exec-target-info">
                                                 <span class="exec-target-flag">🇯🇴</span>
                                                 <span class="exec-target-name">الأردن</span>
                                             </div>
-                                            <span class="exec-target-value exec-emerald">80%</span>
+                                            <span class="exec-target-value exec-emerald">85%</span>
                                         </div>
                                         <div class="exec-progress-bar">
-                                            <div class="exec-progress-fill exec-progress-emerald" style="width: 80%;"></div>
+                                            <div class="exec-progress-fill exec-progress-emerald" style="width: 85%;"></div>
                                         </div>
                                         <span class="exec-target-label">التغطية المحلية</span>
                                     </div>
                                     
-                                    <!-- Regional 15% -->
+                                    <!-- Regional 10% -->
                                     <div class="exec-target-item">
                                         <div class="exec-target-header">
                                             <div class="exec-target-info">
                                                 <span class="exec-target-flag">🌍</span>
                                                 <span class="exec-target-name">إقليمي</span>
                                             </div>
-                                            <span class="exec-target-value exec-gold">15%</span>
+                                            <span class="exec-target-value exec-gold">10%</span>
                                         </div>
                                         <div class="exec-progress-bar">
-                                            <div class="exec-progress-fill exec-progress-gold" style="width: 15%;"></div>
+                                            <div class="exec-progress-fill exec-progress-gold" style="width: 10%;"></div>
                                         </div>
                                         <span class="exec-target-label">الخليج والشرق الأوسط</span>
                                     </div>
@@ -21869,7 +22220,7 @@
                             </div>
                             <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
                                 <div style="text-align: center; padding: 14px 10px; background: rgba(59, 130, 246, 0.15); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.3);">
-                                    <span style="color: #93c5fd; font-size: 1.6rem; font-weight: 900; display: block;">60+</span>
+                                    <span style="color: #93c5fd; font-size: 1.6rem; font-weight: 900; display: block;">10</span>
                                     <span style="color: #94a3b8; font-size: 0.65rem; display: block;">صحيفة وموقع</span>
                                     <i class="fas fa-newspaper" style="color: #3b82f6; font-size: 0.9rem; margin-top: 5px;"></i>
                                 </div>
@@ -21895,9 +22246,9 @@
                                 </div>
                             </div>
                             <div style="text-align: center; margin-top: 18px; padding: 12px; background: rgba(16, 185, 129, 0.2); border-radius: 12px;">
-                                <span style="color: #6ee7b7; font-size: 1.8rem; font-weight: 900;">100+</span>
+                                <span style="color: #6ee7b7; font-size: 1.8rem; font-weight: 900;">52+</span>
                                 <span style="color: #a7f3d0; font-size: 0.9rem; margin-right: 8px;">إجمالي الوصول الإعلامي</span>
-                                <span style="color: #94a3b8; font-size: 0.7rem; display: block; margin-top: 5px;">(يشمل PR Newswire: 50+ وسيلة)</span>
+                                <span style="color: #94a3b8; font-size: 0.7rem; display: block; margin-top: 5px;">(10 صحف + 11 قناة + 25 مؤثر + 4 دولية + 2 داعمة)</span>
                             </div>
                         </div>
                         
@@ -21959,7 +22310,7 @@
                                 <i class="fas fa-calendar-alt" style="color: white; font-size: 1.5rem;"></i>
                             </div>
                             <p style="color: #94a3b8; font-size: 0.85rem; margin: 0 0 5px 0;">مدة الحملة</p>
-                            <p style="color: #3b82f6; font-size: 2rem; font-weight: 800; margin: 0;">45 يوم</p>
+                            <p style="color: #3b82f6; font-size: 2rem; font-weight: 800; margin: 0;">31 يوم</p>
                         </div>
                         <!-- عدد القنوات -->
                         <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(168, 85, 247, 0.05)); border-radius: 20px; padding: 25px; text-align: center; border: 1px solid rgba(168, 85, 247, 0.3);">
@@ -25509,13 +25860,639 @@
                 
             </div>
 
-            <!-- Tab 4: Monitoring -->
-            <div class="tab-pane" id="monitoring" data-title="المراقبة والمتابعة">
-                <div class="section-card text-center py-5">
-                    <i class="fas fa-cogs fa-4x text-muted mb-4"></i>
-                    <h3 class="text-muted">جاري العمل والتطوير</h3>
-                    <p class="text-muted">نعمل على تطوير هذا القسم لتقديم أفضل تجربة لكم</p>
+            <!-- Tab 4: Monitoring - الخطة التنفيذية ومراقبتها -->
+            <div class="tab-pane" id="monitoring" data-title="الخطة التنفيذية">
+                
+                <!-- ============================================ -->
+                <!-- القسم الرئيسي: الخطة التنفيذية ومراقبتها -->
+                <!-- ============================================ -->
+                <div class="global-models-section" dir="rtl" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); border-radius: 28px; padding: 0; margin-bottom: 50px; overflow: hidden; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); position: relative; font-family: 'Tajawal', 'Cairo', sans-serif; max-width: 1100px; margin-left: auto; margin-right: auto;">
+                    
+                    <!-- Decorative Background -->
+                    <div style="position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+                    <div style="position: absolute; bottom: -150px; left: -150px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none;"></div>
+                    
+                    <!-- Header Section -->
+                    <div style="text-align: center; padding: 60px 50px 40px; position: relative; z-index: 1;">
+                        <div style="width: 90px; height: 90px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; box-shadow: 0 0 40px rgba(16, 185, 129, 0.5);">
+                            <i class="fas fa-tasks" style="color: white; font-size: 40px;"></i>
+                        </div>
+                        <h2 style="color: #ffffff; font-size: 2.2rem; font-weight: 800; margin: 0 0 15px 0; text-shadow: 0 0 30px rgba(255,255,255,0.3);">
+                            الخطة التنفيذية ومراقبتها
+                        </h2>
+                        <p style="color: #94a3b8; font-size: 1.1rem; margin: 0 0 10px 0;">Executive Plan & Monitoring Dashboard</p>
+                        <p style="color: #cbd5e1; font-size: 1rem; max-width: 800px; margin: 0 auto;">
+                            متابعة تنفيذ حملة ALIC الإعلامية • 31 يوم • 20 منتج • $10,000
+                        </p>
+                    </div>
+                    
+                    <!-- ============================================ -->
+                    <!-- لوحة المؤشرات الرئيسية -->
+                    <!-- ============================================ -->
+                    <div style="padding: 0 50px 50px;">
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px;">
+                            <!-- التقدم الإجمالي -->
+                            <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%); border-radius: 20px; padding: 25px; text-align: center; border: 1px solid rgba(16, 185, 129, 0.3);">
+                                <div style="width: 70px; height: 70px; background: conic-gradient(#10b981 0%, #10b981 0%, rgba(16, 185, 129, 0.2) 0%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; position: relative;">
+                                    <div style="width: 55px; height: 55px; background: #0f172a; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                        <span style="color: #10b981; font-size: 1.2rem; font-weight: 800;">0%</span>
+                                    </div>
+                                </div>
+                                <p style="color: #6ee7b7; font-size: 0.9rem; font-weight: 700; margin: 0;">التقدم الإجمالي</p>
+                                <p style="color: #64748b; font-size: 0.75rem; margin: 5px 0 0 0;">0 من 20 منتج</p>
+                            </div>
+                            <!-- المنتجات المكتملة -->
+                            <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%); border-radius: 20px; padding: 25px; text-align: center; border: 1px solid rgba(59, 130, 246, 0.3);">
+                                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                    <i class="fas fa-check-double" style="color: white; font-size: 1.8rem;"></i>
+                                </div>
+                                <p style="color: #93c5fd; font-size: 1.8rem; font-weight: 800; margin: 0;">0</p>
+                                <p style="color: #64748b; font-size: 0.75rem; margin: 5px 0 0 0;">منتجات مكتملة</p>
+                            </div>
+                            <!-- قيد التنفيذ -->
+                            <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%); border-radius: 20px; padding: 25px; text-align: center; border: 1px solid rgba(245, 158, 11, 0.3);">
+                                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                    <i class="fas fa-spinner" style="color: white; font-size: 1.8rem;"></i>
+                                </div>
+                                <p style="color: #fcd34d; font-size: 1.8rem; font-weight: 800; margin: 0;">0</p>
+                                <p style="color: #64748b; font-size: 0.75rem; margin: 5px 0 0 0;">قيد التنفيذ</p>
+                            </div>
+                            <!-- الأيام المتبقية -->
+                            <div style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.05) 100%); border-radius: 20px; padding: 25px; text-align: center; border: 1px solid rgba(139, 92, 246, 0.3);">
+                                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                    <i class="fas fa-calendar-day" style="color: white; font-size: 1.8rem;"></i>
+                                </div>
+                                <p style="color: #c4b5fd; font-size: 1.8rem; font-weight: 800; margin: 0;">24</p>
+                                <p style="color: #64748b; font-size: 0.75rem; margin: 5px 0 0 0;">يوم للإطلاق</p>
+                            </div>
+                        </div>
+                        
+                        <!-- ============================================ -->
+                        <!-- الجدول الزمني التنفيذي - المراحل الثلاث -->
+                        <!-- ============================================ -->
+                        <div style="margin-bottom: 40px;">
+                            <h3 style="color: #f1f5f9; font-size: 1.4rem; font-weight: 700; margin: 0 0 25px 0; display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-stream" style="color: #10b981;"></i>
+                                الجدول الزمني التنفيذي
+                            </h3>
+                            
+                            <!-- Phase Progress Bar -->
+                            <div style="background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; margin-bottom: 25px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                                    <span style="color: #fbbf24; font-size: 0.85rem; font-weight: 600;">المرحلة 1: التهيئة</span>
+                                    <span style="color: #94a3b8; font-size: 0.85rem;">1-14 يناير</span>
+                                </div>
+                                <div style="background: rgba(251, 191, 36, 0.2); height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 20px;">
+                                    <div style="background: linear-gradient(90deg, #fbbf24, #f59e0b); height: 100%; width: 0%; border-radius: 6px; transition: width 0.5s ease;"></div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                                    <span style="color: #10b981; font-size: 0.85rem; font-weight: 600;">المرحلة 2: الإطلاق</span>
+                                    <span style="color: #94a3b8; font-size: 0.85rem;">15-20 يناير</span>
+                                </div>
+                                <div style="background: rgba(16, 185, 129, 0.2); height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 20px;">
+                                    <div style="background: linear-gradient(90deg, #10b981, #059669); height: 100%; width: 0%; border-radius: 6px; transition: width 0.5s ease;"></div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                                    <span style="color: #3b82f6; font-size: 0.85rem; font-weight: 600;">المرحلة 3: الترسيخ</span>
+                                    <span style="color: #94a3b8; font-size: 0.85rem;">21-31 يناير</span>
+                                </div>
+                                <div style="background: rgba(59, 130, 246, 0.2); height: 12px; border-radius: 6px; overflow: hidden;">
+                                    <div style="background: linear-gradient(90deg, #3b82f6, #2563eb); height: 100%; width: 0%; border-radius: 6px; transition: width 0.5s ease;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ============================================ -->
+                        <!-- قائمة المهام التنفيذية -->
+                        <!-- ============================================ -->
+                        <div style="margin-bottom: 40px;">
+                            <h3 style="color: #f1f5f9; font-size: 1.4rem; font-weight: 700; margin: 0 0 25px 0; display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-clipboard-list" style="color: #f59e0b;"></i>
+                                قائمة المهام التنفيذية
+                            </h3>
+                            
+                            <!-- المرحلة الأولى -->
+                            <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.03) 100%); border-radius: 16px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(251, 191, 36, 0.2);">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #1e293b;">1</div>
+                                        <span style="color: #fbbf24; font-size: 1.1rem; font-weight: 700;">مرحلة التهيئة والتشويق</span>
+                                    </div>
+                                    <span style="background: rgba(251, 191, 36, 0.2); color: #fcd34d; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem;">5 منتجات</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #fbbf24; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">منشور LinkedIn تشويقي</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">1 يناير</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #fbbf24; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">بيان صحفي الكشف عن ALIC</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">26 ديسمبر</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #fbbf24; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">حملة SMS لغرفة الصناعة</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">27-28 ديسمبر</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #fbbf24; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">فيديو تشويقي (Teaser)</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">5 يناير</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #fbbf24; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">مقال رأي اقتصادي</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">10 يناير</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- المرحلة الثانية -->
+                            <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.03) 100%); border-radius: 16px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #1e293b;">2</div>
+                                        <span style="color: #10b981; font-size: 1.1rem; font-weight: 700;">مرحلة الإطلاق الاستراتيجي</span>
+                                    </div>
+                                    <span style="background: rgba(16, 185, 129, 0.2); color: #6ee7b7; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem;">10 منتجات</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #10b981; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">حدث تسليم محامص الشعب</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">15 يناير</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #10b981; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">فيديو محامص الشعب (قصة النجاح)</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">15 يناير</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #10b981; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">بيان صحفي الإطلاق الرسمي</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">15 يناير</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #10b981; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">مقابلة تلفزيونية (رؤيا/المملكة)</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">16 يناير</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #10b981; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">جولة إعلامية في الموقع</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">17 يناير</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- المرحلة الثالثة -->
+                            <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.03) 100%); border-radius: 16px; padding: 20px; border: 1px solid rgba(59, 130, 246, 0.2);">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: white;">3</div>
+                                        <span style="color: #3b82f6; font-size: 1.1rem; font-weight: 700;">مرحلة ترسيخ الريادة</span>
+                                    </div>
+                                    <span style="background: rgba(59, 130, 246, 0.2); color: #93c5fd; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem;">5 منتجات</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #3b82f6; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">ملف Case Study محامص الشعب</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">22 يناير</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #3b82f6; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">Infographic الإنجازات</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">25 يناير</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #3b82f6; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">تقرير أثر اقتصادي</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">28 يناير</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #3b82f6; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">حملة LinkedIn B2B</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">21-31 يناير</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+                                        <input type="checkbox" style="width: 20px; height: 20px; accent-color: #3b82f6; cursor: pointer;">
+                                        <span style="color: #e2e8f0; font-size: 0.9rem; flex: 1;">تقرير ختام الحملة</span>
+                                        <span style="color: #94a3b8; font-size: 0.75rem;">31 يناير</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ============================================ -->
+                        <!-- مؤشرات الأداء KPIs -->
+                        <!-- ============================================ -->
+                        <div style="margin-bottom: 40px;">
+                            <h3 style="color: #f1f5f9; font-size: 1.4rem; font-weight: 700; margin: 0 0 25px 0; display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-chart-line" style="color: #ec4899;"></i>
+                                مؤشرات الأداء الرئيسية (KPIs)
+                            </h3>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                                <!-- الوصول الإعلامي -->
+                                <div style="background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; border-top: 4px solid #3b82f6;">
+                                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                                        <span style="color: #93c5fd; font-size: 0.9rem; font-weight: 600;">الوصول الإعلامي</span>
+                                        <i class="fas fa-eye" style="color: #3b82f6;"></i>
+                                    </div>
+                                    <p style="color: #f1f5f9; font-size: 2rem; font-weight: 800; margin: 0 0 10px 0;">0 <span style="color: #64748b; font-size: 1rem;">/ 500K</span></p>
+                                    <div style="background: rgba(59, 130, 246, 0.2); height: 8px; border-radius: 4px; overflow: hidden;">
+                                        <div style="background: #3b82f6; height: 100%; width: 0%; border-radius: 4px;"></div>
+                                    </div>
+                                </div>
+                                <!-- التفاعل -->
+                                <div style="background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; border-top: 4px solid #10b981;">
+                                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                                        <span style="color: #6ee7b7; font-size: 0.9rem; font-weight: 600;">معدل التفاعل</span>
+                                        <i class="fas fa-heart" style="color: #10b981;"></i>
+                                    </div>
+                                    <p style="color: #f1f5f9; font-size: 2rem; font-weight: 800; margin: 0 0 10px 0;">0% <span style="color: #64748b; font-size: 1rem;">/ 3%</span></p>
+                                    <div style="background: rgba(16, 185, 129, 0.2); height: 8px; border-radius: 4px; overflow: hidden;">
+                                        <div style="background: #10b981; height: 100%; width: 0%; border-radius: 4px;"></div>
+                                    </div>
+                                </div>
+                                <!-- العملاء المحتملين -->
+                                <div style="background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; border-top: 4px solid #f59e0b;">
+                                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                                        <span style="color: #fcd34d; font-size: 0.9rem; font-weight: 600;">العملاء المحتملين</span>
+                                        <i class="fas fa-user-plus" style="color: #f59e0b;"></i>
+                                    </div>
+                                    <p style="color: #f1f5f9; font-size: 2rem; font-weight: 800; margin: 0 0 10px 0;">0 <span style="color: #64748b; font-size: 1rem;">/ 200</span></p>
+                                    <div style="background: rgba(245, 158, 11, 0.2); height: 8px; border-radius: 4px; overflow: hidden;">
+                                        <div style="background: #f59e0b; height: 100%; width: 0%; border-radius: 4px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ============================================ -->
+                        <!-- متابعة الميزانية -->
+                        <!-- ============================================ -->
+                        <div style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.03) 100%); border-radius: 20px; padding: 30px; border: 1px solid rgba(34, 197, 94, 0.25);">
+                            <h3 style="color: #f1f5f9; font-size: 1.3rem; font-weight: 700; margin: 0 0 25px 0; display: flex; align-items: center; gap: 12px;">
+                                <i class="fas fa-wallet" style="color: #22c55e;"></i>
+                                متابعة الميزانية
+                            </h3>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 25px;">
+                                <div style="text-align: center; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 14px;">
+                                    <p style="color: #94a3b8; font-size: 0.8rem; margin: 0 0 8px 0;">الميزانية الإجمالية</p>
+                                    <p style="color: #22c55e; font-size: 1.6rem; font-weight: 800; margin: 0;">$10,000</p>
+                                </div>
+                                <div style="text-align: center; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 14px;">
+                                    <p style="color: #94a3b8; font-size: 0.8rem; margin: 0 0 8px 0;">المصروف</p>
+                                    <p style="color: #ef4444; font-size: 1.6rem; font-weight: 800; margin: 0;">$0</p>
+                                </div>
+                                <div style="text-align: center; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 14px;">
+                                    <p style="color: #94a3b8; font-size: 0.8rem; margin: 0 0 8px 0;">المتبقي</p>
+                                    <p style="color: #3b82f6; font-size: 1.6rem; font-weight: 800; margin: 0;">$10,000</p>
+                                </div>
+                                <div style="text-align: center; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 14px;">
+                                    <p style="color: #94a3b8; font-size: 0.8rem; margin: 0 0 8px 0;">نسبة الصرف</p>
+                                    <p style="color: #a855f7; font-size: 1.6rem; font-weight: 800; margin: 0;">0%</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Budget Progress -->
+                            <div style="background: rgba(0,0,0,0.2); border-radius: 12px; padding: 15px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <span style="color: #94a3b8; font-size: 0.85rem;">التقدم في صرف الميزانية</span>
+                                    <span style="color: #22c55e; font-size: 0.85rem; font-weight: 600;">$0 / $10,000</span>
+                                </div>
+                                <div style="background: rgba(34, 197, 94, 0.2); height: 12px; border-radius: 6px; overflow: hidden;">
+                                    <div style="background: linear-gradient(90deg, #22c55e, #16a34a); height: 100%; width: 0%; border-radius: 6px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ============================================ -->
+                        <!-- شريط أدوات الإدارة -->
+                        <!-- ============================================ -->
+                        <div id="admin-toolbar" style="margin-top: 30px; padding: 20px 25px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%); border-radius: 16px; border: 1px solid rgba(16, 185, 129, 0.25); display: none;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+                                <div class="user-info" style="display: flex; align-items: center; gap: 15px;">
+                                    <div style="width: 45px; height: 45px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-user-shield" style="color: white; font-size: 1.1rem;"></i>
+                                    </div>
+                                    <div>
+                                        <p style="color: #6ee7b7; font-size: 0.9rem; font-weight: 700; margin: 0;">مرحباً، <span id="current-user-name">المستخدم</span></p>
+                                        <p style="color: #64748b; font-size: 0.75rem; margin: 3px 0 0 0;"><span id="user-role-label">محرر</span></p>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                    <button onclick="taskManager.showAddTaskModal()" data-role="editor" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border: none; color: white; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+                                        <i class="fas fa-plus"></i> إضافة مهمة
+                                    </button>
+                                    <button onclick="openUsersModal()" data-requires-admin style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border: none; color: white; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 600; display: none; align-items: center; gap: 8px; transition: all 0.2s;">
+                                        <i class="fas fa-users-cog"></i> إدارة المستخدمين
+                                    </button>
+                                    <button onclick="taskManager.showActivityLog()" style="background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.3); color: #c4b5fd; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+                                        <i class="fas fa-history"></i> سجل النشاط
+                                    </button>
+                                    <button id="notification-btn" onclick="taskManager.showNotifications()" style="background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.3); color: #fcd34d; padding: 10px 15px; border-radius: 10px; cursor: pointer; position: relative; transition: all 0.2s;">
+                                        <i class="fas fa-bell"></i>
+                                        <span id="notification-badge" style="position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 0.7rem; width: 20px; height: 20px; border-radius: 50%; display: none; align-items: center; justify-content: center;">0</span>
+                                    </button>
+                                    <button onclick="signOutUser()" style="background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; padding: 10px 15px; border-radius: 10px; cursor: pointer; transition: all 0.2s;">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ============================================ -->
+                        <!-- رسالة تسجيل الدخول للزوار -->
+                        <!-- ============================================ -->
+                        <div id="login-prompt" style="margin-top: 30px; padding: 30px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0.05) 100%); border-radius: 20px; border: 1px solid rgba(99, 102, 241, 0.3); text-align: center;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fas fa-lock" style="color: white; font-size: 2rem;"></i>
+                            </div>
+                            <h4 style="color: #e2e8f0; font-size: 1.3rem; font-weight: 700; margin: 0 0 10px 0;">نظام إدارة المهام التفاعلي</h4>
+                            <p style="color: #94a3b8; font-size: 0.95rem; margin: 0 0 25px 0; line-height: 1.8;">
+                                سجّل دخولك للتفاعل مع لوحة المهام، متابعة التقدم، وإدارة الموافقات في الوقت الفعلي
+                            </p>
+                            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                                <button onclick="showLoginModal()" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); border: none; color: white; padding: 14px 35px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3); transition: all 0.3s;">
+                                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                                </button>
+                                <button onclick="showRegisterModal()" style="background: transparent; border: 2px solid rgba(99, 102, 241, 0.5); color: #a5b4fc; padding: 14px 35px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; transition: all 0.3s;">
+                                    <i class="fas fa-user-plus"></i> إنشاء حساب
+                                </button>
+                            </div>
+                            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(99, 102, 241, 0.2);">
+                                <p style="color: #64748b; font-size: 0.85rem; margin: 0;">
+                                    <i class="fas fa-info-circle" style="margin-left: 8px;"></i>
+                                    يمكنك عرض المهام كزائر، ولكن التفاعل يتطلب تسجيل الدخول
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
+                
+                <!-- ============================================ -->
+                <!-- Modal: تسجيل الدخول -->
+                <!-- ============================================ -->
+                <div id="login-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
+                    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 24px; padding: 40px; max-width: 450px; width: 90%; position: relative; border: 1px solid rgba(99, 102, 241, 0.3); box-shadow: 0 30px 80px rgba(0,0,0,0.5);">
+                        <button onclick="closeModal('login-modal')" style="position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.1); border: none; color: #94a3b8; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-size: 1.2rem;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fas fa-user" style="color: white; font-size: 1.8rem;"></i>
+                            </div>
+                            <h3 style="color: #f1f5f9; font-size: 1.5rem; font-weight: 700; margin: 0;">تسجيل الدخول</h3>
+                            <p style="color: #64748b; font-size: 0.9rem; margin: 10px 0 0 0;">أدخل بياناتك للوصول للوحة التحكم</p>
+                        </div>
+                        
+                        <!-- Google Sign-In Button -->
+                        <button onclick="signInWithGoogle()" style="width: 100%; padding: 14px 20px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; color: #1f2937; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; transition: all 0.3s;">
+                            <svg width="20" height="20" viewBox="0 0 24 24">
+                                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                            </svg>
+                            تسجيل الدخول عبر Google
+                        </button>
+                        
+                        <!-- Divider -->
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="flex: 1; height: 1px; background: rgba(148, 163, 184, 0.2);"></div>
+                            <span style="color: #64748b; font-size: 0.85rem; padding: 0 15px;">أو عبر البريد الإلكتروني</span>
+                            <div style="flex: 1; height: 1px; background: rgba(148, 163, 184, 0.2);"></div>
+                        </div>
+                        
+                        <form id="login-form" onsubmit="handleLogin(event)">
+                            <div style="margin-bottom: 20px;">
+                                <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 8px;">البريد الإلكتروني</label>
+                                <input type="email" id="login-email" required style="width: 100%; padding: 14px 18px; background: rgba(0,0,0,0.3); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 12px; color: #f1f5f9; font-size: 1rem; outline: none; transition: all 0.3s;" placeholder="email@example.com">
+                            </div>
+                            <div style="margin-bottom: 25px;">
+                                <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 8px;">كلمة المرور</label>
+                                <input type="password" id="login-password" required style="width: 100%; padding: 14px 18px; background: rgba(0,0,0,0.3); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 12px; color: #f1f5f9; font-size: 1rem; outline: none; transition: all 0.3s;" placeholder="••••••••">
+                            </div>
+                            <button type="submit" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); border: none; border-radius: 12px; color: white; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s;">
+                                دخول
+                            </button>
+                        </form>
+                        <p style="text-align: center; color: #64748b; font-size: 0.85rem; margin-top: 20px;">
+                            ليس لديك حساب؟ <a href="#" onclick="switchToRegister()" style="color: #818cf8; text-decoration: none;">إنشاء حساب جديد</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- ============================================ -->
+                <!-- Modal: إنشاء حساب -->
+                <!-- ============================================ -->
+                <div id="register-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
+                    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 24px; padding: 40px; max-width: 450px; width: 90%; position: relative; border: 1px solid rgba(16, 185, 129, 0.3); box-shadow: 0 30px 80px rgba(0,0,0,0.5);">
+                        <button onclick="closeModal('register-modal')" style="position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.1); border: none; color: #94a3b8; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-size: 1.2rem;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fas fa-user-plus" style="color: white; font-size: 1.8rem;"></i>
+                            </div>
+                            <h3 style="color: #f1f5f9; font-size: 1.5rem; font-weight: 700; margin: 0;">إنشاء حساب</h3>
+                            <p style="color: #64748b; font-size: 0.9rem; margin: 10px 0 0 0;">أنشئ حسابك للانضمام لفريق العمل</p>
+                        </div>
+                        
+                        <!-- Google Sign-Up Button -->
+                        <button onclick="signInWithGoogle()" style="width: 100%; padding: 14px 20px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; color: #1f2937; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; transition: all 0.3s;">
+                            <svg width="20" height="20" viewBox="0 0 24 24">
+                                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                            </svg>
+                            التسجيل عبر Google
+                        </button>
+                        
+                        <!-- Divider -->
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="flex: 1; height: 1px; background: rgba(148, 163, 184, 0.2);"></div>
+                            <span style="color: #64748b; font-size: 0.85rem; padding: 0 15px;">أو عبر البريد الإلكتروني</span>
+                            <div style="flex: 1; height: 1px; background: rgba(148, 163, 184, 0.2);"></div>
+                        </div>
+                        
+                        <form id="register-form" onsubmit="handleRegister(event)">
+                            <div style="margin-bottom: 20px;">
+                                <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 8px;">الاسم الكامل</label>
+                                <input type="text" id="register-name" required style="width: 100%; padding: 14px 18px; background: rgba(0,0,0,0.3); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; color: #f1f5f9; font-size: 1rem; outline: none;" placeholder="محمد أحمد">
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 8px;">البريد الإلكتروني</label>
+                                <input type="email" id="register-email" required style="width: 100%; padding: 14px 18px; background: rgba(0,0,0,0.3); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; color: #f1f5f9; font-size: 1rem; outline: none;" placeholder="email@example.com">
+                            </div>
+                            <div style="margin-bottom: 25px;">
+                                <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 8px;">كلمة المرور</label>
+                                <input type="password" id="register-password" required minlength="6" style="width: 100%; padding: 14px 18px; background: rgba(0,0,0,0.3); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; color: #f1f5f9; font-size: 1rem; outline: none;" placeholder="••••••••">
+                            </div>
+                            <button type="submit" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; border-radius: 12px; color: white; font-size: 1.1rem; font-weight: 700; cursor: pointer;">
+                                إنشاء الحساب
+                            </button>
+                        </form>
+                        <p style="text-align: center; color: #64748b; font-size: 0.85rem; margin-top: 20px;">
+                            لديك حساب بالفعل؟ <a href="#" onclick="switchToLogin()" style="color: #6ee7b7; text-decoration: none;">تسجيل الدخول</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- ============================================ -->
+                <!-- Modal: إدارة المستخدمين (للأدمن فقط) -->
+                <!-- ============================================ -->
+                <div id="users-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
+                    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 24px; padding: 40px; max-width: 800px; width: 95%; max-height: 90vh; overflow-y: auto; position: relative; border: 1px solid rgba(245, 158, 11, 0.3); box-shadow: 0 30px 80px rgba(0,0,0,0.5);">
+                        <button onclick="closeModal('users-modal')" style="position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.1); border: none; color: #94a3b8; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-size: 1.2rem;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fas fa-users-cog" style="color: white; font-size: 1.8rem;"></i>
+                            </div>
+                            <h3 style="color: #f1f5f9; font-size: 1.5rem; font-weight: 700; margin: 0;">إدارة المستخدمين</h3>
+                            <p style="color: #64748b; font-size: 0.9rem; margin: 10px 0 0 0;">إدارة صلاحيات وأدوار فريق العمل</p>
+                        </div>
+                        
+                        <!-- Role Legend -->
+                        <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-bottom: 25px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="width: 12px; height: 12px; background: #ef4444; border-radius: 50%;"></span>
+                                <span style="color: #94a3b8; font-size: 0.85rem;">مدير النظام</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="width: 12px; height: 12px; background: #f59e0b; border-radius: 50%;"></span>
+                                <span style="color: #94a3b8; font-size: 0.85rem;">مدير المشروع</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="width: 12px; height: 12px; background: #3b82f6; border-radius: 50%;"></span>
+                                <span style="color: #94a3b8; font-size: 0.85rem;">رئيس فريق</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="width: 12px; height: 12px; background: #10b981; border-radius: 50%;"></span>
+                                <span style="color: #94a3b8; font-size: 0.85rem;">عضو</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="width: 12px; height: 12px; background: #64748b; border-radius: 50%;"></span>
+                                <span style="color: #94a3b8; font-size: 0.85rem;">مشاهد</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Users List -->
+                        <div id="users-list" style="display: flex; flex-direction: column; gap: 12px;">
+                            <!-- Users will be loaded here dynamically -->
+                            <div style="text-align: center; padding: 40px; color: #64748b;">
+                                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 15px; display: block;"></i>
+                                جاري تحميل المستخدمين...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ============================================ -->
+                <!-- Modal: تفاصيل المهمة -->
+                <!-- ============================================ -->
+                <div id="task-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(10px); overflow-y: auto; padding: 20px;">
+                    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 24px; padding: 0; max-width: 700px; width: 95%; position: relative; border: 1px solid rgba(59, 130, 246, 0.3); box-shadow: 0 30px 80px rgba(0,0,0,0.5); margin: auto;">
+                        <!-- Header -->
+                        <div style="padding: 30px 30px 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <button onclick="closeModal('task-modal')" style="position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.1); border: none; color: #94a3b8; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-size: 1.2rem;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <h3 id="modal-task-title" style="color: #f1f5f9; font-size: 1.4rem; font-weight: 700; margin: 0 0 10px 0;">عنوان المهمة</h3>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <span id="modal-task-status" style="background: rgba(245, 158, 11, 0.2); color: #fcd34d; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem;">قيد التنفيذ</span>
+                                <span id="modal-task-phase" style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem;">المرحلة 1</span>
+                            </div>
+                        </div>
+                        <!-- Content -->
+                        <div style="padding: 25px 30px;">
+                            <div style="margin-bottom: 25px;">
+                                <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 10px;">الوصف</label>
+                                <p id="modal-task-description" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.8; margin: 0;">وصف المهمة هنا...</p>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 25px;">
+                                <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px;">
+                                    <p style="color: #64748b; font-size: 0.8rem; margin: 0 0 5px 0;">تاريخ التسليم</p>
+                                    <p id="modal-task-due" style="color: #f1f5f9; font-size: 1rem; font-weight: 600; margin: 0;">15 يناير 2026</p>
+                                </div>
+                                <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px;">
+                                    <p style="color: #64748b; font-size: 0.8rem; margin: 0 0 5px 0;">المسؤول</p>
+                                    <p id="modal-task-assignee" style="color: #f1f5f9; font-size: 1rem; font-weight: 600; margin: 0;">فريق التسويق</p>
+                                </div>
+                            </div>
+                            <!-- التسليمات -->
+                            <div style="margin-bottom: 25px;">
+                                <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 10px;">التسليمات المطلوبة</label>
+                                <div id="modal-task-deliverables" style="display: flex; flex-direction: column; gap: 8px;">
+                                    <!-- سيتم ملؤها ديناميكياً -->
+                                </div>
+                            </div>
+                            <!-- سلسلة الموافقات -->
+                            <div style="margin-bottom: 25px;">
+                                <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 15px;">سلسلة الموافقات</label>
+                                <div id="modal-approval-chain" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                    <!-- سيتم ملؤها ديناميكياً -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                        <div style="padding: 20px 30px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 15px; justify-content: flex-end;">
+                            <button id="btn-start-task" onclick="handleStartTask()" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border: none; color: white; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-play"></i> بدء العمل
+                            </button>
+                            <button id="btn-submit-review" onclick="handleSubmitReview()" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border: none; color: white; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: 600; display: none; align-items: center; gap: 8px;">
+                                <i class="fas fa-paper-plane"></i> إرسال للمراجعة
+                            </button>
+                            <button id="btn-publish" onclick="handlePublish()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; color: white; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: 600; display: none; align-items: center; gap: 8px;">
+                                <i class="fas fa-rocket"></i> نشر
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ============================================ -->
+                <!-- Modal: الموافقة على مهمة -->
+                <!-- ============================================ -->
+                <div id="approval-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(10px);">
+                    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 24px; padding: 40px; max-width: 500px; width: 90%; position: relative; border: 1px solid rgba(16, 185, 129, 0.3); box-shadow: 0 30px 80px rgba(0,0,0,0.5);">
+                        <button onclick="closeModal('approval-modal')" style="position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.1); border: none; color: #94a3b8; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; font-size: 1.2rem;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div style="text-align: center; margin-bottom: 25px;">
+                            <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fas fa-clipboard-check" style="color: white; font-size: 1.8rem;"></i>
+                            </div>
+                            <h3 style="color: #f1f5f9; font-size: 1.4rem; font-weight: 700; margin: 0;">مراجعة وموافقة</h3>
+                            <p id="approval-task-title" style="color: #64748b; font-size: 0.9rem; margin: 10px 0 0 0;">اسم المهمة</p>
+                        </div>
+                        <input type="hidden" id="approval-task-id">
+                        <div style="margin-bottom: 25px;">
+                            <label style="color: #94a3b8; font-size: 0.85rem; display: block; margin-bottom: 10px;">ملاحظات (اختياري)</label>
+                            <textarea id="approval-comments" rows="4" style="width: 100%; padding: 14px 18px; background: rgba(0,0,0,0.3); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; color: #f1f5f9; font-size: 0.95rem; outline: none; resize: none;" placeholder="أضف ملاحظاتك هنا..."></textarea>
+                        </div>
+                        <div style="display: flex; gap: 15px;">
+                            <button onclick="handleApprove()" style="flex: 1; padding: 14px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; border-radius: 12px; color: white; font-size: 1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                <i class="fas fa-check"></i> موافقة
+                            </button>
+                            <button onclick="showRejectModal()" style="flex: 1; padding: 14px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border: none; border-radius: 12px; color: white; font-size: 1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                                <i class="fas fa-times"></i> رفض
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -26420,17 +27397,881 @@ function exportToPDF() {
     });
 }
 
+// ============================================
+// نظام إدارة المهام التفاعلي
+// ============================================
+
+// متغيرات عامة
+let currentTaskId = null;
+let currentUser = null;
+let tasksData = [];
+
+// تهيئة نظام المهام
+function initTaskSystem() {
+    // التحقق من تسجيل الدخول للمهام
+    if (typeof auth !== 'undefined') {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                loadUserData(user.uid);
+                showAdminToolbar();
+                hideLoginPrompt();
+                setupRealtimeListeners();
+            } else {
+                hideAdminToolbar();
+                showLoginPrompt();
+            }
+        });
+    }
+}
+
+// تحميل بيانات المستخدم
+async function loadUserData(uid) {
+    try {
+        const doc = await db.collection('users').doc(uid).get();
+        if (doc.exists) {
+            currentUser = { uid, ...doc.data() };
+            document.getElementById('current-user-name').textContent = currentUser.name || 'المستخدم';
+            document.getElementById('user-role-label').textContent = getRoleLabel(currentUser.role);
+            updatePermissionsUI();
+        }
+    } catch (error) {
+        console.error('خطأ في تحميل بيانات المستخدم:', error);
+    }
+}
+
+// الحصول على تسمية الدور
+function getRoleLabel(role) {
+    const labels = {
+        'admin': 'مدير النظام',
+        'manager': 'مدير المشروع',
+        'supervisor': 'مشرف',
+        'editor': 'محرر',
+        'viewer': 'مشاهد'
+    };
+    return labels[role] || 'مستخدم';
+}
+
+// إظهار/إخفاء العناصر
+function showAdminToolbar() {
+    const toolbar = document.getElementById('admin-toolbar');
+    if (toolbar) toolbar.style.display = 'flex';
+}
+
+function hideAdminToolbar() {
+    const toolbar = document.getElementById('admin-toolbar');
+    if (toolbar) toolbar.style.display = 'none';
+}
+
+function showLoginPrompt() {
+    const prompt = document.getElementById('login-prompt');
+    if (prompt) prompt.style.display = 'block';
+}
+
+function hideLoginPrompt() {
+    const prompt = document.getElementById('login-prompt');
+    if (prompt) prompt.style.display = 'none';
+}
+
+// تحديث واجهة الصلاحيات
+function updatePermissionsUI() {
+    if (!currentUser) return;
+    
+    const editableRoles = ['admin', 'manager', 'editor'];
+    const canEdit = editableRoles.includes(currentUser.role);
+    
+    document.querySelectorAll('[data-role="editor"]').forEach(el => {
+        el.style.display = canEdit ? 'flex' : 'none';
+    });
+    
+    document.querySelectorAll('[data-role="manager"]').forEach(el => {
+        el.style.display = ['admin', 'manager'].includes(currentUser.role) ? 'flex' : 'none';
+    });
+}
+
+// إعداد الاستماع في الوقت الفعلي
+function setupRealtimeListeners() {
+    if (typeof db === 'undefined') return;
+    
+    // الاستماع للمهام
+    db.collection('campaign_tasks').orderBy('order', 'asc').onSnapshot((snapshot) => {
+        tasksData = [];
+        snapshot.forEach((doc) => {
+            tasksData.push({ id: doc.id, ...doc.data() });
+        });
+        renderAllTasks();
+        updateProgressIndicators();
+    });
+    
+    // الاستماع للإشعارات
+    if (currentUser) {
+        db.collection('notifications')
+            .where('userId', '==', currentUser.uid)
+            .where('read', '==', false)
+            .onSnapshot((snapshot) => {
+                const badge = document.getElementById('notification-badge');
+                if (badge) {
+                    badge.textContent = snapshot.size;
+                    badge.style.display = snapshot.size > 0 ? 'flex' : 'none';
+                }
+            });
+    }
+}
+
+// عرض المهام
+function renderAllTasks() {
+    const phases = [1, 2, 3];
+    phases.forEach(phase => {
+        const phaseTasks = tasksData.filter(t => t.phase === phase);
+        renderPhaseTasks(phase, phaseTasks);
+    });
+}
+
+function renderPhaseTasks(phase, tasks) {
+    // البحث عن container المرحلة
+    const containers = document.querySelectorAll(`[data-phase="${phase}"]`);
+    containers.forEach(container => {
+        container.innerHTML = tasks.map(task => createTaskItemHTML(task)).join('');
+    });
+}
+
+function createTaskItemHTML(task) {
+    const statusInfo = getStatusInfo(task.status || 'not_started');
+    
+    return `
+        <div class="task-item" data-task-id="${task.id}" onclick="openTaskModal('${task.id}')" style="
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-right: 3px solid ${statusInfo.color};
+        ">
+            <div style="flex-shrink: 0;">
+                ${statusInfo.icon}
+            </div>
+            <div style="flex: 1;">
+                <span style="color: #e2e8f0; font-size: 0.9rem; display: block;">${task.title}</span>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                    <span style="color: ${statusInfo.color}; font-size: 0.7rem; background: ${statusInfo.bgColor}; padding: 2px 8px; border-radius: 10px;">${statusInfo.label}</span>
+                    ${task.progress > 0 ? `<span style="color: #64748b; font-size: 0.7rem;">${task.progress}%</span>` : ''}
+                </div>
+            </div>
+            <span style="color: #94a3b8; font-size: 0.75rem;">${task.dueDate || ''}</span>
+        </div>
+    `;
+}
+
+function getStatusInfo(status) {
+    const statuses = {
+        'not_started': { label: 'لم يبدأ', color: '#64748b', bgColor: 'rgba(100, 116, 139, 0.2)', icon: '<i class="far fa-circle" style="color: #64748b; font-size: 1.2rem;"></i>' },
+        'in_progress': { label: 'قيد التنفيذ', color: '#f59e0b', bgColor: 'rgba(245, 158, 11, 0.2)', icon: '<i class="fas fa-spinner fa-spin" style="color: #f59e0b; font-size: 1.2rem;"></i>' },
+        'pending_review': { label: 'بانتظار المراجعة', color: '#8b5cf6', bgColor: 'rgba(139, 92, 246, 0.2)', icon: '<i class="fas fa-clock" style="color: #8b5cf6; font-size: 1.2rem;"></i>' },
+        'pending_approval': { label: 'بانتظار الموافقة', color: '#3b82f6', bgColor: 'rgba(59, 130, 246, 0.2)', icon: '<i class="fas fa-user-check" style="color: #3b82f6; font-size: 1.2rem;"></i>' },
+        'approved': { label: 'معتمد', color: '#10b981', bgColor: 'rgba(16, 185, 129, 0.2)', icon: '<i class="fas fa-check-circle" style="color: #10b981; font-size: 1.2rem;"></i>' },
+        'published': { label: 'تم النشر', color: '#10b981', bgColor: 'rgba(16, 185, 129, 0.2)', icon: '<i class="fas fa-check-double" style="color: #10b981; font-size: 1.2rem;"></i>' },
+        'rejected': { label: 'مرفوض', color: '#ef4444', bgColor: 'rgba(239, 68, 68, 0.2)', icon: '<i class="fas fa-times-circle" style="color: #ef4444; font-size: 1.2rem;"></i>' }
+    };
+    return statuses[status] || statuses['not_started'];
+}
+
+// تحديث مؤشرات التقدم
+function updateProgressIndicators() {
+    const total = tasksData.length || 20;
+    const completed = tasksData.filter(t => t.status === 'published').length;
+    const inProgress = tasksData.filter(t => ['in_progress', 'pending_review', 'pending_approval'].includes(t.status)).length;
+    const progress = Math.round((completed / total) * 100);
+    
+    // تحديث الأرقام في الواجهة
+    // هذا سيتطلب إضافة IDs للعناصر
+}
+
+// فتح modal المهمة
+function openTaskModal(taskId) {
+    currentTaskId = taskId;
+    const task = tasksData.find(t => t.id === taskId);
+    if (!task) return;
+    
+    // ملء البيانات
+    document.getElementById('modal-task-title').textContent = task.title;
+    document.getElementById('modal-task-description').textContent = task.description || 'لا يوجد وصف';
+    document.getElementById('modal-task-status').textContent = getStatusInfo(task.status || 'not_started').label;
+    document.getElementById('modal-task-phase').textContent = `المرحلة ${task.phase}`;
+    document.getElementById('modal-task-due').textContent = task.dueDate || 'غير محدد';
+    document.getElementById('modal-task-assignee').textContent = task.assigneeName || 'غير معين';
+    
+    // التسليمات
+    const deliverablesContainer = document.getElementById('modal-task-deliverables');
+    if (task.deliverables && task.deliverables.length > 0) {
+        deliverablesContainer.innerHTML = task.deliverables.map(d => `
+            <div style="display: flex; align-items: center; gap: 10px; padding: 10px 15px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                <i class="fas fa-file-alt" style="color: #64748b;"></i>
+                <span style="color: #cbd5e1; font-size: 0.9rem;">${d}</span>
+            </div>
+        `).join('');
+    }
+    
+    // سلسلة الموافقات
+    const approvalContainer = document.getElementById('modal-approval-chain');
+    if (task.approvalFlow && task.approvalFlow.length > 0) {
+        approvalContainer.innerHTML = task.approvalFlow.map((role, index) => `
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 35px; height: 35px; background: rgba(99, 102, 241, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-user" style="color: #a5b4fc; font-size: 0.8rem;"></i>
+                </div>
+                <span style="color: #94a3b8; font-size: 0.8rem;">${getRoleLabel(role)}</span>
+                ${index < task.approvalFlow.length - 1 ? '<i class="fas fa-arrow-left" style="color: #475569;"></i>' : ''}
+            </div>
+        `).join('');
+    }
+    
+    // إظهار/إخفاء الأزرار حسب الحالة
+    updateTaskModalButtons(task);
+    
+    // فتح Modal
+    document.getElementById('task-modal').style.display = 'flex';
+}
+
+function updateTaskModalButtons(task) {
+    const btnStart = document.getElementById('btn-start-task');
+    const btnSubmit = document.getElementById('btn-submit-review');
+    const btnPublish = document.getElementById('btn-publish');
+    
+    // إخفاء الكل
+    btnStart.style.display = 'none';
+    btnSubmit.style.display = 'none';
+    btnPublish.style.display = 'none';
+    
+    if (!currentUser) return;
+    
+    switch (task.status) {
+        case 'not_started':
+            btnStart.style.display = 'flex';
+            break;
+        case 'in_progress':
+            btnSubmit.style.display = 'flex';
+            break;
+        case 'approved':
+            if (['admin', 'manager'].includes(currentUser.role)) {
+                btnPublish.style.display = 'flex';
+            }
+            break;
+    }
+}
+
+// معالجة الإجراءات
+async function handleStartTask() {
+    if (!currentTaskId || !currentUser) return;
+    
+    try {
+        await db.collection('campaign_tasks').doc(currentTaskId).update({
+            status: 'in_progress',
+            startedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            startedBy: currentUser.uid,
+            progress: 10
+        });
+        
+        await logActivity('task_started', currentTaskId, 'تم بدء العمل على المهمة');
+        showToast('تم بدء العمل على المهمة', 'success');
+        closeModal('task-modal');
+    } catch (error) {
+        console.error('خطأ:', error);
+        showToast('حدث خطأ', 'error');
+    }
+}
+
+async function handleSubmitReview() {
+    if (!currentTaskId || !currentUser) return;
+    
+    try {
+        await db.collection('campaign_tasks').doc(currentTaskId).update({
+            status: 'pending_review',
+            submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            submittedBy: currentUser.uid,
+            progress: 50
+        });
+        
+        await logActivity('submitted_review', currentTaskId, 'تم إرسال المهمة للمراجعة');
+        await notifyApprovers(currentTaskId, 'supervisor');
+        showToast('تم إرسال المهمة للمراجعة', 'success');
+        closeModal('task-modal');
+    } catch (error) {
+        console.error('خطأ:', error);
+        showToast('حدث خطأ', 'error');
+    }
+}
+
+async function handlePublish() {
+    if (!currentTaskId || !currentUser) return;
+    
+    try {
+        await db.collection('campaign_tasks').doc(currentTaskId).update({
+            status: 'published',
+            publishedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            publishedBy: currentUser.uid,
+            progress: 100
+        });
+        
+        await logActivity('published', currentTaskId, 'تم نشر المهمة بنجاح');
+        showToast('🎉 تم نشر المهمة بنجاح!', 'success');
+        closeModal('task-modal');
+    } catch (error) {
+        console.error('خطأ:', error);
+        showToast('حدث خطأ', 'error');
+    }
+}
+
+async function handleApprove() {
+    const taskId = document.getElementById('approval-task-id').value;
+    const comments = document.getElementById('approval-comments').value;
+    
+    if (!taskId || !currentUser) return;
+    
+    try {
+        const task = tasksData.find(t => t.id === taskId);
+        const approvalFlow = task.approvalFlow || [];
+        const currentIndex = approvalFlow.indexOf(currentUser.role);
+        
+        if (currentIndex < approvalFlow.length - 1) {
+            // الانتقال للمستوى التالي
+            await db.collection('campaign_tasks').doc(taskId).update({
+                status: 'pending_approval',
+                currentApprovalLevel: approvalFlow[currentIndex + 1],
+                progress: 70 + (currentIndex * 10)
+            });
+            await notifyApprovers(taskId, approvalFlow[currentIndex + 1]);
+        } else {
+            // موافقة نهائية
+            await db.collection('campaign_tasks').doc(taskId).update({
+                status: 'approved',
+                approvedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                approvedBy: currentUser.uid,
+                progress: 90
+            });
+        }
+        
+        // تسجيل الموافقة
+        await db.collection('approvals').add({
+            taskId: taskId,
+            approvedBy: currentUser.uid,
+            approverName: currentUser.name,
+            comments: comments,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        await logActivity('approved', taskId, `تمت الموافقة بواسطة ${currentUser.name}`);
+        showToast('تمت الموافقة بنجاح', 'success');
+        closeModal('approval-modal');
+    } catch (error) {
+        console.error('خطأ:', error);
+        showToast('حدث خطأ', 'error');
+    }
+}
+
+// إرسال إشعارات
+async function notifyApprovers(taskId, role) {
+    try {
+        const usersSnapshot = await db.collection('users').where('role', '==', role).get();
+        const task = tasksData.find(t => t.id === taskId);
+        
+        usersSnapshot.forEach(async (doc) => {
+            await db.collection('notifications').add({
+                userId: doc.id,
+                taskId: taskId,
+                type: 'approval_request',
+                message: `مطلوب موافقتك على: ${task.title}`,
+                read: false,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        });
+    } catch (error) {
+        console.error('خطأ في إرسال الإشعارات:', error);
+    }
+}
+
+// تسجيل النشاط
+async function logActivity(action, taskId, details) {
+    try {
+        await db.collection('activity_log').add({
+            action: action,
+            taskId: taskId,
+            details: details,
+            userId: currentUser?.uid || 'anonymous',
+            userName: currentUser?.name || 'زائر',
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    } catch (error) {
+        console.error('خطأ في تسجيل النشاط:', error);
+    }
+}
+
+// ============================================
+// نظام تسجيل الدخول
+// ============================================
+
+function showLoginModal() {
+    document.getElementById('login-modal').style.display = 'flex';
+}
+
+function showRegisterModal() {
+    document.getElementById('register-modal').style.display = 'flex';
+}
+
+function switchToRegister() {
+    closeModal('login-modal');
+    showRegisterModal();
+}
+
+function switchToLogin() {
+    closeModal('register-modal');
+    showLoginModal();
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+async function handleLogin(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    
+    try {
+        await auth.signInWithEmailAndPassword(email, password);
+        closeModal('login-modal');
+        showToast('تم تسجيل الدخول بنجاح', 'success');
+    } catch (error) {
+        console.error('خطأ في تسجيل الدخول:', error);
+        showToast('خطأ في البريد الإلكتروني أو كلمة المرور', 'error');
+    }
+}
+
+async function handleRegister(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    
+    try {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        
+        // إنشاء ملف المستخدم
+        await db.collection('users').doc(userCredential.user.uid).set({
+            name: name,
+            email: email,
+            role: 'viewer', // دور افتراضي
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        closeModal('register-modal');
+        showToast('تم إنشاء الحساب بنجاح', 'success');
+    } catch (error) {
+        console.error('خطأ في إنشاء الحساب:', error);
+        showToast('حدث خطأ في إنشاء الحساب', 'error');
+    }
+}
+
+async function signOutUser() {
+    try {
+        await auth.signOut();
+        showToast('تم تسجيل الخروج', 'info');
+    } catch (error) {
+        console.error('خطأ:', error);
+    }
+}
+
+// ============================================
+// Toast Notifications
+// ============================================
+
+function showToast(message, type = 'info') {
+    const icons = {
+        success: 'fa-check-circle',
+        error: 'fa-exclamation-circle',
+        warning: 'fa-exclamation-triangle',
+        info: 'fa-info-circle'
+    };
+    
+    const colors = {
+        success: 'linear-gradient(135deg, #10b981, #059669)',
+        error: 'linear-gradient(135deg, #ef4444, #dc2626)',
+        warning: 'linear-gradient(135deg, #f59e0b, #d97706)',
+        info: 'linear-gradient(135deg, #3b82f6, #2563eb)'
+    };
+    
+    const toast = document.createElement('div');
+    toast.innerHTML = `
+        <i class="fas ${icons[type]}"></i>
+        <span>${message}</span>
+    `;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: ${colors[type]};
+        color: white;
+        padding: 15px 30px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 20000;
+        font-size: 1rem;
+        font-weight: 600;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        animation: toastIn 0.4s ease;
+    `;
+    
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.animation = 'toastOut 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 4000);
+}
+
+// ============================================
+// تسجيل الدخول عبر Google
+// ============================================
+
+async function signInWithGoogle() {
+    try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('profile');
+        provider.addScope('email');
+        
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        
+        // التحقق إذا المستخدم موجود في Firestore
+        const userDoc = await db.collection('users').doc(user.uid).get();
+        
+        if (!userDoc.exists) {
+            // إنشاء مستخدم جديد
+            const isAdmin = ADMIN_EMAILS.includes(user.email.toLowerCase());
+            await db.collection('users').doc(user.uid).set({
+                name: user.displayName || 'مستخدم جديد',
+                email: user.email,
+                photoURL: user.photoURL || null,
+                role: isAdmin ? 'admin' : 'viewer',
+                isActive: true,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+                provider: 'google'
+            });
+            showToast('تم إنشاء حسابك بنجاح! مرحباً بك', 'success');
+        } else {
+            // تحديث آخر تسجيل دخول
+            await db.collection('users').doc(user.uid).update({
+                lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+                photoURL: user.photoURL || userDoc.data().photoURL
+            });
+        }
+        
+        closeModal('login-modal');
+        closeModal('register-modal');
+        showToast('تم تسجيل الدخول بنجاح', 'success');
+        
+    } catch (error) {
+        console.error('خطأ في تسجيل الدخول:', error);
+        if (error.code === 'auth/popup-closed-by-user') {
+            showToast('تم إلغاء تسجيل الدخول', 'warning');
+        } else {
+            showToast('حدث خطأ في تسجيل الدخول', 'error');
+        }
+    }
+}
+
+// ============================================
+// نظام الصلاحيات
+// ============================================
+
+// قائمة الإيميلات الإدارية
+const ADMIN_EMAILS = [
+    'taher.irshaid@gmail.com',
+    'admin@nobles.sa'
+];
+
+// تعريف الأدوار والصلاحيات
+const ROLES = {
+    admin: {
+        name: 'مدير النظام',
+        color: '#ef4444',
+        level: 100,
+        permissions: ['all', 'manage_users', 'approve', 'edit', 'view', 'publish', 'delete']
+    },
+    manager: {
+        name: 'مدير المشروع',
+        color: '#f59e0b',
+        level: 80,
+        permissions: ['approve', 'edit', 'view', 'publish', 'manage_team']
+    },
+    lead: {
+        name: 'رئيس فريق',
+        color: '#3b82f6',
+        level: 60,
+        permissions: ['approve_team', 'edit', 'view', 'assign']
+    },
+    member: {
+        name: 'عضو',
+        color: '#10b981',
+        level: 40,
+        permissions: ['edit_assigned', 'view', 'comment']
+    },
+    viewer: {
+        name: 'مشاهد',
+        color: '#64748b',
+        level: 10,
+        permissions: ['view']
+    }
+};
+
+let currentUserData = null;
+
+// الحصول على بيانات المستخدم الحالي
+async function getCurrentUserData() {
+    const user = auth.currentUser;
+    if (!user) return null;
+    
+    const userDoc = await db.collection('users').doc(user.uid).get();
+    if (userDoc.exists) {
+        currentUserData = { uid: user.uid, ...userDoc.data() };
+        return currentUserData;
+    }
+    return null;
+}
+
+// التحقق من الصلاحية
+function hasPermission(permission) {
+    if (!currentUserData) return false;
+    const userRole = ROLES[currentUserData.role];
+    if (!userRole) return false;
+    return userRole.permissions.includes('all') || userRole.permissions.includes(permission);
+}
+
+// التحقق من المستوى
+function hasMinLevel(minLevel) {
+    if (!currentUserData) return false;
+    const userRole = ROLES[currentUserData.role];
+    return userRole && userRole.level >= minLevel;
+}
+
+// تحديث واجهة المستخدم بناءً على الصلاحيات
+function updateUIForRole() {
+    const adminToolbar = document.getElementById('admin-toolbar');
+    const adminElements = document.querySelectorAll('[data-requires-admin]');
+    const managerElements = document.querySelectorAll('[data-requires-manager]');
+    const editElements = document.querySelectorAll('[data-requires-edit]');
+    
+    // إظهار/إخفاء شريط الأدوات
+    if (adminToolbar && currentUserData) {
+        adminToolbar.style.display = 'flex';
+        
+        // تحديث معلومات المستخدم
+        const userInfo = adminToolbar.querySelector('.user-info');
+        if (userInfo) {
+            const roleInfo = ROLES[currentUserData.role];
+            userInfo.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    ${currentUserData.photoURL 
+                        ? `<img src="${currentUserData.photoURL}" style="width: 35px; height: 35px; border-radius: 50%; border: 2px solid ${roleInfo.color};">`
+                        : `<div style="width: 35px; height: 35px; border-radius: 50%; background: ${roleInfo.color}; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">${currentUserData.name?.charAt(0) || 'م'}</div>`
+                    }
+                    <div>
+                        <div style="color: #f1f5f9; font-weight: 600; font-size: 0.9rem;">${currentUserData.name || 'مستخدم'}</div>
+                        <div style="color: ${roleInfo.color}; font-size: 0.75rem;">${roleInfo.name}</div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    // إظهار/إخفاء عناصر الأدمن
+    adminElements.forEach(el => {
+        el.style.display = hasPermission('manage_users') ? '' : 'none';
+    });
+    
+    // إظهار/إخفاء عناصر المدير
+    managerElements.forEach(el => {
+        el.style.display = hasMinLevel(80) ? '' : 'none';
+    });
+    
+    // إظهار/إخفاء عناصر التحرير
+    editElements.forEach(el => {
+        el.style.display = hasPermission('edit') || hasPermission('edit_assigned') ? '' : 'none';
+    });
+}
+
+// ============================================
+// إدارة المستخدمين (للأدمن فقط)
+// ============================================
+
+async function openUsersModal() {
+    if (!hasPermission('manage_users')) {
+        showToast('ليس لديك صلاحية للوصول لهذه الصفحة', 'error');
+        return;
+    }
+    
+    const modal = document.getElementById('users-modal');
+    modal.style.display = 'flex';
+    
+    await loadUsersList();
+}
+
+async function loadUsersList() {
+    const usersList = document.getElementById('users-list');
+    
+    try {
+        const usersSnapshot = await db.collection('users').orderBy('createdAt', 'desc').get();
+        
+        if (usersSnapshot.empty) {
+            usersList.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #64748b;">
+                    <i class="fas fa-users" style="font-size: 3rem; margin-bottom: 15px; display: block; opacity: 0.3;"></i>
+                    لا يوجد مستخدمين حتى الآن
+                </div>
+            `;
+            return;
+        }
+        
+        let html = '';
+        usersSnapshot.forEach(doc => {
+            const user = doc.data();
+            const roleInfo = ROLES[user.role] || ROLES.viewer;
+            
+            html += `
+                <div style="background: rgba(0,0,0,0.2); border-radius: 16px; padding: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        ${user.photoURL 
+                            ? `<img src="${user.photoURL}" style="width: 50px; height: 50px; border-radius: 50%; border: 3px solid ${roleInfo.color};">`
+                            : `<div style="width: 50px; height: 50px; border-radius: 50%; background: ${roleInfo.color}; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">${user.name?.charAt(0) || 'م'}</div>`
+                        }
+                        <div>
+                            <div style="color: #f1f5f9; font-weight: 600; font-size: 1rem; margin-bottom: 4px;">${user.name || 'بدون اسم'}</div>
+                            <div style="color: #64748b; font-size: 0.85rem;">${user.email}</div>
+                            <div style="display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap;">
+                                <span style="background: ${roleInfo.color}20; color: ${roleInfo.color}; padding: 3px 10px; border-radius: 6px; font-size: 0.75rem;">${roleInfo.name}</span>
+                                ${user.provider === 'google' ? '<span style="background: rgba(66, 133, 244, 0.2); color: #4285F4; padding: 3px 10px; border-radius: 6px; font-size: 0.75rem;"><i class="fab fa-google" style="margin-left: 4px;"></i> Google</span>' : ''}
+                                <span style="background: ${user.isActive !== false ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)'}; color: ${user.isActive !== false ? '#10b981' : '#ef4444'}; padding: 3px 10px; border-radius: 6px; font-size: 0.75rem;">${user.isActive !== false ? 'نشط' : 'معطل'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <select onchange="updateUserRole('${doc.id}', this.value)" style="padding: 10px 15px; background: rgba(0,0,0,0.3); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 10px; color: #f1f5f9; font-size: 0.9rem; cursor: pointer;">
+                            <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>مدير النظام</option>
+                            <option value="manager" ${user.role === 'manager' ? 'selected' : ''}>مدير المشروع</option>
+                            <option value="lead" ${user.role === 'lead' ? 'selected' : ''}>رئيس فريق</option>
+                            <option value="member" ${user.role === 'member' ? 'selected' : ''}>عضو</option>
+                            <option value="viewer" ${user.role === 'viewer' ? 'selected' : ''}>مشاهد</option>
+                        </select>
+                        <button onclick="toggleUserStatus('${doc.id}', ${user.isActive !== false})" style="padding: 10px 15px; background: ${user.isActive !== false ? 'rgba(239, 68, 68, 0.2)' : 'rgba(16, 185, 129, 0.2)'}; border: none; border-radius: 10px; color: ${user.isActive !== false ? '#ef4444' : '#10b981'}; cursor: pointer; font-size: 0.85rem;">
+                            <i class="fas ${user.isActive !== false ? 'fa-ban' : 'fa-check'}"></i>
+                            ${user.isActive !== false ? 'تعطيل' : 'تفعيل'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+        
+        usersList.innerHTML = html;
+        
+    } catch (error) {
+        console.error('خطأ في تحميل المستخدمين:', error);
+        usersList.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #ef4444;">
+                <i class="fas fa-exclamation-circle" style="font-size: 2rem; margin-bottom: 15px; display: block;"></i>
+                حدث خطأ في تحميل المستخدمين
+            </div>
+        `;
+    }
+}
+
+async function updateUserRole(userId, newRole) {
+    if (!hasPermission('manage_users')) {
+        showToast('ليس لديك صلاحية لتغيير الأدوار', 'error');
+        return;
+    }
+    
+    try {
+        await db.collection('users').doc(userId).update({
+            role: newRole,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedBy: auth.currentUser.uid
+        });
+        
+        showToast('تم تحديث دور المستخدم بنجاح', 'success');
+        
+    } catch (error) {
+        console.error('خطأ:', error);
+        showToast('حدث خطأ في تحديث الدور', 'error');
+    }
+}
+
+async function toggleUserStatus(userId, currentStatus) {
+    if (!hasPermission('manage_users')) {
+        showToast('ليس لديك صلاحية لتغيير حالة المستخدم', 'error');
+        return;
+    }
+    
+    try {
+        await db.collection('users').doc(userId).update({
+            isActive: !currentStatus,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedBy: auth.currentUser.uid
+        });
+        
+        showToast(currentStatus ? 'تم تعطيل المستخدم' : 'تم تفعيل المستخدم', 'success');
+        await loadUsersList();
+        
+    } catch (error) {
+        console.error('خطأ:', error);
+        showToast('حدث خطأ في تغيير حالة المستخدم', 'error');
+    }
+}
+
+// إضافة CSS للـ Toast
+const toastStyles = document.createElement('style');
+toastStyles.textContent = `
+    @keyframes toastIn {
+        from { transform: translateX(-50%) translateY(30px); opacity: 0; }
+        to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+    @keyframes toastOut {
+        from { transform: translateX(-50%) translateY(0); opacity: 1; }
+        to { transform: translateX(-50%) translateY(30px); opacity: 0; }
+    }
+    .task-item:hover {
+        background: rgba(0,0,0,0.35) !important;
+        transform: translateX(-3px);
+    }
+`;
+document.head.appendChild(toastStyles);
+
+// تهيئة النظام عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    // تأخير قليل للتأكد من تحميل Firebase
+    setTimeout(initTaskSystem, 1000);
+});
+
 // التحقق من تسجيل الدخول
 const bypassCode = new URLSearchParams(window.location.search).get('access');
 if (bypassCode === 'nobles2025') {
     document.getElementById('authLoading').style.display = 'none';
     document.getElementById('pageContent').classList.add('visible');
 } else {
-    auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged(async (user) => {
         const authLoading = document.getElementById('authLoading');
         const pageContent = document.getElementById('pageContent');
         
         if (user) {
+            // الحصول على بيانات المستخدم وتحديث الواجهة
+            await getCurrentUserData();
+            updateUIForRole();
+            
             authLoading.style.display = 'none';
             pageContent.classList.add('visible');
         } else {
