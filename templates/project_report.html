@@ -28265,18 +28265,25 @@ async function loadUsersList() {
             const user = { id: doc.id, ...doc.data() };
             const isAdmin = ADMIN_EMAILS.includes(user.email?.toLowerCase());
             
+            console.log('📋 Processing user:', user.email, 'status:', user.status, 'isAdmin:', isAdmin);
+            
             // الأدمن دائماً approved
             if (isAdmin) {
+                console.log('  → Admin user, adding to approved');
                 approvedUsers.push(user);
             } else if (user.status === 'pending' || !user.status) {
                 // المستخدمين بدون status أو بـ pending يذهبون للمعلقين
+                console.log('  → Pending user (status:', user.status, ')');
                 pendingUsers.push(user);
             } else if (user.status === 'rejected') {
+                console.log('  → Rejected user');
                 rejectedUsers.push(user);
             } else if (user.status === 'approved') {
+                console.log('  → Approved user');
                 approvedUsers.push(user);
             } else {
                 // أي حالة أخرى غير معروفة → معلق
+                console.log('  → Unknown status, adding to pending');
                 pendingUsers.push(user);
             }
         });
