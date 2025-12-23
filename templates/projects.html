@@ -93,10 +93,7 @@
                         {% endif %}
                         <div class="project-overlay">
                             {% if project.active %}
-                            <a href="{{ url_for('project_detail', slug=project.slug) }}" class="btn btn-light">
-                                <i class="fas fa-eye"></i> عرض التفاصيل
-                            </a>
-                            <a href="{{ url_for('project_report', slug=project.slug) }}" class="btn btn-outline-light">
+                            <a href="{{ url_for('project_report', slug=project.slug) }}" class="btn btn-light">
                                 <i class="fas fa-bullhorn"></i> خطة الاتصال
                             </a>
                             {% endif %}
@@ -112,10 +109,7 @@
                         </div>
                         {% if project.active %}
                         <div class="project-actions">
-                            <a href="{{ url_for('project_detail', slug=project.slug) }}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-info-circle"></i> التفاصيل
-                            </a>
-                            <a href="{{ url_for('project_report', slug=project.slug) }}" class="btn btn-outline-primary btn-sm">
+                            <a href="{{ url_for('project_report', slug=project.slug) }}" class="btn btn-primary btn-sm">
                                 <i class="fas fa-bullhorn"></i> خطة الاتصال
                             </a>
                         </div>
