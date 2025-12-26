@@ -37,6 +37,214 @@
 /* إظهار المحتوى مباشرة إذا كان رمز الوصول صحيح */
 .page-content.bypass-auth { display: block !important; }
 
+/* منصة 24°45° - غلاف المنصة */
+.platform-cover {
+    position: relative;
+    background: radial-gradient(circle at 15% 20%, rgba(0, 212, 106, 0.15), transparent 50%),
+                radial-gradient(circle at 80% 10%, rgba(0, 212, 106, 0.08), transparent 45%),
+                #050505;
+    color: #fff;
+    padding: 80px 0 110px;
+    overflow: hidden;
+}
+
+.platform-cover::before,
+.platform-cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.platform-cover::before {
+    background: linear-gradient(135deg, rgba(0, 212, 106, 0.15), transparent 60%);
+    opacity: 0.9;
+}
+
+.platform-cover::after {
+    background-image:
+        linear-gradient(transparent 96%, rgba(255,255,255,0.08) 96%),
+        linear-gradient(90deg, transparent 96%, rgba(255,255,255,0.08) 96%);
+    background-size: 140px 140px;
+    opacity: 0.08;
+}
+
+.platform-cover .container {
+    position: relative;
+    z-index: 2;
+}
+
+.cover-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 50px;
+    align-items: center;
+}
+
+.cover-meta nav ol.breadcrumb li a {
+    color: rgba(255,255,255,0.7) !important;
+}
+
+.cover-meta h1 {
+    font-size: 3rem;
+    margin: 10px 0;
+    color: #ffffff;
+}
+
+.cover-meta p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 0;
+}
+
+.cover-intro {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.8;
+    max-width: 540px;
+}
+
+.cover-badges {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.platform-pill,
+.tenant-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.platform-pill {
+    background: rgba(0, 212, 106, 0.15);
+    border: 1px solid rgba(0, 212, 106, 0.35);
+    color: #00f082;
+    text-transform: uppercase;
+}
+
+.tenant-pill {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.tenant-pill img {
+    height: 26px;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
+}
+
+.cover-stats-grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+}
+
+.cover-stat {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 18px 20px;
+    backdrop-filter: blur(6px);
+    min-height: 110px;
+}
+
+.cover-stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 8px;
+}
+
+.cover-stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.4;
+}
+
+.cover-identity {
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.platform-emblem {
+    width: 170px;
+    height: 170px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 212, 106, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #00f082;
+    background: rgba(0,0,0,0.25);
+    box-shadow: 0 20px 60px rgba(0, 212, 106, 0.25);
+    animation: glowPulse 3.5s ease-in-out infinite;
+}
+
+.platform-emblem span:last-child {
+    font-size: 2.2rem;
+    margin-top: -8px;
+}
+
+.identity-divider {
+    width: 2px;
+    height: 140px;
+    background: linear-gradient(180deg, transparent, rgba(255,255,255,0.5), transparent);
+}
+
+.tenant-emblem {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 24px;
+    padding: 30px 35px;
+    text-align: center;
+    min-width: 220px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+
+.tenant-emblem img {
+    max-width: 160px;
+    height: auto;
+    filter: drop-shadow(0 8px 25px rgba(0,0,0,0.35));
+}
+
+.tenant-emblem span {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.2em;
+}
+
+@keyframes glowPulse {
+    0%, 100% { box-shadow: 0 20px 60px rgba(0, 212, 106, 0.15); transform: translateY(0); }
+    50% { box-shadow: 0 20px 60px rgba(0, 212, 106, 0.35); transform: translateY(-6px); }
+}
+
+@media (max-width: 768px) {
+    .platform-cover { padding: 60px 0 80px; }
+    .cover-grid { gap: 30px; }
+    .cover-meta h1 { font-size: 2.2rem; }
+    .cover-identity { flex-direction: column; }
+    .identity-divider { display: none; }
+    .platform-emblem { width: 130px; height: 130px; font-size: 2.2rem; }
+}
+
 /* Report Tabs Styles */
 .report-tabs-container {
     background: #fff;
@@ -13595,28 +13803,67 @@
 <!-- محتوى الصفحة -->
 <div class="page-content" id="pageContent">
 <!-- Report Header -->
-<section class="report-header" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; padding: 60px 0 100px;">
+<section class="report-header platform-cover">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-start flex-wrap">
-            <div>
+        <div class="cover-grid">
+            <div class="cover-meta">
+                <div class="cover-badges no-print">
+                    <span class="platform-pill">منصة 24°45°</span>
+                    <span class="tenant-pill">
+                        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="شعار نوبلز العقارية">
+                        نوبلز العقارية
+                    </span>
+                </div>
                 <nav aria-label="breadcrumb" class="no-print">
                     <ol class="breadcrumb" style="background: transparent;">
-                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}" style="color: rgba(255,255,255,0.7);">الرئيسية</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url_for('reports') }}" style="color: rgba(255,255,255,0.7);">التقارير</a></li>
-                        <li class="breadcrumb-item active" style="color: #fff;">{{ project.name }}</li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">الرئيسية</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('reports') }}">التقارير</a></li>
+                        <li class="breadcrumb-item active">{{ project.name }}</li>
                     </ol>
                 </nav>
-                <h1 style="font-size: 2.5rem; margin-bottom: 10px; color: #ffffff;">{{ project.name }}</h1>
-                <p style="opacity: 0.8; font-size: 1.1rem;">{{ project.name_en }}</p>
-            </div>
-            <!-- شعار ترجمان على اليسار -->
-            <div class="turjuman-badge" style="margin-top: 10px;">
-                <div style="background: rgba(255,255,255,0.95); padding: 12px 24px; border-radius: 12px; display: inline-flex; align-items: center; gap: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <img src="{{ url_for('static', filename='images/Logo-Turjuman1.png') }}" alt="ترجمان" style="height: 40px; width: auto;">
-                    <div style="text-align: right; border-right: 2px solid #c9a227; padding-right: 15px;">
-                        <span style="font-size: 0.75rem; color: #666; display: block;">تطوير وإعداد الخطة الاتصالية</span>
-                        <span style="font-size: 0.9rem; color: #333; font-weight: 600;">شركة ترجمان</span>
+                <h1>{{ project.name }}</h1>
+                <p>{{ project.name_en }}</p>
+                {% if project.description %}
+                <p class="cover-intro">{{ project.description[:220] }}{% if project.description|length > 220 %}...{% endif %}</p>
+                {% endif %}
+                {% if project.location or project.type or project.status or project.expected_completion %}
+                <div class="cover-stats-grid">
+                    {% if project.location %}
+                    <div class="cover-stat">
+                        <span class="cover-stat-label">الموقع</span>
+                        <span class="cover-stat-value">{{ project.location }}</span>
                     </div>
+                    {% endif %}
+                    {% if project.type %}
+                    <div class="cover-stat">
+                        <span class="cover-stat-label">نوع المشروع</span>
+                        <span class="cover-stat-value">{{ project.type }}</span>
+                    </div>
+                    {% endif %}
+                    {% if project.status %}
+                    <div class="cover-stat">
+                        <span class="cover-stat-label">حالة التنفيذ</span>
+                        <span class="cover-stat-value">{{ project.status }}</span>
+                    </div>
+                    {% endif %}
+                    {% if project.expected_completion %}
+                    <div class="cover-stat">
+                        <span class="cover-stat-label">تاريخ التسليم المتوقع</span>
+                        <span class="cover-stat-value">{{ project.expected_completion }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="cover-identity">
+                <div class="platform-emblem">
+                    <span>24°</span>
+                    <span>45°</span>
+                </div>
+                <div class="identity-divider"></div>
+                <div class="tenant-emblem">
+                    <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="شعار نوبلز العقارية">
+                    <span>شريك المنصة</span>
                 </div>
             </div>
         </div>

@@ -1,0 +1,40 @@
+{
+    "tenant_id": "waqf",
+    "company": {
+        "name": "مؤسسة الأوقاف",
+        "name_en": "Waqf Foundation",
+        "description": "مؤسسة الأوقاف لإدارة واستثمار الأموال الوقفية",
+        "vision": "ريادة العمل الوقفي لتحقيق التنمية المستدامة",
+        "mission": "إدارة واستثمار الأصول الوقفية بكفاءة لتحقيق أقصى عائد للمستفيدين"
+    },
+    "projects": [
+        {
+            "id": 1,
+            "name": "وقف التعليم",
+            "name_en": "Education Endowment",
+            "slug": "education-endowment",
+            "type": "وقف تعليمي",
+            "status": "نشط",
+            "active": true,
+            "completion_percentage": 100,
+            "endowment_value": 5000000,
+            "annual_return": 250000,
+            "beneficiaries_count": 500,
+            "description": "وقف لدعم التعليم والمنح الدراسية"
+        },
+        {
+            "id": 2,
+            "name": "وقف المساجد",
+            "name_en": "Mosques Endowment",
+            "slug": "mosques-endowment",
+            "type": "وقف ديني",
+            "status": "قيد الجمع",
+            "active": true,
+            "completion_percentage": 30,
+            "target_value": 10000000,
+            "collected_value": 3000000,
+            "mosques_count": 5,
+            "description": "وقف لبناء وصيانة المساجد"
+        }
+    ]
+}

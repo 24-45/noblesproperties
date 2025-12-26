@@ -1,0 +1,40 @@
+{
+    "tenant_id": "zakah",
+    "company": {
+        "name": "صندوق الزكاة",
+        "name_en": "Zakah Fund",
+        "description": "صندوق الزكاة لجمع وتوزيع أموال الزكاة على مستحقيها",
+        "vision": "تحقيق التكافل الاجتماعي من خلال الزكاة",
+        "mission": "جمع وتوزيع أموال الزكاة بشفافية وكفاءة على مستحقيها"
+    },
+    "projects": [
+        {
+            "id": 1,
+            "name": "مشروع كسوة الشتاء",
+            "name_en": "Winter Clothing Project",
+            "slug": "winter-clothing",
+            "type": "مساعدات موسمية",
+            "status": "قيد التنفيذ",
+            "active": true,
+            "completion_percentage": 65,
+            "target_amount": 500000,
+            "collected_amount": 325000,
+            "beneficiaries_count": 2500,
+            "description": "توفير ملابس شتوية للأسر المحتاجة"
+        },
+        {
+            "id": 2,
+            "name": "مشروع سداد الديون",
+            "name_en": "Debt Relief Project",
+            "slug": "debt-relief",
+            "type": "سداد ديون",
+            "status": "مستمر",
+            "active": true,
+            "completion_percentage": 40,
+            "target_amount": 1000000,
+            "collected_amount": 400000,
+            "beneficiaries_count": 150,
+            "description": "سداد ديون الغارمين والمعسرين"
+        }
+    ]
+}

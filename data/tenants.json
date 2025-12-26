@@ -1,0 +1,92 @@
+{
+    "platform": {
+        "name": "24-45",
+        "name_ar": "٢٤-٤٥",
+        "tagline": "منصة إدارة المشاريع المتكاملة",
+        "tagline_en": "Integrated Project Management Platform",
+        "description": "منصة متكاملة لإدارة ومتابعة المشاريع العقارية والخيرية والوقفية",
+        "domain": "www.24-45.com",
+        "contact_email": "info@24-45.com",
+        "version": "1.0.0"
+    },
+    "tenants": [
+        {
+            "id": "nobles",
+            "name": "نوبلز العقارية",
+            "name_en": "Nobles Properties",
+            "slug": "nobles",
+            "logo": "nobles-logo.png",
+            "primary_color": "#dc1f27",
+            "secondary_color": "#ffffff",
+            "accent_color": "#00502F",
+            "type": "عقاري",
+            "type_en": "Real Estate",
+            "description": "شركة تطوير عقاري عالمية تأسست في دبي عام 2008",
+            "website": "https://noblesproperties.com",
+            "email": "info@noblesproperties.com",
+            "phone": "+962 (06) 5546161",
+            "address": "أبراج الحجاز، مكتب 406، شارع مكة، عمان، الأردن",
+            "active": true,
+            "featured": true,
+            "created_at": "2024-01-01",
+            "settings": {
+                "show_financial": true,
+                "show_progress": true,
+                "allow_questionnaire": true,
+                "enable_reports": true
+            }
+        },
+        {
+            "id": "zakah",
+            "name": "صندوق الزكاة",
+            "name_en": "Zakah Fund",
+            "slug": "zakah",
+            "logo": "zakah-logo.png",
+            "primary_color": "#2E7D32",
+            "secondary_color": "#ffffff",
+            "accent_color": "#1B5E20",
+            "type": "خيري",
+            "type_en": "Charity",
+            "description": "صندوق الزكاة لجمع وتوزيع أموال الزكاة على مستحقيها",
+            "website": "",
+            "email": "info@zakah.com",
+            "phone": "",
+            "address": "",
+            "active": true,
+            "featured": true,
+            "created_at": "2024-01-01",
+            "settings": {
+                "show_financial": true,
+                "show_progress": true,
+                "allow_questionnaire": false,
+                "enable_reports": true
+            }
+        },
+        {
+            "id": "waqf",
+            "name": "الأوقاف",
+            "name_en": "Waqf Foundation",
+            "slug": "waqf",
+            "logo": "waqf-logo.png",
+            "primary_color": "#6A1B9A",
+            "secondary_color": "#ffffff",
+            "accent_color": "#4A148C",
+            "type": "وقفي",
+            "type_en": "Endowment",
+            "description": "مؤسسة الأوقاف لإدارة واستثمار الأموال الوقفية",
+            "website": "",
+            "email": "info@waqf.com",
+            "phone": "",
+            "address": "",
+            "active": true,
+            "featured": false,
+            "created_at": "2024-01-01",
+            "settings": {
+                "show_financial": true,
+                "show_progress": true,
+                "allow_questionnaire": false,
+                "enable_reports": true
+            }
+        }
+    ]
+}
